@@ -1,0 +1,32 @@
+digraph python {
+	fontname="SimSun";
+	node[fontname="SimSun"];
+	
+	subgraph cluster_type {
+		label="数据类型";
+		dict[label="字典(dict)"];
+		set[label="集合(set)"];
+		list[label="列表(list)"];
+		tuple[label="元组(tuple)"];
+	}
+	
+	subgraph cluster_dict {
+		dict_def[label="dict={'key1':'value1', 'key2':'value2'}"];
+		dict_use[label="dict['key']"];
+		dict_method[label="dict.get('key')\ndict.pop(key)"];
+	}
+	
+	subgraph cluster_set {
+		set_def[label="set([alist])"];
+		set_use[label="set['key']"];
+		set_method[label="set"];
+	}
+	
+	dict->dict_def[label="形式"];
+	dict_def->dict_use[label="用法"];
+	dict_def->dict_method[label="方法"];
+
+	set->set_def[label="形式"];
+	set_def->set_use[label="用法"];
+	set_def->set_method[label="方法"];
+}

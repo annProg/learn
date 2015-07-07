@@ -1,0 +1,24 @@
+#!/bin/bash
+
+[ $# -lt 1 ] && echo "args error" && exit 1
+file=$1
+today=`date +%Y-%m-%d\ %T`
+email="i@annhe.net"
+comment=$2
+
+[ -f $file ] && echo "$file exists!" && exit 1
+
+touch $file
+cat > $file <<EOF
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+
+#-----------------------------------------------------------
+# Usage: $comment
+# \$Id: $file  $email  $today \$
+#-----------------------------------------------------------
+
+EOF
+
+chmod +x $file
+vim $file
