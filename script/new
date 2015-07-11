@@ -5,18 +5,58 @@ file=$1
 today=`date +%Y-%m-%d\ %T`
 email="i@annhe.net"
 comment=$2
-
+type=`echo $file|awk -F. '{print $NF}'`
 [ -f $file ] && echo "$file exists!" && exit 1
 
 touch $file
-cat > $file <<EOF
-#!/usr/bin/env python3
-# -*- coding:utf-8 -*-
+
+function AddCommnet()
+{
+	cat >> $file <<EOF
 #-----------------------------------------------------------
 # Usage: $comment
 # \$Id: $file  $email  $today \$
 #-----------------------------------------------------------
 EOF
+}
+
+function Python()
+{
+	cat > $file <<EOF
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+
+EOF
+}
+
+function Shell()
+{
+	cat > $file <<EOF
+#!/bin/bash
+
+EOF
+}
+
+function PHP()
+{
+	cat > $file <<EOF
+<?php
+ /**
+  * Usage: $comment
+  *
+  * \$Id: $file  $email  $today \$
+  **/
+
+EOF
+}
+
+case $type in
+	py) Python && AddCommnet ;;
+	sh) Shell && AddCommnet ;;
+	php) PHP ;;
+	*) ;;
+esac
 
 chmod +x $file
+
 vim $file
