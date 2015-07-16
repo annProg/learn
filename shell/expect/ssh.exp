@@ -1,0 +1,19 @@
+#!/usr/bin/expect -f
+set timeout 3
+
+set ipaddr [lindex $argv 0]
+set passwd [lindex $argv 1]
+
+#spawn   意思是执行命令，expect内命令，shell中不存在
+spawn ssh expect@$ipaddr
+
+expect {
+"yes/no" { send "yes\r"; exp_continue}
+"password:" { send "$passwd\r" }
+}
+expect "]$"
+send "touch a.txt\r"
+#意思为发送命令
+send "exit\r"
+expect eof
+exit
