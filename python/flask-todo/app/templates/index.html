@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>{{ title }}</title>
+<link rel="stylesheet" type="text/css" href="../static/bootstrap.css" />
+</head>
+<body>
+<p>
+<h1>{{ text }}</h1>
+</p>
+
+<form class="input-group" action="/add" method="post">
+	<input class="form-control" id="content" name="content" type="text" value="">
+	<span class="input-group-btn">
+		<button class="btn btn-primary" type="submit">Add</button>
+	</span>
+</form>
+<table class="table">
+	<thead>
+		<tr>
+			<td>Content</td>
+			<td>Time</td>
+			<td>Status</td>
+		</tr>
+	</thead>
+	
+	<tbody>
+	{% for t in todos %}
+		<tr>
+			<td>{{ t.content }}</td>
+			<td>{{ t.time }}</td>
+			<td>
+				{% if t.status == 0 %}
+				<a href="/done/{{ t.id }}" class="btn btn-primary">Done</a>
+				{% else %}
+				<a href="/undone/{{ t.id }}" class="btn btn-primary">Undone</a>
+				{% endif %}
+			</td>
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+</body>
+</html>
+

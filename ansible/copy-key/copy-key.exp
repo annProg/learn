@@ -1,0 +1,20 @@
+#!/usr/bin/expect -f
+
+#-----------------------------------------------------------
+# Usage: ssh-copy-id
+# $Id: copy-key.sh  i@annhe.net  2015-07-21 14:25:20 $
+#-----------------------------------------------------------
+set ip [lindex $argv 0]
+set user [lindex $argv 1]
+set passwd [lindex $argv 2]
+
+set timeout 10
+
+spawn ssh-copy-id -i /root/.ssh/id_dsa.pub $user@$ip
+
+expect {
+	"*password:" {send "$passwd\r"}
+	"*yes/no*" {send "yes\r"}
+}
+
+expect off

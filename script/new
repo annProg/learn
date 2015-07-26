@@ -59,4 +59,7 @@ esac
 
 chmod +x $file
 
+if [ $# == 3 ];then
+	sed -i 's/python3/python2.6/g' $file
+fi
 vim $file
