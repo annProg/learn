@@ -11,11 +11,15 @@
 </p>
 
 <form class="input-group" action="/add" method="post">
-	<input class="form-control" id="content" name="content" type="text" value="">
+	{{ form.hidden_tag() }}
+	{{ form.content(class="form-control") }}
 	<span class="input-group-btn">
 		<button class="btn btn-primary" type="submit">Add</button>
 	</span>
 </form>
+{% for error in form.errors.content %}
+<div class="flash alert-danger"><span>{{ error }}</span></div>
+{% endfor %}
 <table class="table">
 	<thead>
 		<tr>
@@ -36,6 +40,7 @@
 				{% else %}
 				<a href="/undone/{{ t.id }}" class="btn btn-primary">Undone</a>
 				{% endif %}
+				<a href="/delete/{{ t.id }}" class="btn btn-danger">Delete</a>
 			</td>
 		</tr>
 	{% endfor %}
