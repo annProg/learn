@@ -6,6 +6,12 @@
 #-----------------------------------------------------------
 
 
-for i in `seq 1 10000000`; do
-	echo $i >> whitelist.txt
+for i in `seq 10 192`; do
+	for j in `seq 0 250`; do
+		for k in `seq 0 250`; do
+			for h in `seq 1 253`; do
+				echo "$i.$j.$k.$h" >> whitelist.txt
+			done
+		done
+	done
 done
