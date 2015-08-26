@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<fieldset>
+		<legend>表单演示：最新opera浏览器支持效果良好</legend>
+
+		<form id="form1" action="action" method="POST" oninput="output.value=parseInt(range.value)">
+			<input type="text" autofocus="autofocus" pattern="\d+" name="auto" placeholder="必填项测试">
+			<input type="number" name="demoNumber" min="1" max="100" step="2">
+			<input type="eamil" placeholder="请输入邮箱" pattern="^[\w]+@\w+" name="mail">
+			<input type="url" name="url" placeholder="请输入正确的网址">
+			<br>
+				日期： <input type="date" name="time">
+				颜色： <input type="color" name="color">
+			<br>
+			<input type="range" min="0" max="50" step="5" name="range" value="0">
+			<output name="output">0</output>
+			<input type="submit" value="提交表单">
+			
+		</form>
+
+		表单外的input标签：
+		<input type="text" form="form1" name="demo">
+		
+	</fieldset>
+</body>
+</html>

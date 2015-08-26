@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<canvas id="demoCanvas" width="500" height="500"><p>请使用支持html5的浏览器</p></canvas>
+	<script type="text/javascript">
+		var canvasDom = document.getElementById("demoCanvas");
+		var context = canvasDom.getContext('2d');
+		context.strokeStyle = "red";
+		context.strokeRect(10, 10, 190, 100);
+		context.fillStyle = "blue";
+		context.fillRect(110, 110, 100, 100);
+	</script>
+	
+	<canvas id="lineCanvas" width="500" height="600"></canvas>
+	<script type="text/javascript">
+		var canvasDom = document.getElementById("lineCanvas");
+		var context = canvasDom.getContext("2d");
+		context.beginPath();
+		context.moveTo(20, 20);
+		context.lineTo(200, 200);
+		context.lineTo(400, 20);
+		context.closePath();
+		context.lineWidth = 2.0;
+		context.strokeStyle = "#CC0000";
+		context.stroke();
+	</script>
+
+	<canvas id="textCanvas" width="500" height="600"></canvas>
+	<script type="text/javascript">
+		var canvasDom = document.getElementById("textCanvas");
+		var context = canvasDom.getContext("2d");
+		context.moveTo(200,200);
+		context.font = "Bold 50px Arial";
+		context.textAlign = "left";
+		context.fillStyle = "#005600";
+		context.fillText("annhe.net", 10, 50);
+		context.strokeText("annhe.net", 10, 100);
+	</script>
+</body>
+</html>

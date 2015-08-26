@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<input type="number" name="demoNumber" min="1" max="100" step="1">
+	<br>
+	<input type="email" name="email" placeholder="请输入注册邮箱">
+	<br>
+	<input type="url" placeholder="请输入网址" name="url">
+	<br>
+	<input type="tel" placeholder="请输入电话" name="phone">
+	<br>
+	<input type="range" min="0" max="50" step="5" name="rangedemo" value="0">
+	
+	<form action="" oninput="output.value=parseInt(range.value)">
+		<input type="range" min="0" max="100" step="5" name="range" value="0">
+		<output name="output">0</output>
+	</form>
+	
+	<input type="date" name="datedemo">
+	<input type="month" name="month">
+	<input type="time" name="time">
+	<input type="week" name="week">
+	<input type="datetime-local" name="datetime">
+	<input type="datetime" name="hah">
+	
+	<p>
+		<input type="color" name="colordemo">
+		
+	
+	</p>
+
+	<p>
+		<input type="text" autocomplete="on" name="demoAutoComplete" list="autoNames" />
+<datalist id="autoNames">
+       <option  value="实验楼" ></option>
+       <option  value="HTML5" ></option>
+       <option  value="input标签" ></option>
+</datalist>
+	</p>
+	
+</body>
+</html>
