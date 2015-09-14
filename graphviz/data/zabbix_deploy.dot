@@ -1,0 +1,27 @@
+digraph zabbix {
+	fontname = simsun;
+	fontname = 10;
+	rankdir = LR;
+	
+	subgraph cluster_agent {
+		rankdir = LR;
+		label = "zabbix agent";
+		node[shape=box3d]
+		agent1[label="agent1"];
+		agent2[label="agent2"];
+		agent3[shape=point];
+		agent4[shape=point];
+	}
+	
+	subgraph cluster_web {
+		node[shape=none]
+		front_end[label=web,image="./img/web.png",labelloc=b];
+		db[label="database",shape=Mrecord];
+	}
+	
+	server[label="server",shape=box];
+	
+	server -> {db,front_end}[arrowhead="none"];
+	server -> {agent1,agent2}[label="passive"];
+	{agent1,agent2} -> server[label="active"];
+}

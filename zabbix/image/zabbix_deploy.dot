@@ -1,0 +1,18 @@
+digraph zabbix {
+	fontname = simsun;
+	
+	subgraph cluster_agent {
+		agent1[label="agent1"];
+		agent2[label="agent1"];
+		agent3[label="agent1"];
+	}
+	
+	subgraph cluster_server {
+		server[label="server"];
+		db[label="database"];
+		front_end[label="web"];
+	}
+	
+	server -> {db,front_end};
+	server -> {agent1,agent2,agent3};
+}
