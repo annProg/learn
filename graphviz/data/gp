@@ -1,0 +1,10 @@
+#!/bin/bash
+
+[ $# -lt 1 ] && exit 1
+filename=$1
+cmd=$2
+[ $# -lt 2 ] && cmd="dot"
+
+
+$cmd -Tpng $filename -o $filename.png
+start $filename.png
