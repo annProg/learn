@@ -65,6 +65,7 @@
 
 ```
 Hostname: 允许英文字母，数字，下划线，空格，破折号，点。不允许使用中文
+	注意：agent需要向server发送数据时，此处填写的必须和agent配置文件中的Hostname值一致
 Visible name: 可以使用中文
 Group: 必选，至少一个主机组
 Agent interfaces: 填写agent的IP或者主机名，写主机名后面需要选DNS，并且该主机名应该是可以被解析的
