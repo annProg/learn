@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="me@annhe.net">
+  <title>zabbix 串讲</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="templates/css/bootstrap-combined.min.css" rel="stylesheet">
+  <style type="text/css">
+  body {
+    font-size:16px;
+    line-height:24px;
+}
+
+.sidebar-nav-fixed {
+    position:fixed;
+    top:84px;
+    width:10.48%;
+}
+
+@media (max-width: 767px) {
+    .sidebar-nav-fixed {
+        width:auto;
+    }
+}
+
+@media (max-width: 979px) {
+    .sidebar-nav-fixed {
+        position:static;
+        width:auto;
+    }
+}
+
+@media (min-width: 980px) {
+    .title {
+        width:940px;
+    }
+    .container-fluid {
+        width:940px;
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: black;
+    background: none;
+    font-weight: normal;
+    margin: 0;
+    overflow: hidden;
+    padding-top: .5em;
+    padding-bottom: .17em;
+}
+
+h1 {
+    font-size:32px;
+    border-bottom: 4px double #aaa;
+}
+
+h2 {
+    font-size:24px;
+    border-bottom: 1px solid #aaa;
+}
+
+h3 {
+    font-size:21px;
+}
+
+h1, h2 {
+    margin-bottom:.6em;
+    line-height:1.1em;
+}
+
+h3, h4, h5 {
+    margin-bottom:.3em;
+}
+
+img {
+	border-style: solid; 
+	border-width: 0px;
+}
+
+#TOC > ul {
+    margin:0;
+}
+
+#TOC > ul > li {
+    font-size:16px;
+    line-height:24px;
+    list-style-type:none;
+}
+
+#TOC > ul > li > ul > li {
+    font-size:16px;
+    line-height:24px;
+}
+
+#TOC > ul > li > ul > li > ul {
+    display:none;
+    /*font-size:14px;
+    line-height:20px;*/
+}
+
+blockquote > p {
+    font-size:16px;
+}
+
+.table {
+    width:auto;
+}
+table {
+	border-collapse:collapse;border:none;
+}
+
+td { border:solid#000 1px; padding: 10px; }
+
+sup, sub {
+    line-height: 1em;
+}
+
+header {
+    position:static;
+    width:100%;
+    overflow:visible;
+    display:block;
+
+
+    background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);
+    background-repeat: repeat-x;
+    border: 1px solid #d4d4d4;
+    -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1), 0 1px 10px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1), 0 1px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1), 0 1px 10px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    color:#555555;
+    border-bottom:0;
+    font-size:20px;
+    padding: .5em;
+    margin-bottom:0;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+nav li:focus {
+    background-color:#EEEEEE;
+}
+
+nav a:hover {
+    text-decoration:none;
+}
+
+.title > a {
+    color:#555555;
+}
+
+.title a:hover {
+    text-decoration:none;
+}
+
+.container-fluid {
+    margin-left:auto;
+    margin-right:auto;
+    padding: 2em 0 4em 0;
+}
+  </style>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+<!-- doc title / page header -->
+<header>
+<h1 class="title">zabbix 串讲</h1>
+<!--<h2 class="author">me@annhe.net</h2>-->
+<!--<h3 class="date">2015.9.23</h3>-->
+</header>
+<div class="container-fluid">
+<div class="row-fluid">
+<div class="span8">
+<h2 id="概述">概述</h2>
+<ol style="list-style-type: decimal">
+<li>开源的，高度集成的分布式监控解决方案</li>
+<li>通过C/S模式采集数据，B/S模式在web端展示和配置
+<ul>
+<li>Client：主机通过安装agent方式采集数据，网络设备通过SNMP方式采集数据<br /></li>
+<li>Server：收集agent和SNMP发送的数据并写入数据库（MySQL等），在通过php前端在web上展示</li>
+</ul></li>
+<li>监控的意义
+<ul>
+<li>及时处理故障</li>
+<li>为容量规划提供数据支持</li>
+</ul></li>
+</ol>
+<h3 id="zabbix术语">zabbix术语</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td align="left">监控项(item)</td>
+<td align="left">监控的基本元素，每个监控项对应一个被监控端的采集值</td>
+</tr>
+<tr class="even">
+<td align="left">应用集(application)</td>
+<td align="left">监控项的逻辑组</td>
+</tr>
+<tr class="odd">
+<td align="left">触发器(trigger)</td>
+<td align="left">通过计算item数据值来判断主机状态(OK/Problem)</td>
+</tr>
+<tr class="even">
+<td align="left">图形(graph)</td>
+<td align="left">为item数据提供可视化的展示</td>
+</tr>
+<tr class="odd">
+<td align="left">主机(host)</td>
+<td align="left">一个你想监控的网络设备(需要知道IP/DNS)</td>
+</tr>
+<tr class="even">
+<td align="left">主机群组(host group)</td>
+<td align="left">主机的逻辑组</td>
+</tr>
+<tr class="odd">
+<td align="left">模板(Template)</td>
+<td align="left">可以被主机套用的item，trigger，graph等的集合</td>
+</tr>
+<tr class="even">
+<td align="left">媒介(media)</td>
+<td align="left">发送告警的渠道(sms/email等)</td>
+</tr>
+<tr class="odd">
+<td align="left">告警(notification)</td>
+<td align="left">通过媒介(media)渠道发送事件的消息</td>
+</tr>
+<tr class="even">
+<td align="left">告警动作(action)</td>
+<td align="left">当触发器条件被满足时，执行指定的告警动作</td>
+</tr>
+</tbody>
+</table>
+<h3 id="zabbix处理流程">zabbix处理流程</h3>
+<div class="figure">
+<img src="images/monitor.png" />
+
+</div>
+<h3 id="zabbix部署方式">zabbix部署方式</h3>
+<div class="figure">
+<img src="images/zabbix.png" />
+
+</div>
+<h2 id="触发器">触发器</h2>
+<p>触发器表达式</p>
+<pre><code>{&lt;server&gt;:&lt;key&gt;.&lt;function&gt;(&lt;parameter&gt;)}&lt;operator&gt;&lt;constant&gt;</code></pre>
+<p>触发器实例</p>
+<pre><code>负载高
+{host:system.cpu.load[all,avg1].last()}&gt;5
+
+服务器过载
+{host:system.cpu.load[all,avg1].last()}&gt;5|{host:system.cpu.load[all,avg1].min(10m)}&gt;2
+
+/etc/passwd文件被修改
+{host:vfs.file.cksum[/etc/passwd].diff()}=1
+
+服务器不可达（最近30分钟内超过5次不可达）
+{host:icmpping.count(30m,0)}&gt;5</code></pre>
+<h2 id="主机监控实例">主机监控实例</h2>
+<p>添加对131.lab 80端口的监控</p>
+<p>路径：Configuration -&gt; Hosts -&gt; Create Host</p>
+<pre><code>Hostname: 允许英文字母，数字，下划线，空格，破折号，点。不允许使用中文
+Visible name: 可以使用中文
+Group: 必选，至少一个主机组
+Agent interfaces: 填写agent的IP或者主机名，写主机名后面需要选DNS，并且该主机名应该是可以被解析的</code></pre>
+<p>添加item，接上面的步骤，item -&gt; create item</p>
+<pre><code>type: zabbix agent
+key: net.tcp.listen[80]
+Type of information: 字符型</code></pre>
+<p>添加trigger</p>
+<p>接上面的步骤，trigger -&gt; create trigger</p>
+<pre><code>Name： 自定义
+表达式： {131.lab-2:net.tcp.listen[80].last(#1)}=0
+Severity： 严重性，根据需要选择</code></pre>
+<p>添加告警动作</p>
+<p>告警策略：如果80端口不通，则</p>
+<pre><code>1. 立即给管理员发送1封邮件
+2. 如果5分钟内还未得到解决，在每隔3分钟发1封邮件，发4封</code></pre>
+<p>Configuration -&gt; Action -&gt; 右上角Event Source选 Trigger</p>
+<pre><code>action定义告警内容
+condition定义告警条件，可以根据主机组，触发器严重性等报警
+operation告警动作，step是步骤，编辑：
+
+step from to： 指步骤起始结束，如果为0，则无限告警，直道监控项恢复正常
+Step duration： step间隔</code></pre>
+<p>如图：</p>
+<div class="figure">
+<img src="images/action.png" />
+
+</div>
+<p>应用模板</p>
+<p>模板(Template)： * 将item，trigger，graph，screen等汇总为模板 * 模板直接链接到一类主机，实现批量定义 * 修改模板可以使关联到模板上的主机全部被修改</p>
+<p>编辑主机131.lab，切换到Templates，select一个或多个template</p>
+<p>Configuration -&gt; Templates 中可以添加或修改模板</p>
+<h2 id="low-level-discovery和item-prototype">Low-level discovery和item prototype</h2>
+<p>本节关注自动发现(Low-level discovery)中的外部检查(external check)和项目原型(item prototype)中的zabbix捕捉器，外部检查获取api列表，主要用于基于prototype自动生成具体的监控项、触发器、图形等</p>
+<p>外部检查脚本要求返回一个json格式的数据，形式如下：</p>
+<pre><code>{
+    data: [
+        {&quot;{#NAME}&quot;, &quot;value&quot;},
+        {&quot;{#NAME}&quot;, &quot;value&quot;},
+        ...
+    ]
+}
+</code></pre>
+<p>一个简单的例子，监控几个url完成访问请求所用的时间</p>
+<pre><code># zabbix_server.conf配置externalscripts路径
+[root@repo externalscripts]# cat /usr/local/zabbix/etc/zabbix_server.conf |grep &quot;^ExternalS&quot;
+ExternalScripts=/usr/local/zabbix/share/zabbix/externalscripts
+
+# 数据文件格式，一行一个主机
+[root@repo externalscripts]# cat list.txt 
+baidu.com
+www.sina.com
+repo.annhe.net</code></pre>
+<p>在externalscript目录下编辑脚本 <code>curl.sh</code>：</p>
+<pre><code>#!/bin/bash
+file=&quot;/usr/local/zabbix/share/zabbix/externalscripts/list.txt&quot;
+str=&quot;{\&quot;data\&quot; : [&quot;
+while read url;do
+    str=$str&quot;{\&quot;{#URL}\&quot; : \&quot;$url\&quot;},&quot;
+done &lt;$file
+
+str=`echo $str |sed &#39;s/,$//g&#39;`
+str=$str&quot;]}&quot;
+echo &quot;$str&quot;</code></pre>
+<p>脚本返回结果：</p>
+<pre><code>[root@repo externalscripts]# ./curl.sh 
+{&quot;data&quot; : [{&quot;{#URL}&quot; : &quot;baidu.com&quot;},{&quot;{#URL}&quot; : &quot;www.sina.com&quot;},{&quot;{#URL}&quot; : &quot;repo.annhe.net&quot;}]}</code></pre>
+<p>web界面配置步骤</p>
+<pre><code>1. web界面添加一个主机 (主机名url.curl)，类型为 外部检查 ，key为 curl.sh
+2. 添加 item prototype，类型为zabbix trapper，键值自定义，参数要引用外部检查脚本中
+   定义的宏(本例为 {#URL})，例如 web_api[{#URL}]
+3. 客户端zabbix_sender 发送item数据，发送数据脚本 url_cron.sh：
+
+#!/bin/bash
+file=&quot;/usr/local/zabbix/share/zabbix/externalscripts/list.txt&quot;
+while read url;do
+    code=`curl -s -w %{time_total} http://$url -o /dev/null`
+    zabbix_sender -z repo.annhe.net -s url.curl -k web_api[$url] -o &quot;$code&quot; -r
+done &lt;$file</code></pre>
+<p>每10秒发送一次</p>
+<pre><code>nohup watch -n 10 ./url_cron.sh &amp;&gt;/dev/null &amp;</code></pre>
+<h1 id="low-level-discovery和item-prototype---续4">Low-level discovery和item prototype - 续4</h1>
+<p>查看数据</p>
+<div class="figure">
+<img src="images/url.png" />
+
+</div>
+<h2 id="zabbix整合item">zabbix整合item</h2>
+<p>整合item用于计算（平均值，总和等）主机群组内全部主机的情况</p>
+<pre><code>#聚合检查不需要在被监控主机上运行任何代理程序。Zabbix服务器直接通过数据库查询来收集聚合信息
+grpfunc[&lt;group&gt;,&lt;key&gt;,&lt;func&gt;,&lt;param&gt;]   </code></pre>
+<p>添加对Linux Server组平均负载情况的统计</p>
+<pre><code>1. Configuration -&gt; Hosts -&gt; Create Host
+2. 主机名 appregate.linux.server, 群组必选, 其他的随意
+3. item -&gt; create item, 类型选 zabbix aggregate, 键值填 grpavg[&quot;Linux servers&quot;,&quot;system.cpu.load[percpu,avg1]&quot;,last,0]
+4. 数据类型选 浮点型
+5. Graph -&gt; create graph, 添加刚才设置的item</code></pre>
+<p>Monitoring -&gt; Graph 右上角筛选查看效果图</p>
+<div class="figure">
+<img src="images/appregate.linux.server.png" />
+
+</div>
+<h2 id="screen">Screen</h2>
+<p>将同一主机或类型的数据放到一个屏幕来展示</p>
+<p>Configuration -&gt; Screen -&gt; create screen</p>
+<div class="figure">
+<img src="images/130.lab.png" />
+
+</div>
+<hr>
+</div><!--/row-->
+</div><!--/container-->
+</body>
+</html>
