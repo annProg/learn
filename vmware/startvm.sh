@@ -1,15 +1,5 @@
 #!/bin/bash
 
-############################
-# Usage: 批量管理虚拟机电源，需要msys支持
-# File Name: startvm.sh
-# Author: annhe  
-# Mail: i@annhe.net
-# Created Time: 2015-09-22 09:33:32
-############################
-
-
-
 dir="/e/VMs/"
 [ $# -lt 1 ] && echo "args error" && exit 1
 func=$1
@@ -33,6 +23,7 @@ case $func in
 esac
 
 for id in `find ./ $dir -name "*.vmx"`;do
-	vmrun $func $id &
+	vmrun $func $id & 
+	sleep 3
 	echo "$id $func..."
 done
