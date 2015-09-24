@@ -1,0 +1,63 @@
+<html>
+<head>
+<style>
+.class_1 {
+    height:100px;
+    width:100px;
+    background:red;
+}
+.class_2 {
+    height:100px;
+    width:100px;
+    background:blue;
+}
+</style>
+</head>
+
+<body>
+<div id="my_div"></div>
+
+<input type="text">
+<input type="text">
+
+<script>
+    document.getElementById("my_div").style.height="100px";  // 设置 my_div 高度为 100px
+    document.getElementById("my_div").style.background="red"; // 设置 my_div 颜色为 红色
+	
+	document.getElementsByTagName("input")[0].value="hello";
+	document.getElementsByTagName("input")[1].value="javascript";
+</script>
+
+<div id="div_1" class="class_1"></div>
+
+<br>
+<a href="">before:</a>
+
+<script>
+	document.write(document.getElementById("div_1").getAttribute("class"));
+</script>
+
+<br>
+<a href="">after:</a>
+
+<script>
+	document.getElementById("div_1").setAttribute("class", "class_2");
+	document.write(document.getElementById("div_1").getAttribute("class"));
+</script>
+
+
+<script>
+	var mydiv = document.createElement("div");
+	mydiv.style.height = "100px";
+	mydiv.style.background = "green";
+	document.getElementsByTagName("body")[0].appendChild(mydiv);
+	
+	function remove_red() {
+		var obj = document.getElementById("my_div");
+		obj.parentNode.removeChild(obj);
+	}
+</script>
+
+<button onclick="remove_red()">remove red div</button>
+</body>
+</html>
