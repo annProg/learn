@@ -28,11 +28,11 @@
 
 ### zabbix处理流程	
 	
-![](images/monitor.png)
+![](http://www.annhe.net/wp-content/uploads/2015/09/monitor.png)
 
 ### zabbix部署方式
 
-![](images/zabbix.png)
+![](http://www.annhe.net/wp-content/uploads/2015/09/zabbix.png)
 
 ## 触发器
 触发器表达式
@@ -111,7 +111,7 @@ Step duration： step间隔
 
 如图：
 
-![](images/action.png)
+![](http://www.annhe.net/wp-content/uploads/2015/09/action.png)
 
 应用模板
 
@@ -126,7 +126,9 @@ Configuration -> Templates 中可以添加或修改模板
 
 ## Low-level discovery和item prototype
 
-本节关注自动发现(Low-level discovery)中的外部检查(external check)和项目原型(item prototype)中的zabbix捕捉器，外部检查获取api列表，主要用于基于prototype自动生成具体的监控项、触发器、图形等
+本节关注自动发现(Low-level discovery)中的外部检查(external check)和项目原型(item prototype)中的zabbix捕捉器，用于自动监控大量url。外部检查获取url列表，主要用于基于prototype自动生成具体的监控项、触发器、图形等
+
+### 外部检查脚本
 
 外部检查脚本要求返回一个json格式的数据，形式如下：
 
@@ -178,7 +180,7 @@ echo "$str"
 ```
 
 
-web界面配置步骤
+### web界面配置步骤
 
 ```
 1. web界面添加一个主机 (主机名url.curl)，类型为 外部检查 ，key为 curl.sh
@@ -200,11 +202,9 @@ done <$file
 nohup watch -n 10 ./url_cron.sh &>/dev/null &
 ```
 
-# Low-level discovery和item prototype - 续4
+### 查看数据
 
-查看数据
-
-![](images/url.png)
+![](http://www.annhe.net/wp-content/uploads/2015/09/url.png)
 
 
 ## zabbix整合item
@@ -229,11 +229,11 @@ grpfunc[<group>,<key>,<func>,<param>]
 
 Monitoring -> Graph 右上角筛选查看效果图
 
-![](images/appregate.linux.server.png)
+![](http://www.annhe.net/wp-content/uploads/2015/09/appregate.linux_.server.png)
 
 ## Screen
 将同一主机或类型的数据放到一个屏幕来展示
 
 Configuration -> Screen -> create screen
 
-![](images/130.lab.png)
+![](http://www.annhe.net/wp-content/uploads/2015/09/130.lab_.png)

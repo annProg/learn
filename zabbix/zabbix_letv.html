@@ -1,184 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="generator" content="pandoc">
-  <meta name="author" content="me@annhe.net">
-  <title>zabbix 串讲</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="templates/css/bootstrap-combined.min.css" rel="stylesheet">
-  <style type="text/css">
-  body {
-    font-size:16px;
-    line-height:24px;
-}
-
-.sidebar-nav-fixed {
-    position:fixed;
-    top:84px;
-    width:10.48%;
-}
-
-@media (max-width: 767px) {
-    .sidebar-nav-fixed {
-        width:auto;
-    }
-}
-
-@media (max-width: 979px) {
-    .sidebar-nav-fixed {
-        position:static;
-        width:auto;
-    }
-}
-
-@media (min-width: 980px) {
-    .title {
-        width:940px;
-    }
-    .container-fluid {
-        width:940px;
-    }
-}
-
-h1, h2, h3, h4, h5, h6 {
-    color: black;
-    background: none;
-    font-weight: normal;
-    margin: 0;
-    overflow: hidden;
-    padding-top: .5em;
-    padding-bottom: .17em;
-}
-
-h1 {
-    font-size:32px;
-    border-bottom: 4px double #aaa;
-}
-
-h2 {
-    font-size:24px;
-    border-bottom: 1px solid #aaa;
-}
-
-h3 {
-    font-size:21px;
-}
-
-h1, h2 {
-    margin-bottom:.6em;
-    line-height:1.1em;
-}
-
-h3, h4, h5 {
-    margin-bottom:.3em;
-}
-
-img {
-	border-style: solid; 
-	border-width: 0px;
-}
-
-#TOC > ul {
-    margin:0;
-}
-
-#TOC > ul > li {
-    font-size:16px;
-    line-height:24px;
-    list-style-type:none;
-}
-
-#TOC > ul > li > ul > li {
-    font-size:16px;
-    line-height:24px;
-}
-
-#TOC > ul > li > ul > li > ul {
-    display:none;
-    /*font-size:14px;
-    line-height:20px;*/
-}
-
-blockquote > p {
-    font-size:16px;
-}
-
-.table {
-    width:auto;
-}
-table {
-	border-collapse:collapse;border:none;
-}
-
-td { border:solid#000 1px; padding: 10px; }
-
-sup, sub {
-    line-height: 1em;
-}
-
-header {
-    position:static;
-    width:100%;
-    overflow:visible;
-    display:block;
-
-
-    background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);
-    background-repeat: repeat-x;
-    border: 1px solid #d4d4d4;
-    -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1), 0 1px 10px rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1), 0 1px 10px rgba(0, 0, 0, 0.1);
-    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1), 0 1px 10px rgba(0, 0, 0, 0.1);
-}
-
-.title {
-    color:#555555;
-    border-bottom:0;
-    font-size:20px;
-    padding: .5em;
-    margin-bottom:0;
-    margin-left:auto;
-    margin-right:auto;
-}
-
-nav li:focus {
-    background-color:#EEEEEE;
-}
-
-nav a:hover {
-    text-decoration:none;
-}
-
-.title > a {
-    color:#555555;
-}
-
-.title a:hover {
-    text-decoration:none;
-}
-
-.container-fluid {
-    margin-left:auto;
-    margin-right:auto;
-    padding: 2em 0 4em 0;
-}
-  </style>
-  <style type="text/css">code{white-space: pre;}</style>
-  <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-</head>
-<body>
-<!-- doc title / page header -->
-<header>
-<h1 class="title">zabbix 串讲</h1>
-<!--<h2 class="author">me@annhe.net</h2>-->
-<!--<h3 class="date">2015.9.23</h3>-->
-</header>
-<div class="container-fluid">
-<div class="row-fluid">
-<div class="span8">
 <h2 id="概述">概述</h2>
 <ol style="list-style-type: decimal">
 <li>开源的，高度集成的分布式监控解决方案</li>
@@ -240,12 +59,12 @@ nav a:hover {
 </table>
 <h3 id="zabbix处理流程">zabbix处理流程</h3>
 <div class="figure">
-<img src="images/monitor.png" />
+<img src="http://www.annhe.net/wp-content/uploads/2015/09/monitor.png" />
 
 </div>
 <h3 id="zabbix部署方式">zabbix部署方式</h3>
 <div class="figure">
-<img src="images/zabbix.png" />
+<img src="http://www.annhe.net/wp-content/uploads/2015/09/zabbix.png" />
 
 </div>
 <h2 id="触发器">触发器</h2>
@@ -267,6 +86,7 @@ nav a:hover {
 <p>添加对131.lab 80端口的监控</p>
 <p>路径：Configuration -&gt; Hosts -&gt; Create Host</p>
 <pre><code>Hostname: 允许英文字母，数字，下划线，空格，破折号，点。不允许使用中文
+    注意：agent需要向server发送数据时，此处填写的必须和agent配置文件中的Hostname值一致
 Visible name: 可以使用中文
 Group: 必选，至少一个主机组
 Agent interfaces: 填写agent的IP或者主机名，写主机名后面需要选DNS，并且该主机名应该是可以被解析的</code></pre>
@@ -292,7 +112,7 @@ step from to： 指步骤起始结束，如果为0，则无限告警，直道监
 Step duration： step间隔</code></pre>
 <p>如图：</p>
 <div class="figure">
-<img src="images/action.png" />
+<img src="http://www.annhe.net/wp-content/uploads/2015/09/action.png" />
 
 </div>
 <p>应用模板</p>
@@ -300,7 +120,8 @@ Step duration： step间隔</code></pre>
 <p>编辑主机131.lab，切换到Templates，select一个或多个template</p>
 <p>Configuration -&gt; Templates 中可以添加或修改模板</p>
 <h2 id="low-level-discovery和item-prototype">Low-level discovery和item prototype</h2>
-<p>本节关注自动发现(Low-level discovery)中的外部检查(external check)和项目原型(item prototype)中的zabbix捕捉器，外部检查获取api列表，主要用于基于prototype自动生成具体的监控项、触发器、图形等</p>
+<p>本节关注自动发现(Low-level discovery)中的外部检查(external check)和项目原型(item prototype)中的zabbix捕捉器，用于自动监控大量url。外部检查获取url列表，主要用于基于prototype自动生成具体的监控项、触发器、图形等</p>
+<h3 id="外部检查脚本">外部检查脚本</h3>
 <p>外部检查脚本要求返回一个json格式的数据，形式如下：</p>
 <pre><code>{
     data: [
@@ -334,7 +155,7 @@ echo &quot;$str&quot;</code></pre>
 <p>脚本返回结果：</p>
 <pre><code>[root@repo externalscripts]# ./curl.sh 
 {&quot;data&quot; : [{&quot;{#URL}&quot; : &quot;baidu.com&quot;},{&quot;{#URL}&quot; : &quot;www.sina.com&quot;},{&quot;{#URL}&quot; : &quot;repo.annhe.net&quot;}]}</code></pre>
-<p>web界面配置步骤</p>
+<h3 id="web界面配置步骤">web界面配置步骤</h3>
 <pre><code>1. web界面添加一个主机 (主机名url.curl)，类型为 外部检查 ，key为 curl.sh
 2. 添加 item prototype，类型为zabbix trapper，键值自定义，参数要引用外部检查脚本中
    定义的宏(本例为 {#URL})，例如 web_api[{#URL}]
@@ -348,10 +169,9 @@ while read url;do
 done &lt;$file</code></pre>
 <p>每10秒发送一次</p>
 <pre><code>nohup watch -n 10 ./url_cron.sh &amp;&gt;/dev/null &amp;</code></pre>
-<h1 id="low-level-discovery和item-prototype---续4">Low-level discovery和item prototype - 续4</h1>
-<p>查看数据</p>
+<h3 id="查看数据">查看数据</h3>
 <div class="figure">
-<img src="images/url.png" />
+<img src="http://www.annhe.net/wp-content/uploads/2015/09/url.png" />
 
 </div>
 <h2 id="zabbix整合item">zabbix整合item</h2>
@@ -366,18 +186,13 @@ grpfunc[&lt;group&gt;,&lt;key&gt;,&lt;func&gt;,&lt;param&gt;]   </code></pre>
 5. Graph -&gt; create graph, 添加刚才设置的item</code></pre>
 <p>Monitoring -&gt; Graph 右上角筛选查看效果图</p>
 <div class="figure">
-<img src="images/appregate.linux.server.png" />
+<img src="http://www.annhe.net/wp-content/uploads/2015/09/appregate.linux_.server.png" />
 
 </div>
 <h2 id="screen">Screen</h2>
 <p>将同一主机或类型的数据放到一个屏幕来展示</p>
 <p>Configuration -&gt; Screen -&gt; create screen</p>
 <div class="figure">
-<img src="images/130.lab.png" />
+<img src="http://www.annhe.net/wp-content/uploads/2015/09/130.lab_.png" />
 
 </div>
-<hr>
-</div><!--/row-->
-</div><!--/container-->
-</body>
-</html>
