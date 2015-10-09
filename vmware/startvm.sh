@@ -23,7 +23,6 @@ case $func in
 esac
 
 for id in `find ./ $dir -name "*.vmx"`;do
-	vmrun $func $id & 
-	sleep 3
+	vmrun $func $id
 	echo "$id $func..."
 done
