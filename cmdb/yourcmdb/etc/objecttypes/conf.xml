@@ -1,0 +1,48 @@
+<group name="配置">
+	<object-type name="状态">
+		<fields>
+			<fieldgroup name="状态">
+				<field name="conf-status" label="状态" type="text" summaryfield="true" />
+			</fieldgroup>
+		</fields>
+	</object-type>
+
+	<object-type name="产品线">
+		<fields>
+			<fieldgroup name="产品线">
+				<field name="conf-productline-l1" label="一级产品线" type="text" summaryfield="true" />
+				<field name="conf-productline-l2" label="二级产品线" type="text" summaryfield="true" />
+				<field name="conf-productline-l3" label="三级产品线" type="text" summaryfield="true" />
+				<field name="conf-productline-l4" label="四级产品线" type="text" summaryfield="true" />
+			</fieldgroup>
+		</fields>
+	</object-type>
+	<object-type name="人员">
+		<fields>
+			<fieldgroup name="人员">
+				<field name="conf-staff-name" label="姓名" type="text" summaryfield="true" />
+				<field name="conf-staff-email" label="邮件" type="text" summaryfield="true" />
+				<field name="conf-staff-phone" label="电话" type="text" summaryfield="false" />
+				<field name="conf-staff-qq" label="QQ" type="text" summaryfield="false" />
+				<field name="conf-staff-title" label="职位" type="text" summaryfield="true" />
+				<field name="conf-staff-birth" label="生日" type="text" summaryfield="false" />
+			</fieldgroup>
+		</fields>
+	</object-type>
+
+	<object-type name="方法">
+		<fields>
+			<fieldgroup name="方法">
+				<field name="http-requestmethod" label="方法" type="text" summaryfield="true" />
+			</fieldgroup>
+		</fields>
+	</object-type>
+
+	<object-type name="test">
+		<fields>
+			<fieldgroup name="test-group">
+				<field name="test-field" label="test" type="text" summaryfield="true" />
+			</fieldgroup>
+		</fields>
+	</object-type>
+</group>

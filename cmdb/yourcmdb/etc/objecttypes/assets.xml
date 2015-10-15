@@ -1,0 +1,53 @@
+<group name="资产">
+	<object-type name="服务器">
+		<links>
+			<link name="Location on GoogleMaps" href="http://www.google.de/maps/place/%street%,%zip% %city%" />
+		</links>
+		<fields>
+			<fieldgroup name="服务器">
+				<field name="hostname" label="主机名" type="text" uniq="true" summaryfield="true"/>
+				<field name="sn" label="序列号" type="text" uniq="true" summaryfield="true" />
+				<field name="vendor" label="型号" type="text" summaryfield="true" />
+				<field name="mem" label="内存" type="text" summaryfield="true"/>
+				<field name="cpu" label="CPU" type="text" summaryfield="true"/>
+				<field name="IP" type="text" summaryfield="true"/>
+				<field name="administrator" label="管理员" type="objectref-人员" summaryfield="true"/>
+				<field name="product-line" label="产品线" type="objectref-产品线" summaryfield="true"/>
+			</fieldgroup>
+		</fields>
+	</object-type>
+	<object-type name="域名">
+		<links>
+			<link name="Location on GoogleMaps" href="http://www.google.de/maps/place/%street%,%zip% %city%" />
+		</links>
+		<fields>
+			<fieldgroup name="服务器">
+				<field name="主机名" type="text" />
+				<field name="序列号" type="text" />
+				<field name="型号" type="text" summaryfield="true" />
+				<field name="内存" type="text" summaryfield="true"/>
+				<field name="CPU数量" type="text" summaryfield="true"/>
+				<field name="IP" type="text" summaryfield="true"/>
+				<field name="管理员" type="text" summaryfield="true"/>
+				<field name="业务线" type="text" summaryfield="true"/>
+			</fieldgroup>
+		</fields>
+	</object-type>
+	<object-type name="IP">
+		<links>
+			<link name="Location on GoogleMaps" href="http://www.google.de/maps/place/%street%,%zip% %city%" />
+		</links>
+		<fields>
+			<fieldgroup name="服务器">
+				<field name="主机名" type="text" />
+				<field name="序列号" type="text" />
+				<field name="型号" type="text" summaryfield="true" />
+				<field name="内存" type="text" summaryfield="true"/>
+				<field name="CPU数量" type="text" summaryfield="true"/>
+				<field name="IP" type="text" summaryfield="true"/>
+				<field name="管理员" type="text" summaryfield="true"/>
+				<field name="业务线" type="text" summaryfield="true"/>
+			</fieldgroup>
+		</fields>
+	</object-type>
+</group>

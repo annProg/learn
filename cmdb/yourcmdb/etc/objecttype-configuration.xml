@@ -1,0 +1,5 @@
+<object-types>
+	<includeconfig file="objecttypes/assets.xml" />
+	<includeconfig file="objecttypes/conf.xml" />
+	<includeconfig file="objecttypes/soft.xml" />
+</object-types>

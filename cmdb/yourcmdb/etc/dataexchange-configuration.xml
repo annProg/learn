@@ -1,0 +1,8 @@
+<dataexchange-configuration>
+	<export-options>
+		<export type="csv">
+			<parameter key="delimiter" value=";" />
+			<parameter key="enclosure" value="" />
+		</export>
+	</export-options>
+</dataexchange-configuration>
