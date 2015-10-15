@@ -2,7 +2,7 @@
 	<object-type name="状态">
 		<fields>
 			<fieldgroup name="状态">
-				<field name="conf-status" label="状态" type="text" summaryfield="true" />
+				<field name="conf-status" label="状态" type="text" summaryfield="true" uniq="true" />
 			</fieldgroup>
 		</fields>
 	</object-type>
@@ -10,7 +10,7 @@
 	<object-type name="产品线">
 		<fields>
 			<fieldgroup name="产品线">
-				<field name="conf-productline-l1" label="一级产品线" type="text" summaryfield="true" />
+				<field name="conf-productline-l1" label="一级产品线" type="text" summaryfield="true" uniq="true" />
 				<field name="conf-productline-l2" label="二级产品线" type="text" summaryfield="true" />
 				<field name="conf-productline-l3" label="三级产品线" type="text" summaryfield="true" />
 				<field name="conf-productline-l4" label="四级产品线" type="text" summaryfield="true" />
@@ -21,7 +21,7 @@
 		<fields>
 			<fieldgroup name="人员">
 				<field name="conf-staff-name" label="姓名" type="text" summaryfield="true" />
-				<field name="conf-staff-email" label="邮件" type="text" summaryfield="true" />
+				<field name="conf-staff-email" label="邮件" type="text" summaryfield="true" uniq="true" />
 				<field name="conf-staff-phone" label="电话" type="text" summaryfield="false" />
 				<field name="conf-staff-qq" label="QQ" type="text" summaryfield="false" />
 				<field name="conf-staff-title" label="职位" type="text" summaryfield="true" />
@@ -38,10 +38,10 @@
 		</fields>
 	</object-type>
 
-	<object-type name="test">
+	<object-type name="服务器角色">
 		<fields>
-			<fieldgroup name="test-group">
-				<field name="test-field" label="test" type="text" summaryfield="true" />
+			<fieldgroup name="Basic">
+				<field name="server-role" label="服务器角色" type="text" summaryfield="true" uniq="true" />
 			</fieldgroup>
 		</fields>
 	</object-type>

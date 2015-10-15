@@ -1,52 +1,44 @@
 <group name="资产">
 	<object-type name="服务器">
 		<links>
-			<link name="Location on GoogleMaps" href="http://www.google.de/maps/place/%street%,%zip% %city%" />
+			<link name="Test 80 port" href="http://%IP%" />
 		</links>
 		<fields>
 			<fieldgroup name="服务器">
 				<field name="hostname" label="主机名" type="text" uniq="true" summaryfield="true"/>
-				<field name="sn" label="序列号" type="text" uniq="true" summaryfield="true" />
+				<field name="sn" label="序列号" type="text" summaryfield="true" />
 				<field name="vendor" label="型号" type="text" summaryfield="true" />
 				<field name="mem" label="内存" type="text" summaryfield="true"/>
 				<field name="cpu" label="CPU" type="text" summaryfield="true"/>
 				<field name="IP" type="text" summaryfield="true"/>
 				<field name="administrator" label="管理员" type="objectref-人员" summaryfield="true"/>
-				<field name="product-line" label="产品线" type="objectref-产品线" summaryfield="true"/>
+				<field name="role" label="角色" type="objectref-服务器角色" summaryfield="true"/>
 			</fieldgroup>
 		</fields>
 	</object-type>
 	<object-type name="域名">
 		<links>
-			<link name="Location on GoogleMaps" href="http://www.google.de/maps/place/%street%,%zip% %city%" />
+			<link name="Visit Domain" href="http://%domain%" />
 		</links>
 		<fields>
-			<fieldgroup name="服务器">
-				<field name="主机名" type="text" />
-				<field name="序列号" type="text" />
-				<field name="型号" type="text" summaryfield="true" />
-				<field name="内存" type="text" summaryfield="true"/>
-				<field name="CPU数量" type="text" summaryfield="true"/>
-				<field name="IP" type="text" summaryfield="true"/>
-				<field name="管理员" type="text" summaryfield="true"/>
-				<field name="业务线" type="text" summaryfield="true"/>
+			<fieldgroup name="Basic">
+				<field name="domain" label="域名" type="text" summaryfield="true" uniq="true" />
+				<field name="record" label="记录值" type="text" summaryfield="true" />
+				<field name="contact1" label="第一联系人" type="objectref-人员" summaryfield="true"/>
+				<field name="contact2" label="第二联系人" type="objectref-人员" summaryfield="true"/>
+				<field name="product" label="产品线" type="objectref-产品线" summaryfield="true"/>
 			</fieldgroup>
 		</fields>
 	</object-type>
 	<object-type name="IP">
 		<links>
-			<link name="Location on GoogleMaps" href="http://www.google.de/maps/place/%street%,%zip% %city%" />
+			<link name="Location on GoogleMaps" href="http://%ip%" />
 		</links>
 		<fields>
-			<fieldgroup name="服务器">
-				<field name="主机名" type="text" />
-				<field name="序列号" type="text" />
-				<field name="型号" type="text" summaryfield="true" />
-				<field name="内存" type="text" summaryfield="true"/>
-				<field name="CPU数量" type="text" summaryfield="true"/>
-				<field name="IP" type="text" summaryfield="true"/>
-				<field name="管理员" type="text" summaryfield="true"/>
-				<field name="业务线" type="text" summaryfield="true"/>
+			<fieldgroup name="Basic">
+				<field name="ip" label="IP地址" type="text" summaryfield="true" uniq="true" />
+				<field name="iptype" label="类型" type="objectref-iptype" summaryfield="true"/>
+				<field name="sn" label="机器SN" type="text" summaryfield="true"/>
 			</fieldgroup>
 		</fields>
 	</object-type>
