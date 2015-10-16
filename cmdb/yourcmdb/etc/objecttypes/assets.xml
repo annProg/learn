@@ -10,7 +10,8 @@
 				<field name="vendor" label="型号" type="text" summaryfield="true" />
 				<field name="mem" label="内存" type="text" summaryfield="true"/>
 				<field name="cpu" label="CPU" type="text" summaryfield="true"/>
-				<field name="IP" type="text" summaryfield="true"/>
+				<field name="ip" label="IP地址" type="text" summaryfield="true"/>
+				<field name="hypervisor-ip" label="宿主机IP" type="text" summaryfield="true"/>
 				<field name="administrator" label="管理员" type="objectref-人员" summaryfield="true"/>
 				<field name="role" label="角色" type="objectref-服务器角色" summaryfield="true"/>
 			</fieldgroup>
