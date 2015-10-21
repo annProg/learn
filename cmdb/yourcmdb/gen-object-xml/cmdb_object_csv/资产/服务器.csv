@@ -1,0 +1,10 @@
+name,label,type,uniq,summaryfield,fieldgroup
+hostname,主机名,text,true,true,服务器
+sn,序列号,text,,true,服务器
+vendor,型号,text,,true,服务器
+mem,内存,text,,true,服务器
+cpu,CPU,text,,true,服务器
+ip,IP地址,text,,true,服务器
+hypervisor-ip,宿主机IP,text,,true,服务器
+administrator,管理员,objectref-人员,,true,服务器
+role,角色,objectref-服务器角色,,true,服务器

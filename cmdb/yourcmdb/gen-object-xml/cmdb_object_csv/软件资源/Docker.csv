@@ -1,0 +1,7 @@
+name,label,type,uniq,summaryfield,fieldgroup
+conf-staff-name,姓名,text,,true,人员
+conf-staff-email,邮件,text,,false,人员
+conf-staff-phone,电话,text,,false,人员
+conf-staff-qq,QQ,text,,false,人员
+conf-staff-title,职位,text,,false,人员
+conf-staff-birth,生日,text,,false,人员

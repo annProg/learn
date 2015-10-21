@@ -1,0 +1,37 @@
+<group name="资产">
+	<object-type name="IP">
+		<fields>
+			<fieldgroup name="Basic">
+				<field name="ip" label="IP地址" type="text" uniq="true" summaryfield="true" />
+				<field name="iptype" label="类型" type="objectref-iptype" uniq="" summaryfield="true" />
+				<field name="sn" label="机器SN" type="text" uniq="" summaryfield="true" />
+			</fieldgroup>
+		</fields>
+	</object-type>
+	<object-type name="服务器">
+		<fields>
+			<fieldgroup name="服务器">
+				<field name="hostname" label="主机名" type="text" uniq="true" summaryfield="true" />
+				<field name="sn" label="序列号" type="text" uniq="" summaryfield="true" />
+				<field name="vendor" label="型号" type="text" uniq="" summaryfield="true" />
+				<field name="mem" label="内存" type="text" uniq="" summaryfield="true" />
+				<field name="cpu" label="CPU" type="text" uniq="" summaryfield="true" />
+				<field name="ip" label="IP地址" type="text" uniq="" summaryfield="true" />
+				<field name="hypervisor-ip" label="宿主机IP" type="text" uniq="" summaryfield="true" />
+				<field name="administrator" label="管理员" type="objectref-人员" uniq="" summaryfield="true" />
+				<field name="role" label="角色" type="objectref-服务器角色" uniq="" summaryfield="true" />
+			</fieldgroup>
+		</fields>
+	</object-type>
+	<object-type name="域名">
+		<fields>
+			<fieldgroup name="Basic">
+				<field name="domain" label="域名" type="text" uniq="true" summaryfield="true" />
+				<field name="record" label="记录值" type="text" uniq="" summaryfield="true" />
+				<field name="contact1" label="第一联系人" type="objectref-人员" uniq="" summaryfield="true" />
+				<field name="contact2" label="第二联系人" type="objectref-人员" uniq="" summaryfield="true" />
+				<field name="product" label="产品线" type="objectref-产品线" uniq="" summaryfield="true" />
+			</fieldgroup>
+		</fields>
+	</object-type>
+</group>

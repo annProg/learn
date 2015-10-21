@@ -1,0 +1,4 @@
+name,label,type,uniq,summaryfield,fieldgroup
+ip,IP地址,text,true,true,Basic
+iptype,类型,objectref-iptype,,true,Basic
+sn,机器SN,text,,true,Basic

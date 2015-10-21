@@ -1,0 +1,6 @@
+name,label,type,uniq,summaryfield,fieldgroup
+domain,域名,text,true,true,Basic
+record,记录值,text,,true,Basic
+contact1,第一联系人,objectref-人员,,true,Basic
+contact2,第二联系人,objectref-人员,,true,Basic
+product,产品线,objectref-产品线,,true,Basic
