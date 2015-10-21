@@ -21,7 +21,7 @@ function run()
 	for csv in `ls $inputDir/$objectGroup |grep ".csv"`;do
 		objectName=`echo $csv |cut -f1 -d'.'`
 	echo -e "\t<object-type name=\"$objectName\">"
-		cat $inputDir/$objectGroup/$csv |iconv -f gbk -t utf-8 |sed '1d' > $tmpfile
+		cat $inputDir/$objectGroup/$csv |iconv -f gbk -t utf-8 |sed '1d' |sort -k6 -t',' > $tmpfile
 		fieldGroup=`cat $tmpfile | cut -f6 -d',' |head -n 1`
 		echo -e "\t\t<fields>"
 		echo -e "\t\t\t<fieldgroup name=\"$fieldGroup\">"

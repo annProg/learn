@@ -11,7 +11,7 @@
 dir="cmdb_object_csv"
 tmpfile=dot.file.tmp
 
-echo -e "digraph cmdb {\n rankdir=TB;"
+echo -e "digraph cmdb {\n label=\"CMDB对象定义图示\"; \nfontsize=25;\n rankdir=TB;"
 
 function func1()
 {
@@ -38,7 +38,7 @@ function func1()
 function func2()
 {
 	for id in `ls $dir`;do
-		echo -e "    subgraph cluster_$id {\n         label=\"$id\";"
+		echo -e "    subgraph cluster_$id {\n         label=\"$id\";\nfontsize=20;\nfontcolor=gray7;\n"
 		for file in `ls $dir/$id`;do
 			object=`echo $file |cut -f1 -d'.'`
 			#node_object="    \"$object\" [color=\"skyblue\", shape=\"record\", label=\"{$object"

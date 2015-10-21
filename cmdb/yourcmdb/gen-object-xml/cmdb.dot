@@ -1,7 +1,12 @@
 digraph cmdb {
+ label="CMDB对象定义图示"; 
+fontsize=25;
  rankdir=TB;
     subgraph cluster_配置 {
          label="配置";
+fontsize=20;
+fontcolor=gray7;
+
         "iptype" [color="skyblue", shape="plaintext", label=<<table border="0" cellborder="1" cellspacing="0" align="left"><tr><td bgcolor="skyblue">iptype</td></tr><tr><td port="ip-type">IP类型</td></tr></table>>];
         "产品线" [color="skyblue", shape="plaintext", label=<<table border="0" cellborder="1" cellspacing="0" align="left"><tr><td bgcolor="skyblue">产品线</td></tr><tr><td port="conf-productline-l1">一级产品线</td></tr><tr><td port="conf-productline-l2">二级产品线</td></tr><tr><td port="conf-productline-l3">三级产品线</td></tr><tr><td port="conf-productline-extra">备注</td></tr></table>>];
         "方法" [color="skyblue", shape="plaintext", label=<<table border="0" cellborder="1" cellspacing="0" align="left"><tr><td bgcolor="skyblue">方法</td></tr><tr><td port="http-requestmethod">方法</td></tr></table>>];
@@ -11,12 +16,18 @@ digraph cmdb {
 }
     subgraph cluster_软件资源 {
          label="软件资源";
+fontsize=20;
+fontcolor=gray7;
+
         "API" [color="skyblue", shape="plaintext", label=<<table border="0" cellborder="1" cellspacing="0" align="left"><tr><td bgcolor="skyblue">API</td></tr><tr><td port="api-base">域名</td></tr><tr><td port="api-location">Location</td></tr><tr><td port="api-productline">产品线</td></tr><tr><td port="api-function">功能</td></tr><tr><td port="api-comment">备注</td></tr><tr><td port="api-method">请求方法</td></tr><tr><td port="api-params">参数拼接</td></tr><tr><td port="api-data">数据提交</td></tr><tr><td port="api-response">期望返回状态码</td></tr><tr><td port="api-expect">期望返回数据</td></tr></table>>];
         "Docker" [color="skyblue", shape="plaintext", label=<<table border="0" cellborder="1" cellspacing="0" align="left"><tr><td bgcolor="skyblue">Docker</td></tr><tr><td port="conf-staff-name">姓名</td></tr><tr><td port="conf-staff-email">邮件</td></tr><tr><td port="conf-staff-phone">电话</td></tr><tr><td port="conf-staff-qq">QQ</td></tr><tr><td port="conf-staff-title">职位</td></tr><tr><td port="conf-staff-birth">生日</td></tr></table>>];
         "Puppet" [color="skyblue", shape="plaintext", label=<<table border="0" cellborder="1" cellspacing="0" align="left"><tr><td bgcolor="skyblue">Puppet</td></tr><tr><td port="conf-productline">产品线</td></tr></table>>];
 }
     subgraph cluster_资产 {
          label="资产";
+fontsize=20;
+fontcolor=gray7;
+
         "IP":iptype -> "iptype" [color="blue",side="l"];
         "IP" [color="skyblue", shape="plaintext", label=<<table border="0" cellborder="1" cellspacing="0" align="left"><tr><td bgcolor="skyblue">IP</td></tr><tr><td port="ip">IP地址</td></tr><tr><td port="iptype">类型</td></tr><tr><td port="sn">机器SN</td></tr></table>>];
         "服务器":administrator -> "人员" [color="blue",side="l"];
