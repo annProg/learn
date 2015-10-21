@@ -1,2 +1,3 @@
 name,label,type,uniq,summaryfield,fieldgroup
-server-role,服务器角色,text,true,true,Basic
+role,服务器角色,text,TRUE,TRUE,Basic
+comment,备注,textarea,,TRUE,Extend

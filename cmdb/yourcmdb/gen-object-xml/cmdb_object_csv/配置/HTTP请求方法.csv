@@ -1,2 +1,2 @@
 name,label,type,uniq,summaryfield,fieldgroup
-http-requestmethod,方法,text,,true,方法
+method,方法,text,TRUE,TRUE,Basic

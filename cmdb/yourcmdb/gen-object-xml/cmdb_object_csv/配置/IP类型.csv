@@ -1,2 +1,2 @@
 name,label,type,uniq,summaryfield,fieldgroup
-ip-type,IP类型,text,true,true,Basic
+iptype,IP类型,text,TRUE,TRUE,Basic

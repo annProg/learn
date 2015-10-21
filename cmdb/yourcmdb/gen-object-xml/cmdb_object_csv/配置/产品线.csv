@@ -1,5 +1,6 @@
 name,label,type,uniq,summaryfield,fieldgroup
-conf-productline-l1,一级产品线,text,true,true,产品线
-conf-productline-l2,二级产品线,text,,true,产品线
-conf-productline-l3,三级产品线,text,,true,产品线
-conf-productline-extra,备注,text,,true,产品线
+level1,一级产品线,text,,TRUE,Basic
+level2,二级产品线,text,,TRUE,Basic
+level3,三级产品线,text,,TRUE,Basic
+level4,四级产品线,text,,TRUE,Basic
+comment,备注,textarea,,TRUE,Extend
