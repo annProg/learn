@@ -1,2 +1,0 @@
-name,label,type,uniq,summaryfield,fieldgroup
-product,产品线,objectref-产品线,,TRUE,Basic

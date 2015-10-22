@@ -1,5 +1,0 @@
-name,label,type,uniq,summaryfield,fieldgroup
-idc,机房名称,text,TRUE,TRUE,Basic
-address,机房地址,text,,TRUE,Basic
-contact,机房联系方式,text,,TRUE,Extend
-comment,机房备注,textarea,,TRUE,Extend

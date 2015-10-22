@@ -1,0 +1,12 @@
+name,label,type,uniq,summaryfield,fieldgroup
+domain,域名,text,,TRUE,Basic
+location,Location,text,,TRUE,Basic
+product,产品线,objectref-产品线,,TRUE,Basic
+comment,备注,textarea,,FALSE,Extend
+method,请求方法,objectref-HTTP请求方法,,TRUE,Monitor
+param,参数拼接(GET),text,,TRUE,Monitor
+data,数据提交(POST/PUT),text,,TRUE,Monitor
+responsecode,期望返回状态码,text,,TRUE,Monitor
+responsedata,期望返回数据,text,,TRUE,Monitor
+alertemail,告警联系邮箱(逗号分隔),text,,,Monitor
+alertphone,告警联系手机(逗号分隔),text,,,Monitor

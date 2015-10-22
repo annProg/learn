@@ -1,4 +1,0 @@
-name,label,type,uniq,summaryfield,fieldgroup
-ip,IP地址,text,TRUE,TRUE,Basic
-iptype,类型,objectref-IP类型,,TRUE,Basic
-sn,机器SN,text,,TRUE,Basic

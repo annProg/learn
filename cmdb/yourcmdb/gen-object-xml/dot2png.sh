@@ -8,5 +8,6 @@
 # Created Time: 2015-10-21 14:04:20
 ############################
 
-./csv2dot.sh > cmdb.dot
+./csv2dot.sh
 dot -Tpng cmdb.dot -o cmdb.png
+dot -Tpng cmdb_gen.dot -o cmdb_gen.png

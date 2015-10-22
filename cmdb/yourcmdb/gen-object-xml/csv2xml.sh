@@ -8,9 +8,8 @@
  
 [ $# -lt 1 ] && echo "args error" && exit 1
 
-csvFile=$1
-inputDir="cmdb_object_csv"
-outputDir="cmdb_object_xml"
+inputDir=$1
+outputDir="object_xml_cmdb"
 tmpfile=csv.file.tmp
 
 [ ! -d $outputDir ] && mkdir $outputDir
@@ -21,7 +20,11 @@ function run()
 	for csv in `ls $inputDir/$objectGroup |grep ".csv"`;do
 		objectName=`echo $csv |cut -f1 -d'.'`
 	echo -e "\t<object-type name=\"$objectName\">"
-		cat $inputDir/$objectGroup/$csv |iconv -f gbk -t utf-8 |sed '1d' |sort -k6 -t',' > $tmpfile
+		cat $inputDir/$objectGroup/$csv |iconv -f gbk -t utf-8 |sed '1d' > $tmpfile
+		# 排序之后会导致xml中的fields顺序和csv不一致，前端按照xml展示时顺序不符合常规认知
+		# 又: 实测同一fieldgroup中的field可以不写在一起，及可以有多个同名的fieldgroup段
+		# 因此 取消排序
+		#cat $inputDir/$objectGroup/$csv |iconv -f gbk -t utf-8 |sed '1d' |sort -k6 -t',' > $tmpfile
 		fieldGroup=`cat $tmpfile | cut -f6 -d',' |head -n 1`
 		echo -e "\t\t<fields>"
 		echo -e "\t\t\t<fieldgroup name=\"$fieldGroup\">"
@@ -35,8 +38,8 @@ function run()
 			name=`echo $line | cut -f1 -d','`
 			label=`echo $line | cut -f2 -d','`
 			ftype=`echo $line | cut -f3 -d','`
-			funiq=`echo $line | cut -f4 -d','`
-			summaryfield=`echo $line | cut -f5 -d','`
+			funiq=`echo $line | cut -f4 -d',' |tr -s '[A-Z]' '[a-z]'`
+			summaryfield=`echo $line | cut -f5 -d',' | tr -s '[A-Z]' '[a-z]'`
 			echo -e "\t\t\t\t<field name=\"$name\" label=\"$label\" type=\"$ftype\" uniq=\"$funiq\" summaryfield=\"$summaryfield\" />"
 			
 		done <$tmpfile

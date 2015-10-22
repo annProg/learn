@@ -1,0 +1,93 @@
+<group name="配置">
+	<object-type name="HTTP请求方法">
+		<fields>
+			<fieldgroup name="Basic">
+				<field name="method" label="方法" type="text" uniq="true" summaryfield="true" />
+			</fieldgroup>
+		</fields>
+	</object-type>
+	<object-type name="IP类型">
+		<fields>
+			<fieldgroup name="Basic">
+				<field name="iptype" label="IP类型" type="text" uniq="true" summaryfield="true" />
+			</fieldgroup>
+		</fields>
+	</object-type>
+	<object-type name="ISP">
+		<fields>
+			<fieldgroup name="Basic">
+				<field name="isp" label="运营商名称" type="text" uniq="true" summaryfield="true" />
+			</fieldgroup>
+			<fieldgroup name="Extend">
+				<field name="comment" label="备注" type="textarea" uniq="" summaryfield="" />
+			</fieldgroup>
+		</fields>
+	</object-type>
+	<object-type name="部门">
+		<fields>
+			<fieldgroup name="Basic">
+				<field name="level1" label="一级部门" type="text" uniq="true" summaryfield="true" />
+				<field name="level2" label="二级部门" type="text" uniq="" summaryfield="true" />
+				<field name="level3" label="三级部门" type="text" uniq="" summaryfield="true" />
+			</fieldgroup>
+		</fields>
+	</object-type>
+	<object-type name="产品线">
+		<fields>
+			<fieldgroup name="Basic">
+				<field name="level1" label="一级产品线" type="text" uniq="" summaryfield="true" />
+				<field name="level2" label="二级产品线" type="text" uniq="" summaryfield="true" />
+				<field name="level3" label="三级产品线" type="text" uniq="" summaryfield="true" />
+				<field name="level4" label="四级产品线" type="text" uniq="" summaryfield="true" />
+			</fieldgroup>
+			<fieldgroup name="Extend">
+				<field name="comment" label="备注" type="textarea" uniq="" summaryfield="true" />
+			</fieldgroup>
+		</fields>
+	</object-type>
+	<object-type name="服务器角色">
+		<fields>
+			<fieldgroup name="Basic">
+				<field name="role" label="服务器角色" type="text" uniq="true" summaryfield="true" />
+			</fieldgroup>
+			<fieldgroup name="Extend">
+				<field name="comment" label="备注" type="textarea" uniq="" summaryfield="true" />
+			</fieldgroup>
+		</fields>
+	</object-type>
+	<object-type name="机房">
+		<fields>
+			<fieldgroup name="Basic">
+				<field name="idc" label="机房名称" type="text" uniq="true" summaryfield="true" />
+				<field name="address" label="机房地址" type="text" uniq="" summaryfield="true" />
+			</fieldgroup>
+			<fieldgroup name="Extend">
+				<field name="contact" label="机房联系方式" type="text" uniq="" summaryfield="true" />
+				<field name="comment" label="备注" type="textarea" uniq="" summaryfield="true" />
+			</fieldgroup>
+		</fields>
+	</object-type>
+	<object-type name="人员">
+		<fields>
+			<fieldgroup name="Basic">
+				<field name="staff" label="用户名(邮箱前缀)" type="text" uniq="true" summaryfield="true" />
+				<field name="name" label="姓名" type="text" uniq="" summaryfield="true" />
+				<field name="email" label="邮件" type="text" uniq="true" summaryfield="true" />
+				<field name="phone" label="电话" type="text" uniq="" summaryfield="false" />
+			</fieldgroup>
+			<fieldgroup name="Extend">
+				<field name="qq" label="QQ" type="text" uniq="" summaryfield="false" />
+				<field name="birth" label="生日" type="text" uniq="" summaryfield="false" />
+				<field name="depart" label="部门" type="objectref-部门" uniq="" summaryfield="false" />
+				<field name="title" label="职位" type="text" uniq="" summaryfield="false" />
+			</fieldgroup>
+		</fields>
+	</object-type>
+	<object-type name="状态">
+		<fields>
+			<fieldgroup name="Basic">
+				<field name="status" label="状态" type="text" uniq="true" summaryfield="true" />
+			</fieldgroup>
+		</fields>
+	</object-type>
+</group>

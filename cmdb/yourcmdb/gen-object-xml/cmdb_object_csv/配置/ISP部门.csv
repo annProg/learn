@@ -1,4 +1,0 @@
-name,label,type,uniq,summaryfield,fieldgroup
-level1,一级部门,text,TRUE,TRUE,Basic
-level2,二级部门,text,,TRUE,Basic
-level3,三级部门,text,,TRUE,Basic

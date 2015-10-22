@@ -1,0 +1,36 @@
+<group name="软件资源">
+	<object-type name="API">
+		<fields>
+			<fieldgroup name="Basic">
+				<field name="domain" label="域名" type="text" uniq="" summaryfield="true" />
+				<field name="location" label="Location" type="text" uniq="" summaryfield="true" />
+				<field name="product" label="产品线" type="objectref-产品线" uniq="" summaryfield="true" />
+			</fieldgroup>
+			<fieldgroup name="Extend">
+				<field name="comment" label="备注" type="textarea" uniq="" summaryfield="false" />
+			</fieldgroup>
+			<fieldgroup name="Monitor">
+				<field name="method" label="请求方法" type="objectref-HTTP请求方法" uniq="" summaryfield="true" />
+				<field name="param" label="参数拼接(GET)" type="text" uniq="" summaryfield="true" />
+				<field name="data" label="数据提交(POST/PUT)" type="text" uniq="" summaryfield="true" />
+				<field name="responsecode" label="期望返回状态码" type="text" uniq="" summaryfield="true" />
+				<field name="responsedata" label="期望返回数据" type="text" uniq="" summaryfield="true" />
+				<field name="alertemail" label="告警联系邮箱(逗号分隔)" type="text" uniq="" summaryfield="" />
+				<field name="alertphone" label="告警联系手机(逗号分隔)" type="text" uniq="" summaryfield="" />
+			</fieldgroup>
+		</fields>
+	</object-type>
+	<object-type name="Docker">
+		<fields>
+			<fieldgroup name="">
+			</fieldgroup>
+		</fields>
+	</object-type>
+	<object-type name="Puppet">
+		<fields>
+			<fieldgroup name="Basic">
+				<field name="product" label="产品线" type="objectref-产品线" uniq="" summaryfield="true" />
+			</fieldgroup>
+		</fields>
+	</object-type>
+</group>

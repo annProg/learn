@@ -8,19 +8,19 @@
 # Created Time: 2015-10-21 13:22:57
 ############################
 
-dir="cmdb_object_csv"
+dir="object_csv_cmdb"
 tmpfile=dot.file.tmp
-
-echo -e "digraph cmdb {\n label=\"CMDB对象定义图示\"; \nfontsize=25;\n rankdir=TB;"
 
 function func1()
 {
+	echo -e "digraph cmdb {\n label=\"CMDB对象定义图示\"; \nfontsize=25;\n rankdir=TB;"
 	for id in `ls $dir`;do
+		echo -e "    subgraph cluster_$id {\n label=\"$id\";\n style=\"dotted\";\n"
 		for file in `ls $dir/$id`;do
 			object=`echo $file |cut -f1 -d'.'`
-			echo "    subgraph cluster_$object {"
 			echo "    \"$object\" [shape=\"doublecircle\", color=\"gray\", style=\"filled\", fillcolor=\"yellow\"];"
-			cat $dir/$id/$file |sed '1d' |while read line;do
+			cat $dir/$id/$file |sed '1d' |iconv -f gbk -t utf-8 >$tmpfile
+			while read line;do
 				name="$object_`echo $line |cut -f1 -d','`"
 				name=${object}"_"${name}
 				label=`echo $line |cut -f2 -d','`
@@ -28,17 +28,18 @@ function func1()
 				echo "        \"$name\" [label=\"$label\", shape=\"record\"];"
 				echo "        \"$object\" -> \"$name\";"
 				[ "$link"x != ""x ] && echo "        \"$name\" -> \"$link\" [color=\"blue\",side=\"l\"];"
-			done
-			echo "    }"
+			done <$tmpfile
 		done
+		echo "}"
 	done
 	echo "}"
 }
 
 function func2()
 {
+	echo -e "digraph cmdb {\n label=\"CMDB对象定义图示\"; \nfontsize=25;\n rankdir=TB;"
 	for id in `ls $dir`;do
-		echo -e "    subgraph cluster_$id {\n         label=\"$id\";\nfontsize=20;\nfontcolor=gray7;\n"
+		echo -e "    subgraph cluster_$id {\n         label=\"$id\";\nfontsize=20;\nfontcolor=gray7;\n style=\"rounded\";\n"
 		for file in `ls $dir/$id`;do
 			object=`echo $file |cut -f1 -d'.'`
 			#node_object="    \"$object\" [color=\"skyblue\", shape=\"record\", label=\"{$object"
@@ -62,4 +63,5 @@ function func2()
 	rm -f $tmpfile
 }
 
-func2
+func1 >cmdb_gen.dot
+func2 >cmdb.dot

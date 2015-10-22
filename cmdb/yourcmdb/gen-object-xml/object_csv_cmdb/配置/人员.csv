@@ -1,0 +1,9 @@
+name,label,type,uniq,summaryfield,fieldgroup
+staff,用户名(邮箱前缀),text,TRUE,TRUE,Basic
+name,姓名,text,,TRUE,Basic
+email,邮件,text,TRUE,TRUE,Basic
+phone,电话,text,,FALSE,Basic
+qq,QQ,text,,FALSE,Extend
+birth,生日,text,,FALSE,Extend
+depart,部门,objectref-部门,,FALSE,Extend
+title,职位,text,,FALSE,Extend

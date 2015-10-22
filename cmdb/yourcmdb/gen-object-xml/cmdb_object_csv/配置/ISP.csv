@@ -1,3 +1,0 @@
-name,label,type,uniq,summaryfield,fieldgroup
-isp,运营商名称,text,TRUE,TRUE,Basic
-comment,备注,textarea,,,Extend
