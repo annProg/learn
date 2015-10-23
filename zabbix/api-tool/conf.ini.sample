@@ -1,0 +1,8 @@
+[login]
+url = http://repo.annhe.net/zabbix/api_jsonrpc.php
+user = admin
+passwd = zabbix
+
+[auth]
+token = 800d45ef6305dee6479d5f06174928de
+
