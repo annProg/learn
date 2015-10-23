@@ -32,7 +32,7 @@ def SimpleGet(method,params):
 		"method": method + ".get",
 		"params":params,
 		"auth":token,
-		"id":1,
+		"id":10,
 	})
 
 	try:
@@ -48,14 +48,16 @@ if __name__ == '__main__':
 	result = {}
 	for grpid in data:
 		gid = grpid['usrgrpid']
-		params = {"usrgrpids":gid,"output":["userid","alias"]}
-		users = SimpleGet("user", params)
-		grpid['user'] = users
-		for user in users:
-			uid = user['userid']
-			params = {"userids":uid,"output":["mediatypeid","sendto"]}
-			medias = SimpleGet("usermedia", params)
-			grpid['media'] = medias
+		params = {"usrgrpids":gid,"output":["mediatypeid","sendto"]}
+		medias = SimpleGet("usermedia", params)
+		newmedia = {}
+
+		for media in medias:
+			#newmedia['add'] += media['sendto']
+			newmedia=media.copy()
+			newmedia.update(media)
+			#grpid['media'] = newmedia
+		grpid['media'] = medias
 		print(json.dumps(grpid,indent=1))
 
 	'''
