@@ -10,15 +10,12 @@
 ############################
 
 import json
+import collections
+a={"key":"hean"}
+b={"key":"liuyuan"}
 
-data = json.dumps(
-		{
-			"id":"1",
-			"value":"监控",
+c = {}
+for k,v in a.items():
+	c[k]=a[k] +"," + b[k]
+print(c)
 
-		}		
-)
-
-print(data)
-print(json.loads(data))
-print(json.loads(data)['value'])

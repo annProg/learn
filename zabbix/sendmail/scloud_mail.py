@@ -148,7 +148,7 @@ def send_mail(to_list,sub,content,cc=mailcc_list,att_file = '',img = ''):
 	body = MIMEText(content,_subtype='html',_charset='utf8')
 	msg.attach(body)
 
-	msg['From'] = mail_user + "@" + mail_postfix
+	msg['From'] = mail_user + "<" + mail_user + "@" + mail_postfix + ">"
 	msg['To'] = ";".join(to_list)
 	msg['Cc'] = ";".join(cc)
 
