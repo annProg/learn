@@ -38,11 +38,14 @@ def apiRun(method,params):
 		"id":id,
 	})
 
-	print(data)
 	#try:
 	r = requests.get(url, data=data, headers=header)
-	print(json.loads(r.text))
-	return(json.loads(r.text)['result'])
+	#print(json.loads(r.text))
+	rjson = json.loads(r.text)
+	if "result" in rjson.keys():
+		return(rjson['result'])
+	else:
+		return(False)
 	#except:
 	#	print("run" + params + "Failed")
 
@@ -82,7 +85,6 @@ if __name__ == '__main__':
 			user_medias.append(mediaitem)
 		params = {"alias":grpid['name'],"passwd":password,"usrgrps":[{"usrgrpid":"76"}],"user_medias":user_medias}
 		apiRun("user.create", params)
-		print(params)
 '''
 
 	usermedias = getUserMediaList()
