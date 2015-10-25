@@ -26,6 +26,7 @@ mail_postfix=config.get("mailserver", "postfix")
 mailto_list=config.get("send", "mailto_list").split(",")
 mailcc_list=config.get("send", "mailcc_list").split(",")
 
+toaddrs = mailto_list + mailcc_list
 
 log="/tmp/sendmail.log"
 
@@ -53,7 +54,7 @@ def send_mail(to_list,sub,content):
 		s = smtplib.SMTP()
 		s.connect(mail_host)
 		s.login(mail_user,mail_pass)
-		s.sendmail(address, to_list, msg.as_string())
+		s.sendmail(address, toaddrs, msg.as_string())
 		s.close()
 		
 		maillog("success", to_list, sub)
