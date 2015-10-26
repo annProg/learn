@@ -23,7 +23,8 @@ def getOperations(type, esc_period, esc_step_from, esc_step_to, userids, default
 		"esc_step_to": esc_step_to,
 		"evaltype": "0",
 		"opmessage_usr": userids,
-		"opmessage": {"default_msg": default_msg, "mediatypeid": mediatypeid}
+		"opmessage": {"default_msg": default_msg, "mediatypeid": mediatypeid},
+		"opconditions": [{"conditiontype": "14","value": "0","operator": "0"}]
 	}
 	return(operation)
 
@@ -44,15 +45,20 @@ def getGrpName(grpid):
 	else:
 		return(False)
 
+def rollBack():
+	f = open('action_indent.bak', 'r')
+	params = json.load(f)
+	#print(params)
+	data = apiRun("action.update", params)
+	print(data)
+
+def getBackup():
+	params = {"selectOperations": "extend"}
+	data = apiRun("action.get", params)
+	with open("action_indent.bak", "a+") as f:
+		f.write(json.dumps(data, indent=1))
+
 if __name__ == '__main__':
-	'''
-	if  sys.argv[1] == "load":
-		params = {"selectOperations": "extend"}
-		data = apiRun("action.get", params)
-		with open("action_indent.bak", "a+") as f:
-			f.write(json.dumps(data, indent=1))
-		exit(0)
-	'''
 	#params = {"output":"extend"}
 	params = {"selectOperations": "extend"}
 	data = apiRun("action.get", params)
@@ -81,7 +87,8 @@ if __name__ == '__main__':
 		params = getParams(actionid, operations, name)
 		print("")
 		
-		done = ["3", "4", "5", "6", "9", "11", "13"]
+		done = []
+		#done = ["3", "4", "5", "6", "9", "11", "13"]
 		if actionid in done:
 			continue
 		data = apiRun("action.update", params)

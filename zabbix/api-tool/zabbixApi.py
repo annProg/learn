@@ -42,6 +42,7 @@ def apiRun(method,params):
 	r = requests.get(url, data=data, headers=header)
 	#print(json.loads(r.text))
 	rjson = json.loads(r.text)
+	#print(rjson)
 	if "result" in rjson.keys():
 		return(rjson['result'])
 	else:

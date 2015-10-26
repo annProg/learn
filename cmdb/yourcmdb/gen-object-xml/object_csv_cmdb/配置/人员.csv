@@ -7,3 +7,4 @@ qq,QQ,text,,FALSE,Extend
 birth,生日,text,,FALSE,Extend
 depart,部门,objectref-部门,,FALSE,Extend
 title,职位,text,,FALSE,Extend
+pgppub,PGP公钥,text,,FALSE,Extend

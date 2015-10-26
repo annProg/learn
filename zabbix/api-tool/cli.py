@@ -38,11 +38,16 @@ def apiRun(method,params):
 		"id":id,
 	})
 
-	try:
-		r = requests.get(url, data=data, headers=header)
-		return(json.loads(r.text)['result'])
-	except:
-		print("run" + params + "Failed")
+	#try:
+	r = requests.get(url, data=data, headers=header)
+	#print(json.loads(r.text))
+	rjson = json.loads(r.text)
+	if "result" in rjson.keys():
+		return(rjson['result'])
+	else:
+		return(False)
+	#except:
+	#	print("run" + params + "Failed")
 
 if __name__ == '__main__':
 	params = {"output":"mediatypeid"}
@@ -70,9 +75,7 @@ if __name__ == '__main__':
 		password = GenPassword(14)
 		user_medias = []
 		for k,v in tmp.items():
-			print(v)
 			sendto = ",".join(v)
-			sendto = sendto.replace("@letv.com", "")
 			if k=="4":
 				continue
 			if k=="1":
@@ -82,7 +85,6 @@ if __name__ == '__main__':
 			user_medias.append(mediaitem)
 		params = {"alias":grpid['name'],"passwd":password,"usrgrps":[{"usrgrpid":"76"}],"user_medias":user_medias}
 		apiRun("user.create", params)
-		print(params)
 '''
 
 	usermedias = getUserMediaList()

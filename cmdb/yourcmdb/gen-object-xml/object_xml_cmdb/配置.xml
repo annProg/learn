@@ -19,7 +19,7 @@
 				<field name="isp" label="运营商名称" type="text" uniq="true" summaryfield="true" />
 			</fieldgroup>
 			<fieldgroup name="Extend">
-				<field name="comment" label="备注" type="textarea" uniq="" summaryfield="" />
+				<field name="comment" label="备注" type="textarea" uniq="" summaryfield="true" />
 			</fieldgroup>
 		</fields>
 	</object-type>
@@ -80,6 +80,7 @@
 				<field name="birth" label="生日" type="text" uniq="" summaryfield="false" />
 				<field name="depart" label="部门" type="objectref-部门" uniq="" summaryfield="false" />
 				<field name="title" label="职位" type="text" uniq="" summaryfield="false" />
+				<field name="pgppub" label="PGP公钥" type="text" uniq="" summaryfield="false" />
 			</fieldgroup>
 		</fields>
 	</object-type>
