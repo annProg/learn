@@ -39,7 +39,9 @@ function func2()
 {
 	echo -e "digraph cmdb {\n label=\"CMDB对象定义图示\"; \nfontsize=25;\n rankdir=TB;"
 	for id in `ls $dir`;do
-		echo -e "    subgraph cluster_$id {\n         label=\"$id\";\nfontsize=20;\nfontcolor=gray7;\n style=\"rounded\";\n"
+		if [ "$1"x == "sub"x ];then
+			echo -e "    subgraph cluster_$id {\n         label=\"$id\";\nfontsize=20;\nfontcolor=gray7;\n style=\"rounded\";\n"
+		fi
 		for file in `ls $dir/$id`;do
 			object=`echo $file |cut -f1 -d'.'`
 			#node_object="    \"$object\" [color=\"skyblue\", shape=\"record\", label=\"{$object"
@@ -57,11 +59,14 @@ function func2()
 			node_object=${node_object}"</table>>];"
 			echo  "    $node_object"
 		done
-		echo "}"
+		if [ "$1"x == "sub"x ];then
+			echo "}"
+		fi
 	done
 	echo "}"
 	rm -f $tmpfile
 }
 
 func1 >cmdb_gen.dot
-func2 >cmdb.dot
+func2 sub >cmdb.dot
+func2 >cmdb_nosub.dot

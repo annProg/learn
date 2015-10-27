@@ -41,6 +41,7 @@
 				<field name="level4" label="四级产品线" type="text" uniq="" summaryfield="true" />
 			</fieldgroup>
 			<fieldgroup name="Extend">
+				<field name="contact" label="负责人" type="objectref-人员" uniq="" summaryfield="" />
 				<field name="comment" label="备注" type="textarea" uniq="" summaryfield="true" />
 			</fieldgroup>
 		</fields>

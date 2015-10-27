@@ -2,12 +2,6 @@ digraph cmdb {
  label="CMDB对象定义图示"; 
 fontsize=25;
  rankdir=TB;
-    subgraph cluster_配置 {
-         label="配置";
-fontsize=20;
-fontcolor=gray7;
- style="rounded";
-
         "HTTP请求方法" [color="skyblue", shape="plaintext", label=<<table border="0" cellborder="1" cellspacing="0" align="left"><tr><td bgcolor="skyblue">HTTP请求方法</td></tr><tr><td port="method">方法</td></tr></table>>];
         "IP类型" [color="skyblue", shape="plaintext", label=<<table border="0" cellborder="1" cellspacing="0" align="left"><tr><td bgcolor="skyblue">IP类型</td></tr><tr><td port="iptype">IP类型</td></tr></table>>];
         "ISP" [color="skyblue", shape="plaintext", label=<<table border="0" cellborder="1" cellspacing="0" align="left"><tr><td bgcolor="skyblue">ISP</td></tr><tr><td port="isp">运营商名称</td></tr><tr><td port="comment">备注</td></tr></table>>];
@@ -19,26 +13,12 @@ fontcolor=gray7;
         "人员":depart -> "部门" [color="blue",side="l"];
         "人员" [color="skyblue", shape="plaintext", label=<<table border="0" cellborder="1" cellspacing="0" align="left"><tr><td bgcolor="skyblue">人员</td></tr><tr><td port="staff">用户名(邮箱前缀)</td></tr><tr><td port="name">姓名</td></tr><tr><td port="email">邮件</td></tr><tr><td port="phone">电话</td></tr><tr><td port="qq">QQ</td></tr><tr><td port="birth">生日</td></tr><tr><td port="depart">部门</td></tr><tr><td port="title">职位</td></tr><tr><td port="pgppub">PGP公钥</td></tr></table>>];
         "状态" [color="skyblue", shape="plaintext", label=<<table border="0" cellborder="1" cellspacing="0" align="left"><tr><td bgcolor="skyblue">状态</td></tr><tr><td port="status">状态</td></tr></table>>];
-}
-    subgraph cluster_软件资源 {
-         label="软件资源";
-fontsize=20;
-fontcolor=gray7;
- style="rounded";
-
         "API":product -> "产品线" [color="blue",side="l"];
         "API":method -> "HTTP请求方法" [color="blue",side="l"];
         "API" [color="skyblue", shape="plaintext", label=<<table border="0" cellborder="1" cellspacing="0" align="left"><tr><td bgcolor="skyblue">API</td></tr><tr><td port="domain">域名</td></tr><tr><td port="location">Location</td></tr><tr><td port="product">产品线</td></tr><tr><td port="comment">备注</td></tr><tr><td port="method">请求方法</td></tr><tr><td port="param">参数拼接(GET)</td></tr><tr><td port="data">数据提交(POST/PUT)</td></tr><tr><td port="responsecode">期望返回状态码</td></tr><tr><td port="responsedata">期望返回数据</td></tr><tr><td port="alertemail">告警联系邮箱(逗号分隔)</td></tr><tr><td port="alertphone">告警联系手机(逗号分隔)</td></tr></table>>];
         "Docker" [color="skyblue", shape="plaintext", label=<<table border="0" cellborder="1" cellspacing="0" align="left"><tr><td bgcolor="skyblue">Docker</td></tr></table>>];
         "Puppet":product -> "产品线" [color="blue",side="l"];
         "Puppet" [color="skyblue", shape="plaintext", label=<<table border="0" cellborder="1" cellspacing="0" align="left"><tr><td bgcolor="skyblue">Puppet</td></tr><tr><td port="product">产品线</td></tr></table>>];
-}
-    subgraph cluster_资产 {
-         label="资产";
-fontsize=20;
-fontcolor=gray7;
- style="rounded";
-
         "IP":iptype -> "IP类型" [color="blue",side="l"];
         "IP" [color="skyblue", shape="plaintext", label=<<table border="0" cellborder="1" cellspacing="0" align="left"><tr><td bgcolor="skyblue">IP</td></tr><tr><td port="ip">IP地址</td></tr><tr><td port="iptype">类型</td></tr><tr><td port="sn">机器SN</td></tr></table>>];
         "服务器":administrator -> "人员" [color="blue",side="l"];
@@ -51,5 +31,4 @@ fontcolor=gray7;
         "域名":contact2 -> "人员" [color="blue",side="l"];
         "域名":product -> "产品线" [color="blue",side="l"];
         "域名" [color="skyblue", shape="plaintext", label=<<table border="0" cellborder="1" cellspacing="0" align="left"><tr><td bgcolor="skyblue">域名</td></tr><tr><td port="domain">域名</td></tr><tr><td port="record">记录值</td></tr><tr><td port="contact1">第一联系人</td></tr><tr><td port="contact2">第二联系人</td></tr><tr><td port="product">产品线</td></tr><tr><td port="comment">备注</td></tr></table>>];
-}
 }
