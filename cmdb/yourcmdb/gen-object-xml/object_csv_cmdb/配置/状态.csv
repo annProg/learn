@@ -1,2 +1,4 @@
 name,label,type,uniq,summaryfield,fieldgroup
-status,×´Ì¬,text,TRUE,TRUE,Basic
+status,×´Ì¬Ãû³Æ,text,TRUE,TRUE,Basic
+code,×´Ì¬´úÂë,text,TRUE,TRUE,Basic
+comment,±¸×¢,textarea,,,Extend

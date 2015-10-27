@@ -1,0 +1,6 @@
+name,label,type,uniq,summaryfield,fieldgroup
+name,业务名称,text,TRUE,TRUE,Basic
+code,业务代码,text,TRUE,TRUE,Basic
+corp,公司,objectref-公司,,TRUE,Basic
+contact,业务负责人,objectref-人员,,FALSE,Basic
+comment,备注,textarea,,FALSE,Extend

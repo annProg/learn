@@ -1,0 +1,4 @@
+name,label,type,uniq,summaryfield,fieldgroup
+name,Ãû³Æ,text,TRUE,TRUE,Basic
+code,´úÂë,text,TRUE,TRUE,Basic
+comment,±¸×¢,text,,TRUE,Basic

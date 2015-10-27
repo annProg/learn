@@ -1,4 +1,5 @@
 name,label,type,uniq,summaryfield,fieldgroup
-level1,一级部门,text,TRUE,TRUE,Basic
-level2,二级部门,text,,TRUE,Basic
-level3,三级部门,text,,TRUE,Basic
+corp,公司,objectref-公司,,TRUE,Basic
+name,部门名称,text,TRUE,TRUE,Basic
+code,部门代码,text,TRUE,TRUE,Basic
+comment,备注,textarea,,,Extend

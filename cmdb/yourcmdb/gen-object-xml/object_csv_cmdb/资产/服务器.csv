@@ -7,7 +7,7 @@ cpu,CPU,text,,TRUE,Basic
 ip,IP地址,text,,TRUE,Network
 hypervisor-ip,宿主机IP,text,,,Network
 administrator,管理员,objectref-人员,,TRUE,Configuration
-role,角色,objectref-服务器角色,,TRUE,Configuration
+cluster,集群,objectref-集群,,TRUE,Configuration
 status,状态,objectref-状态,,TRUE,Configuration
 location,机房,objectref-机房,,TRUE,Configuration
 isp,运营商,objectref-ISP,,TRUE,Configuration

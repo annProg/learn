@@ -9,13 +9,8 @@
 # Created Time: 2015-10-23 14:50:26
 ############################
 
+import zabbixApi
 import json
-import collections
-a={"key":"hean"}
-b={"key":"liuyuan"}
 
-c = {}
-for k,v in a.items():
-	c[k]=a[k] +"," + b[k]
-print(c)
-
+a = {"key":"v"}
+print(json.dumps(a))

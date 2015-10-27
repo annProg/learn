@@ -1,2 +1,3 @@
 name,label,type,uniq,summaryfield,fieldgroup
 iptype,IP类型,text,TRUE,TRUE,Basic
+code,类型代码,text,TRUE,TRUE,Basic

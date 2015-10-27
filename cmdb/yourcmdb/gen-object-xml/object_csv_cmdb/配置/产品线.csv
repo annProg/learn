@@ -1,7 +1,7 @@
 name,label,type,uniq,summaryfield,fieldgroup
-level1,一级产品线,text,,TRUE,Basic
-level2,二级产品线,text,,TRUE,Basic
-level3,三级产品线,text,,TRUE,Basic
-level4,四级产品线,text,,TRUE,Basic
+level1,公司,objectref-公司,,TRUE,Basic
+level2,部门,objectref-部门,,TRUE,Basic
+level3,业务,objectref-业务,,TRUE,Basic
+level4,产品,text,,TRUE,Basic
 contact,负责人,objectref-人员,,,Extend
 comment,备注,textarea,,TRUE,Extend

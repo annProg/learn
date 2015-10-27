@@ -38,17 +38,15 @@ def apiRun(method,params):
 		"id":id,
 	})
 
-	#try:
-	r = requests.get(url, data=data, headers=header)
-	#print(json.loads(r.text))
-	rjson = json.loads(r.text)
-	#print(rjson)
-	if "result" in rjson.keys():
+	try:
+		r = requests.get(url, data=data, headers=header)
+		#print(json.loads(r.text))
+		rjson = json.loads(r.text)
+		#print(rjson)
 		return(rjson['result'])
-	else:
-		return(False)
-	#except:
-	#	print("run" + params + "Failed")
+	except:
+		errMsg = json.dumps(params) + "Failed"
+		return(errMsg)
 
 if __name__ == '__main__':
 	params = {"output":"mediatypeid"}

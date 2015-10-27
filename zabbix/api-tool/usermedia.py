@@ -9,51 +9,57 @@
 # Created Time: 2015-10-23 11:15:33
 ############################
 
-import requests
+import zabbixApi
 import json
-import configparser
 import copy
 from rand import *
 
-ini = "conf.ini"
-config = configparser.ConfigParser()
-config.read(ini)
+mediatype = [{"id":"1", "type":"Email"}, {"id":"3", "type":"SMS"}, {"id":"4", "type":"emailScript"}]
+readgroup = ["76"]
+readmedia = ["4"]
 
-token = config.get("auth", "token")
-url = config.get("login", "url")
-
-header = {"Content-Type": "application/json"}
-
-# request data
-
-
-def apiRun(method,params):
-	id = GenDigit(4)
-	data = json.dumps(
-	{
-		"jsonrpc":"2.0",
-		"method": method,
-		"params":params,
-		"auth":token,
-		"id":id,
-	})
-
-	try:
-		r = requests.get(url, data=data, headers=header)
-		return(json.loads(r.text)['result'])
-	except:
-		print("run" + params + "Failed")
-
-if __name__ == '__main__':
+def getMediaTypes():
 	params = {"output":"mediatypeid"}
-	mediatypes = apiRun("mediatype.get", params)
-	newmedia = {}
-	for mediatype in mediatypes:
-		newmedia[mediatype['mediatypeid']] = []
+	mediatypes = zabbixApi.apiRun("mediatype.get", params)
+	return mediatypes
 
+def getUserGrps():
 	params = {"output":["usrgrpid","name"]}
-	data = apiRun("usergroup.get", params)
+	data = zabbixApi.apiRun("usergroup.get", params)
+	return(data)
+
+def getUserId(username):
+	params = {"output":["userid", "alias"],"filter":{"alias":username}}
+	data = zabbixApi.apiRun("user.get", params)
+	#print(data)
+	try:
+		return(data[0]['userid'])
+	except:
+		return(False)
+
+def getGrpMedias(grpid):
+	mediatypes = getMediaTypes()
+	newmedias = {}
+	for mediatype in mediatypes:
+		newmedias[mediatype['mediatypeid']] = []
 	
+	params = {"usrgrpids":grpid, "output":["mediatypeid", "sendto"]}
+	medias = zabbixApi.apiRun("usermedia.get", params)
+	try:
+		for media in medias:
+			newmedias[media['mediatypeid']].append(media['sendto'])
+		return(newmedias)
+	except:
+		return(False)
+	
+
+def updateMedias(userid, medias):
+	params = {"users":[{"userid":userid}],"medias":medias}
+	#print(params)
+	data = zabbixApi.apiRun("user.updatemedia", params)
+	return(data)
+
+def resetMedia():
 	for grpid in data:
 		tmp = copy.deepcopy(newmedia)
 		gid = grpid['usrgrpid']
@@ -63,10 +69,7 @@ if __name__ == '__main__':
 		for media in medias:
 			tmp[media['mediatypeid']].append(media['sendto'])
 		grpid['media'] = tmp
-#		for k,v in tmp.items():
-#			tmpdict = {k,v}
-#			grpid['media'].append(tmpdict)
-		#print(json.dumps(grpid,indent=1))
+
 		password = GenPassword(14)
 		user_medias = []
 		for k,v in tmp.items():
@@ -83,10 +86,30 @@ if __name__ == '__main__':
 		params = {"alias":grpid['name'],"passwd":password,"usrgrps":[{"usrgrpid":"76"}],"user_medias":user_medias}
 		apiRun("user.create", params)
 		print(params)
-'''
 
-	usermedias = getUserMediaList()
-	for usermedia in usermedias:
-		print("MediaID:",usermedia['mediaid'],"UserID:",usermedia['userid'],"MediaType:",usermedia['mediatypeid'],"SendTo:",usermedia['sendto'])
+def doUpdateMedia():
+	grps = getUserGrps()
+	for grp in grps:
+		grpname = grp['name']
+		grpid = grp['usrgrpid']
+		if grpid in readgroup:
+			continue
+		grpmedia = getGrpMedias(grpid)
+		medias = []
+		for k,v in grpmedia.items():
+			sendto = ",".join(v)
+			sendto = sendto.replace("@letv.com", "")
+			if k in readmedia:
+				continue
+			if k=="1":
+				mediaitem = {"mediatypeid": "4", "sendto": sendto, "active": 0, "severity": 63, "period": "1-7,00:00-24:00"}
+			if k=="3":
+				mediaitem = {"mediatypeid": "3", "sendto": sendto, "active": 0, "severity": 63, "period": "1-7,00:00-24:00"}
+			medias.append(mediaitem)
 
-		'''
+		userid = getUserId(grpname)
+		data = updateMedias(userid, medias)
+		print(data)
+
+if __name__ == '__main__':
+	doUpdateMedia()
