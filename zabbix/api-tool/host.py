@@ -9,41 +9,42 @@
 # Created Time: 2015-10-23 11:15:33
 ############################
 
-import requests
+import zabbixApi
 import json
-import configparser
+import re
+import copy
 
-ini = "conf.ini"
-config = configparser.ConfigParser()
-config.read(ini)
-
-token = config.get("auth", "token")
-url = config.get("login", "url")
-
-header = {"Content-Type": "application/json"}
-
-# request data
-
-data = json.dumps(
-{
-	"jsonrpc":"2.0",
-	"method":"host.get",
-	"params":{
-		"output":["hostid","name"],
-		"filter":{"host":""}
-		},
-	"auth":token,
-	"id":1,
-})
-
-def getHostList():
-	try:
-		r = requests.get(url, data=data, headers=header)
-		return(json.loads(r.text)['result'])
-	except:
-		print("get HostList Failed")
+def getHostIpList():
+	params = {"output":["hostid", "ip"], "filter":{"type":"1"}}
+	data = zabbixApi.apiRun("hostinterface.get", params)
+	return(data)
 
 if __name__ == '__main__':
-	hosts = getHostList()
-	for host in hosts:
-		print("HostID:",host['hostid'],"HostName:",host['name'])
+	data = getHostIpList()
+	iplist = {}
+	
+	for i in data:
+		hostid = i['hostid']
+		iplist[hostid] = []
+
+	for i in data:
+		hostid = i['hostid']
+		ip = i['ip']
+		iplist[hostid].append(ip)
+		
+
+	regex = re.compile(r'^10\..*')
+
+	for k,v  in iplist.items():
+		if len(v) == 1:
+			continue
+		for index in range(len(v)):
+			ip = v[index]
+			if not re.search(regex, ip):
+				iplist[k].remove(ip)
+				break
+		iplist[k] = list(set(iplist[k]))
+	for k,v in iplist.items():
+		print(v[0])
+		#if i['ip'] != "127.0.0.1":
+		#	print(i['ip'])
