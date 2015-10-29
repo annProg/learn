@@ -1,6 +1,6 @@
 name,label,type,uniq,summaryfield,fieldgroup
 hostname,主机名,text,TRUE,TRUE,Network
-sn,序列号,text,,TRUE,Basic
+uuid,UUID,text,TRUE,TRUE,Basic
 model,型号,text,,TRUE,Basic
 mem,内存,text,,TRUE,Basic
 cpu,CPU,text,,TRUE,Basic

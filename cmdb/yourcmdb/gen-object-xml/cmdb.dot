@@ -52,13 +52,16 @@ fontcolor=gray7;
  style="rounded";
 
         "IP":iptype -> "IP类型" [color="blue",side="l"];
-        "IP" [color="skyblue", shape="plaintext", label=<<table border="0" cellborder="1" cellspacing="0" align="left"><tr><td bgcolor="skyblue">IP</td></tr><tr><td port="ip">IP地址</td></tr><tr><td port="iptype">类型</td></tr><tr><td port="sn">机器SN</td></tr></table>>];
+        "IP" [color="skyblue", shape="plaintext", label=<<table border="0" cellborder="1" cellspacing="0" align="left"><tr><td bgcolor="skyblue">IP</td></tr><tr><td port="ip">IP地址</td></tr><tr><td port="iptype">类型</td></tr><tr><td port="uuid">机器UUID</td></tr></table>>];
+        "VIP":type -> "IP类型" [color="blue",side="l"];
+        "VIP":isp -> "ISP" [color="blue",side="l"];
+        "VIP" [color="skyblue", shape="plaintext", label=<<table border="0" cellborder="1" cellspacing="0" align="left"><tr><td bgcolor="skyblue">VIP</td></tr><tr><td port="ip">VIP</td></tr><tr><td port="type">VIP类型</td></tr><tr><td port="isp">运营商</td></tr><tr><td port="member">成员</td></tr><tr><td port="comment">备注</td></tr></table>>];
         "服务器":administrator -> "人员" [color="blue",side="l"];
         "服务器":cluster -> "集群" [color="blue",side="l"];
         "服务器":status -> "状态" [color="blue",side="l"];
         "服务器":location -> "机房" [color="blue",side="l"];
         "服务器":isp -> "ISP" [color="blue",side="l"];
-        "服务器" [color="skyblue", shape="plaintext", label=<<table border="0" cellborder="1" cellspacing="0" align="left"><tr><td bgcolor="skyblue">服务器</td></tr><tr><td port="hostname">主机名</td></tr><tr><td port="sn">序列号</td></tr><tr><td port="model">型号</td></tr><tr><td port="mem">内存</td></tr><tr><td port="cpu">CPU</td></tr><tr><td port="ip">IP地址</td></tr><tr><td port="hypervisor-ip">宿主机IP</td></tr><tr><td port="administrator">管理员</td></tr><tr><td port="cluster">集群</td></tr><tr><td port="status">状态</td></tr><tr><td port="location">机房</td></tr><tr><td port="isp">运营商</td></tr><tr><td port="comment">备注</td></tr></table>>];
+        "服务器" [color="skyblue", shape="plaintext", label=<<table border="0" cellborder="1" cellspacing="0" align="left"><tr><td bgcolor="skyblue">服务器</td></tr><tr><td port="hostname">主机名</td></tr><tr><td port="uuid">UUID</td></tr><tr><td port="model">型号</td></tr><tr><td port="mem">内存</td></tr><tr><td port="cpu">CPU</td></tr><tr><td port="ip">IP地址</td></tr><tr><td port="hypervisor-ip">宿主机IP</td></tr><tr><td port="administrator">管理员</td></tr><tr><td port="cluster">集群</td></tr><tr><td port="status">状态</td></tr><tr><td port="location">机房</td></tr><tr><td port="isp">运营商</td></tr><tr><td port="comment">备注</td></tr></table>>];
         "域名":contact1 -> "人员" [color="blue",side="l"];
         "域名":contact2 -> "人员" [color="blue",side="l"];
         "域名":product -> "产品线" [color="blue",side="l"];

@@ -4,7 +4,20 @@
 			<fieldgroup name="Basic">
 				<field name="ip" label="IP地址" type="text" uniq="true" summaryfield="true" />
 				<field name="iptype" label="类型" type="objectref-IP类型" uniq="" summaryfield="true" />
-				<field name="sn" label="机器SN" type="text" uniq="" summaryfield="true" />
+				<field name="uuid" label="机器UUID" type="text" uniq="" summaryfield="true" />
+			</fieldgroup>
+		</fields>
+	</object-type>
+	<object-type name="VIP">
+		<fields>
+			<fieldgroup name="Basic">
+				<field name="ip" label="VIP" type="text" uniq="true" summaryfield="true" />
+				<field name="type" label="VIP类型" type="objectref-IP类型" uniq="" summaryfield="true" />
+				<field name="isp" label="运营商" type="objectref-ISP" uniq="" summaryfield="true" />
+			</fieldgroup>
+			<fieldgroup name="Extend">
+				<field name="member" label="成员" type="textarea" uniq="" summaryfield="" />
+				<field name="comment" label="备注" type="textarea" uniq="" summaryfield="" />
 			</fieldgroup>
 		</fields>
 	</object-type>
@@ -14,7 +27,7 @@
 				<field name="hostname" label="主机名" type="text" uniq="true" summaryfield="true" />
 			</fieldgroup>
 			<fieldgroup name="Basic">
-				<field name="sn" label="序列号" type="text" uniq="" summaryfield="true" />
+				<field name="uuid" label="UUID" type="text" uniq="true" summaryfield="true" />
 				<field name="model" label="型号" type="text" uniq="" summaryfield="true" />
 				<field name="mem" label="内存" type="text" uniq="" summaryfield="true" />
 				<field name="cpu" label="CPU" type="text" uniq="" summaryfield="true" />

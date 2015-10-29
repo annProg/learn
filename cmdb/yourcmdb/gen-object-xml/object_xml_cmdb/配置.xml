@@ -110,7 +110,7 @@
 				<field name="birth" label="生日" type="text" uniq="" summaryfield="false" />
 				<field name="depart" label="部门" type="objectref-部门" uniq="" summaryfield="false" />
 				<field name="title" label="职位" type="text" uniq="" summaryfield="false" />
-				<field name="pgppub" label="PGP公钥" type="text" uniq="" summaryfield="false" />
+				<field name="pgppub" label="PGP公钥" type="textarea" uniq="" summaryfield="false" />
 			</fieldgroup>
 		</fields>
 	</object-type>

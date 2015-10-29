@@ -1,0 +1,6 @@
+name,label,type,uniq,summaryfield,fieldgroup
+ip,VIP,text,TRUE,TRUE,Basic
+type,VIP类型,objectref-IP类型,,TRUE,Basic
+isp,运营商,objectref-ISP,,TRUE,Basic
+member,成员,textarea,,,Extend
+comment,备注,textarea,,,Extend
