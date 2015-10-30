@@ -18,7 +18,7 @@ import re
 
 #解析配置文件
 config = ConfigParser.ConfigParser()
-config.read("conf.ini")
+config.read("conf.ini")   # 注意这里必须是绝对路径
 
 mail_host=config.get("mailserver", "server")
 mail_user=config.get("mailserver", "user")
