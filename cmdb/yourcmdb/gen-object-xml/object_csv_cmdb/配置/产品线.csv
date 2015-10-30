@@ -1,7 +1,7 @@
 name,label,type,uniq,summaryfield,fieldgroup
 name,名称,text,,TRUE,Basic
 corp,公司,objectref-公司,,TRUE,Basic
-derp,部门,objectref-部门,,TRUE,Basic
+dept,部门,objectref-部门,,TRUE,Basic
 business,业务,objectref-业务,,TRUE,Basic
 product,产品代码,text,,TRUE,Basic
 project,项目代码,text,,,Basic

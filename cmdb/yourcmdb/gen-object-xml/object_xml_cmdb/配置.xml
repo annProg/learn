@@ -42,7 +42,7 @@
 			<fieldgroup name="Basic">
 				<field name="name" label="名称" type="text" uniq="" summaryfield="true" />
 				<field name="corp" label="公司" type="objectref-公司" uniq="" summaryfield="true" />
-				<field name="derp" label="部门" type="objectref-部门" uniq="" summaryfield="true" />
+				<field name="dept" label="部门" type="objectref-部门" uniq="" summaryfield="true" />
 				<field name="business" label="业务" type="objectref-业务" uniq="" summaryfield="true" />
 				<field name="product" label="产品代码" type="text" uniq="" summaryfield="true" />
 				<field name="project" label="项目代码" type="text" uniq="" summaryfield="" />
