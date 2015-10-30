@@ -51,7 +51,7 @@ def send_mail(to_list,sub,content):
 	to_list = to_list.split(",")
 	msg['To'] =";".join(to_list)
 	msg['Cc'] =";".join(mailcc_list)
-	toaddrs = to_list + mailcc_list
+	toaddrs = to_list + mailcc_list #抄送人也要加入到sendmail函数的收件人参数中，否则无法收到
 	try:
 		s = smtplib.SMTP()
 		s.connect(mail_host)
