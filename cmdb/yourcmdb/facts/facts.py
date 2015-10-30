@@ -35,7 +35,7 @@ def isVip(ip, facts):
 	delifs=["eth0", "eth1", "eth2", "eth3", "eth4", "docker0"]
 	ifs = facts[INTERFACES]
 
-	regex = re.compile(r'eth.*|docker.*|veth.*')
+	regex = re.compile(r'eth.*|docker.*|veth.*|bond.*')
 	tmp = copy.deepcopy(ifs)
 	for i in ifs:
 		if re.search(regex, i):
@@ -80,10 +80,22 @@ def dealFacts(ip, data):
 	MODEL="ansible_product_name"
 	VENDOR="ansible_system_vendor"
 	HOSTNAME="ansible_nodename"
+	SYSTEM="ansible_distribution"
+	VERSION="ansible_distribution_version"
+	ARCHITECTURE="ansible_architecture"
+	KERNEL="ansible_kernel"
+	VCPUS="ansible_processor_vcpus"
+	CORES="ansible_processor_cores"
+	THREADS="ansible_processor_threads_per_core"
+	DEVICES="ansible_devices"
+
 
 	ret['uuid'] = facts[UUID]
 	ret['ip'] = []
 	ret['vip'] = []
+	ret['system'] = facts[SYSTEM] + "-" + facts[VERSION] + "-" + facts[ARCHITECTURE]
+	ret['kernel'] = facts[KERNEL]
+	
 	tmpIp = facts[IPV4]
 	for i in tmpIp:
 		if isVip(i, facts):
@@ -98,10 +110,16 @@ def dealFacts(ip, data):
 			continue
 		else:
 			ret['ip'].append({"ip":i,"type":"ext", "uuid":ret['uuid']})
-	ret['cpu'] = str(facts[PROCESSOR_COUNT]) + "x " + facts[PROCESSOR_MODEL][1]
-	ret['mem'] = str(facts[MEM]) + " MB"
+	ret['cpu'] = str(facts[PROCESSOR_COUNT]) + "x" +str(facts[CORES]) + "x" + str(facts[THREADS]) + " "  + facts[PROCESSOR_MODEL][1]
+	ret['mem'] = str(int((facts[MEM]+1024-1)/1024)) + " GB"
 	ret['model'] = facts[MODEL]
+	ret['vendor'] = facts[VENDOR]
 	ret['hostname'] = facts[HOSTNAME]
+
+	ret['devices'] =""
+	for k,v in facts[DEVICES].items():
+		item = k + ":" + v['size'] + "#"
+		ret['devices'] += item
 	
 	ipshows=""
 	with open("ip.csv", "a+") as f:
@@ -115,7 +133,7 @@ def dealFacts(ip, data):
 			f.write(";;" + vip['ip'] + ";" + vip['type'] + ";" + vip['isp'] + ";" + ipshows + ";\n")
 
 	with open("server.csv", "a+") as f:
-		f.write(";;" + ret['hostname'] + ";" + ipshows + ";;" + ret['uuid'] + ";" + ret['model'] + ";" + ret['mem'] + ";" + ret['cpu'] + ";;;;;;\n")  
+		f.write(";;" + ret['hostname'] + ";" + ipshows + ";;" + ret['uuid'] + ";" + ret['vendor'] + ";" + ret['model'] + ";" + ret['system'] + ";" + ret['kernel'] + ";" + ret['mem'] + ";" + ret['cpu'] + ";" + ret['devices'] + ";" + ";;;;;;\n")  
 
 	print(ret)
 	print("\n")

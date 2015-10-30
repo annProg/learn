@@ -1,4 +1,4 @@
 name,label,type,uniq,summaryfield,fieldgroup
 name,名称,text,TRUE,TRUE,Basic
 code,代码,text,TRUE,TRUE,Basic
-comment,备注,text,,TRUE,Basic
+comment,备注,textarea,,TRUE,Extend

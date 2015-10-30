@@ -3,4 +3,4 @@ name,集群名称,text,TRUE,TRUE,Basic
 business,业务,objectref-业务,,,Basic
 isp,运营商,objectref-ISP,,,Basic
 role,角色,objectref-服务器角色,,,Basic
-comment,备注,textarea,,TRUE,Extend
+comment,备注,textarea,,,Extend

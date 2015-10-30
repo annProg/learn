@@ -17,6 +17,7 @@
 				<field name="responsedata" label="期望返回数据" type="text" uniq="" summaryfield="true" />
 				<field name="alertemail" label="告警联系邮箱(逗号分隔)" type="text" uniq="" summaryfield="" />
 				<field name="alertphone" label="告警联系手机(逗号分隔)" type="text" uniq="" summaryfield="" />
+				<field name="contact" label="负责人" type="text" uniq="" summaryfield="" />
 			</fieldgroup>
 		</fields>
 	</object-type>

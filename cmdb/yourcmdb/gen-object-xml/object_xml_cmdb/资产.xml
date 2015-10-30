@@ -27,10 +27,18 @@
 				<field name="hostname" label="主机名" type="text" uniq="true" summaryfield="true" />
 			</fieldgroup>
 			<fieldgroup name="Basic">
-				<field name="uuid" label="UUID" type="text" uniq="true" summaryfield="true" />
-				<field name="model" label="型号" type="text" uniq="" summaryfield="true" />
+				<field name="uuid" label="UUID" type="text" uniq="true" summaryfield="" />
+			</fieldgroup>
+			<fieldgroup name="System">
+				<field name="system" label="操作系统" type="text" uniq="" summaryfield="" />
+				<field name="kernel" label="内核版本" type="text" uniq="" summaryfield="" />
+			</fieldgroup>
+			<fieldgroup name="Basic">
+				<field name="vendor" label="厂商" type="text" uniq="" summaryfield="" />
+				<field name="model" label="型号" type="text" uniq="" summaryfield="" />
 				<field name="mem" label="内存" type="text" uniq="" summaryfield="true" />
 				<field name="cpu" label="CPU" type="text" uniq="" summaryfield="true" />
+				<field name="disk" label="硬盘" type="text" uniq="" summaryfield="" />
 			</fieldgroup>
 			<fieldgroup name="Network">
 				<field name="ip" label="IP地址" type="text" uniq="" summaryfield="true" />
@@ -40,8 +48,8 @@
 				<field name="administrator" label="管理员" type="objectref-人员" uniq="" summaryfield="true" />
 				<field name="cluster" label="集群" type="objectref-集群" uniq="" summaryfield="true" />
 				<field name="status" label="状态" type="objectref-状态" uniq="" summaryfield="true" />
-				<field name="location" label="机房" type="objectref-机房" uniq="" summaryfield="true" />
-				<field name="isp" label="运营商" type="objectref-ISP" uniq="" summaryfield="true" />
+				<field name="location" label="机房" type="objectref-机房" uniq="" summaryfield="" />
+				<field name="isp" label="运营商" type="objectref-ISP" uniq="" summaryfield="" />
 			</fieldgroup>
 			<fieldgroup name="Extend">
 				<field name="comment" label="备注" type="textarea" uniq="" summaryfield="" />
