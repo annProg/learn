@@ -2,7 +2,7 @@
 #-*- coding:utf-8 -*-  
 
 ############################
-# Usage:
+# Usage: 用于为一组主机的同一种graph创建screen 
 # File Name: screen.py
 # Author: annhe  
 # Mail: i@annhe.net

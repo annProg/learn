@@ -42,11 +42,9 @@ def apiRun(method,params):
 		r = requests.get(url, data=data, headers=header)
 		#print(json.loads(r.text))
 		rjson = json.loads(r.text)
-		print(rjson)
-		print("\n")
 		return(rjson['result'])
 	except:
-		errMsg = json.dumps(params) + "Failed"
+		errMsg = json.dumps(rjson['error']['data'])
 		return(errMsg)
 
 if __name__ == '__main__':
