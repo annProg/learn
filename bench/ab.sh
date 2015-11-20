@@ -24,9 +24,9 @@ for c in {1,10,50,100,200,300,500,1000};do
 	log="$logname/ab-$logname-c$c-n$n.log"
 
 	echo > $tmplog
-	startTime=`date +%m%d-%H:%M:%S`
+	startTime=`date +%M:%S`
 	ab -c $c -n $n -g $gpllog "$url" > $tmplog
-	endTime=`date +%m%d-%H:%M:%S`
+	endTime=`date +%M:%S`
 
 	serversoft=`grep "Server Software" $tmplog |awk '{print $NF}'`
 	hostname=`grep "Server Hostname" $tmplog |awk '{print $NF}'`
@@ -48,10 +48,11 @@ function meanAnalyze()
 {
 	file="$logname/non2xx"
 	cat $logname/ab-* |grep -v "concurrency" |sort -k3 -n >$file.dat
+	comment=`awk '{print $1"-"$2":"$3}'`
 cat > $file.plt <<EOF
 	set term png size 3000,2000
 	set output "$file.png"
-	set title "total requests $n ($begin - $finish)"
+	set title "total requests $n ($begin - $finish)\n$comment"
 	set grid
 	set xlabel "concurrency"
 	set ylabel "failed requests"
