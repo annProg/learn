@@ -25,11 +25,11 @@ function run()
 		# 又: 实测同一fieldgroup中的field可以不写在一起，及可以有多个同名的fieldgroup段
 		# 因此 取消排序
 		#cat $inputDir/$objectGroup/$csv |iconv -f gbk -t utf-8 |sed '1d' |sort -k6 -t',' > $tmpfile
-		fieldGroup=`cat $tmpfile | cut -f6 -d',' |head -n 1`
+		fieldGroup=`cat $tmpfile | cut -f6 -d',' |head -n 1 |tr -d '\r\n'`
 		echo -e "\t\t<fields>"
 		echo -e "\t\t\t<fieldgroup name=\"$fieldGroup\">"
 		while read line;do
-			newFieldGroup=`echo $line | cut -f6 -d','`
+			newFieldGroup=`echo $line | cut -f6 -d',' |tr -d '\r\n'`
 			if [ $newFieldGroup != $fieldGroup ];then
 				fieldGroup=$newFieldGroup
 				echo -e "\t\t\t</fieldgroup>"

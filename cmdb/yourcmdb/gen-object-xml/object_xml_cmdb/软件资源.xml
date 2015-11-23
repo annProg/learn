@@ -1,15 +1,15 @@
 <group name="软件资源">
 	<object-type name="API">
 		<fields>
-			<fieldgroup name="Basic">
+			<fieldgroup name="Basic">
 				<field name="domain" label="域名" type="text" uniq="" summaryfield="true" />
 				<field name="location" label="Location" type="text" uniq="" summaryfield="true" />
 				<field name="product" label="产品线" type="objectref-产品线" uniq="" summaryfield="true" />
 			</fieldgroup>
-			<fieldgroup name="Extend">
+			<fieldgroup name="Extend">
 				<field name="comment" label="备注" type="textarea" uniq="" summaryfield="false" />
 			</fieldgroup>
-			<fieldgroup name="Monitor">
+			<fieldgroup name="Monitor">
 				<field name="method" label="请求方法" type="objectref-HTTP请求方法" uniq="" summaryfield="true" />
 				<field name="param" label="参数拼接(GET)" type="text" uniq="" summaryfield="true" />
 				<field name="data" label="数据提交(POST/PUT)" type="text" uniq="" summaryfield="true" />
@@ -29,7 +29,7 @@
 	</object-type>
 	<object-type name="Puppet">
 		<fields>
-			<fieldgroup name="Basic">
+			<fieldgroup name="Basic">
 				<field name="product" label="产品线" type="objectref-产品线" uniq="" summaryfield="true" />
 			</fieldgroup>
 		</fields>
