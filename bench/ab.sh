@@ -50,7 +50,7 @@ function meanAnalyze()
 	cat $logname/ab-* |grep -v "concurrency" |sort -k3 -n >$file.dat
 	#comment=`awk '{print $1"-"$2":"$3}'`
 cat > $file.plt <<EOF
-	set term png size 3000,2000
+	set term png size 1920,1040
 	set output "$file.png"
 	set title "total requests $n ($begin - $finish)\n$comment"
 	set grid
