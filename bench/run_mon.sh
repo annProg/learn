@@ -9,6 +9,6 @@
 ############################
 
 [ $# -lt 1 ] && echo "args error" && exit 1
-dockerid=$1
 nohup watch -n 30 './timeout.sh >>timeout.log' &>/dev/null &
 nohup watch -n 2 "./docker_mon.sh $1" &>/dev/null &
+nohup watch -n 2 "./docker_mon.sh $2" &>/dev/null &
