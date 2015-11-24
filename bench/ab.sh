@@ -48,7 +48,7 @@ function meanAnalyze()
 {
 	file="$logname/non2xx"
 	cat $logname/ab-* |grep -v "concurrency" |sort -k3 -n >$file.dat
-	comment=`awk '{print $1"-"$2":"$3}'`
+	#comment=`awk '{print $1"-"$2":"$3}'`
 cat > $file.plt <<EOF
 	set term png size 3000,2000
 	set output "$file.png"
