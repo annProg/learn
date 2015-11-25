@@ -10,6 +10,8 @@
 
 [ $# -lt 1 ] && echo "args error" && exit 1
 url=$1
+option=$2
+
 logname=`echo $url |awk -F '/' '{print $NF}'`
 [ "$logname"x == ""x ] && logname=`echo $url |awk -F '/' '{print $3}'`
 [ ! -d $logname ] && mkdir $logname
@@ -25,7 +27,7 @@ for c in {1,10,50,100,200,300,500,1000};do
 
 	echo > $tmplog
 	startTime=`date +%M:%S`
-	ab -k -c $c -n $n -g $gpllog "$url" > $tmplog
+	ab $option -c $c -n $n -g $gpllog "$url" > $tmplog
 	endTime=`date +%M:%S`
 
 	serversoft=`grep "Server Software" $tmplog |awk '{print $NF}'`
@@ -57,7 +59,7 @@ cat > $file.plt <<EOF
 	set title "total requests $n ($begin - $finish)\n$comment"
 	set grid
 	set xlabel "concurrency"
-	set ylabel "failed requests"
+	set ylabel "requests count"
 	plot "$file.dat" using 3:6 with linespoints pointtype 7 pointsize 2 title "non2xx", \
 		"$file.dat" using 3:(\$7*10) with linespoints pointtype 7 pointsize 2 title "qps*10(/s)", \
 		"$file.dat" using 3:9 with linespoints pointtype 7 pointsize 2 title "less than 1s", \
