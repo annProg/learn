@@ -60,7 +60,7 @@ cat > $file.plt <<EOF
 	set grid
 	set xlabel "concurrency"
 	set ylabel "requests count"
-	plot "$file.dat" using 3:6 with linespoints pointtype 7 pointsize 2 title "non2xx", \
+	plot "$file.dat" using 3:(\$6*100) with linespoints pointtype 7 pointsize 2 title "non2xx*100", \
 		"$file.dat" using 3:(\$7*10) with linespoints pointtype 7 pointsize 2 title "qps*10(/s)", \
 		"$file.dat" using 3:9 with linespoints pointtype 7 pointsize 2 title "less than 1s", \
 		"$file.dat" using 3:10 with linespoints pointtype 7 pointsize 2 title "less than 500ms", \
