@@ -8,14 +8,14 @@
 # Created Time: 2015-11-19 11:53:52
 ############################
 
-[ $# -lt 1 ] && echo "args error" && exit 1
+[ $# -lt 2 ] && echo "args error" && exit 1
 url=$1
-option=$2
+option=$3
+n=$2
 
 logname=`echo $url |awk -F '/' '{print $NF}'`
 [ "$logname"x == ""x ] && logname=`echo $url |awk -F '/' '{print $3}'`
 [ ! -d $logname ] && mkdir $logname
-n=5000
 
 begin=`date +%m%d-%H:%M:%S`
 
