@@ -8,10 +8,11 @@
 # Created Time: 2015-11-19 11:53:52
 ############################
 
-[ $# -lt 2 ] && echo "args error" && exit 1
+[ $# -lt 3 ] && echo -e "Usage:\n\t./ab.sh url requests-number comment" && exit 1
 url=$1
-option=$3
+option=$4
 n=$2
+comment=$3
 
 logname=`echo $url |awk -F '/' '{print $NF}'`
 [ "$logname"x == ""x ] && logname=`echo $url |awk -F '/' '{print $3}'`
