@@ -52,7 +52,7 @@ finish=`date +%m%d-%H:%M:%S`
 
 function overview()
 {
-	file="$logname/overview"
+	file="$logname/overview-$logname"
 	cat $logname/ab-* |grep -v "concurrency" |sort -k3 -n >$file.dat
 	#comment=`awk '{print $1"-"$2":"$3}'`
 cat > $file.plt <<EOF
@@ -108,12 +108,13 @@ function throughput()
 		awk '{print $6}' $id |grep -v wait |sort |uniq -c|awk '{print $2,$1}' >$file.dat
 	done
 	
-	plt="$datadir/throughput.plt"
-
+	file="$datadir/throughput-$logname"
+	plt=$file.plt
+	
 	pngtitle=`echo $logname |tr -s '_' '-'`
 	cat >$plt <<EOF
 	set term png size 1300,700
-	set output "$datadir/throughput.png"
+	set output "$file.png"
 	set title "$pngtitle ($begin - $finish)\n\n$comment"
 	set grid
 	set key invert reverse Left outside
