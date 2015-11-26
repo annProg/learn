@@ -79,11 +79,12 @@ function timeSeries()
 	for id in `ls $logname/gnuplot-*`;do
 		title=`echo $id |cut -f2 -d'/' |sed 's/\.log//g'`
 		file=$datadir"/"$title
+		pngtitle=`echo $title |sed 's/gnuplot-ab-//g' |sed 's/_/-/g'`
 		cat >$file.plt <<EOF
-		set term png size 500,500
+		set term png size 700,700
 		set size 1,1
 		set output "$file.png"
-		set title "timeSeries of $title"
+		set title "timeSeries of $pngtitle"
 		set grid
 		set xdata time
 		set timefmt "%s"
@@ -109,10 +110,11 @@ function throughput()
 	
 	plt="$datadir/throughput.plt"
 
+	pngtitle=`echo $logname |tr -s '_' '-'`
 	cat >$plt <<EOF
 	set term png size 1300,700
 	set output "$datadir/throughput.png"
-	set title "$logname ($begin - $finish)\n\n$comment"
+	set title "$pngtitle ($begin - $finish)\n\n$comment"
 	set grid
 	set key invert reverse Left outside
 	set xdata time
