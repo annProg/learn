@@ -16,7 +16,7 @@ comment=$3
 
 logname=`echo $url |awk -F '/' '{print $NF}'`
 [ "$logname"x == ""x ] && logname=`echo $url |awk -F '/' '{print $3}'`
-logname=$logname"_"$comment
+logname=$logname"_n"$n"_"$comment
 [ ! -d $logname ] && mkdir $logname
 
 begin=`date +%m%d-%H:%M:%S`
