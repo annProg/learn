@@ -14,7 +14,7 @@ option=$4
 n=$2
 comment=$3
 
-logname=`echo $url |awk -F '/' '{print $NF}'`
+logname=`echo $url |awk -F '/' '{print $NF}'`"-"$comment
 [ "$logname"x == ""x ] && logname=`echo $url |awk -F '/' '{print $3}'`
 [ ! -d $logname ] && mkdir $logname
 
