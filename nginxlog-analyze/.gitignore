@@ -4,3 +4,5 @@
 *.gz
 *.log
 *.log-*
+*.plt
+*.png
