@@ -13,10 +13,11 @@ url=$1
 option=$4
 n=$2
 comment=$3
+datetime=`date +%m%d%H%M`
 
 logname=`echo $url |awk -F '/' '{print $NF}'`
 [ "$logname"x == ""x ] && logname=`echo $url |awk -F '/' '{print $3}'`
-logname=$logname"_n"$n"_"$comment
+logname=$logname"_n"$n"_"$comment"_"$datetime
 [ ! -d $logname ] && mkdir $logname
 
 begin=`date +%m%d-%H:%M:%S`
