@@ -9,4 +9,10 @@
 ############################
 
 [ $# -lt 1 ] && echo "./status_code.sh logfile" && exit 1
-awk '{print $2}' $1 | sort |uniq -c |sort -nr > status_code.txt
+
+logfile=$1
+
+function getStatusCode()
+{
+	awk '{print $2}' $logfile | sort |uniq -c |sort -nr > status_code.txt
+}
