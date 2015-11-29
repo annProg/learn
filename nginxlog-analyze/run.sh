@@ -17,6 +17,9 @@ function gethelp()
 func=$1
 applogdir=applog
 codelogdir=codelog
+applogbak=applog_bak
+
+[ ! -d $applogbak ] && mkdir $applogbak
 
 function runAppAnalyze()
 {
@@ -42,6 +45,8 @@ function runAppAnalyze()
 		./analyze.sh plot $id $datadir 404
 		./analyze.sh plot $id $datadir 400,404,499
 		./analyze.sh plot $id $datadir time
+		
+		mv $id $applogbak
 	}&
 	done
 	wait

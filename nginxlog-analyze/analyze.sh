@@ -99,7 +99,8 @@ function plot()
 			cp $plt $plt.bak
 			for k in {2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};do
 				sed -i "s/using/every $k using/g" $plt
-				gnuplot $plt && echo "$plt plot SUC! (with $k)" && rm -f $plt.bak && break || cp -f $plt.bak $plt
+				sed -i -E "s/(total request.*)/interval every $k - \1/g" $plt
+				gnuplot $plt &>/dev/null && echo "$plt plot SUC! (with $k)" && rm -f $plt.bak && break || cp -f $plt.bak $plt
 			done
 		fi
 		
