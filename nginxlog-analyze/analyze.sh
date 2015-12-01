@@ -22,7 +22,7 @@ logfile=$2
 datadir=$3
 datadir=`echo $datadir |sed 's#/$##g'`
 
-logdate=`head -1 $logfile |awk '{print $2}' |awk -F 'T' '{print $1}' | tr -d '[' |sort |uniq -c |sort -nr |awk '{print $2}' |head -1`
+logdate=`tail -n 1000 $logfile |awk '{print $2}' |awk -F 'T' '{print $1}' | tr -d '[' |sort |uniq -c |sort -nr |awk '{print $2}' |head -1`
 plottpl="plot.tpl"
 datetime=`date +%m%d%H%M%S`
 pltdir="$datadir/plt"
