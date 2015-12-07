@@ -1,0 +1,8 @@
+digraph monitor {
+	node [shape="box"];
+	addhost [label="add zabbix host"];
+	addapp [label="add application"];
+	addscenario [label="add scenario"];
+
+	addhost -> addapp -> addscenario;
+}

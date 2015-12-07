@@ -1,0 +1,15 @@
+[cmdb]
+url=http://127.0.0.1/rest.php/
+user=user
+passwd=password
+
+[zabbix]
+url = http://127.0.0.1/zabbix/api_jsonrpc.php
+user = user
+passwd = password
+
+[auth]
+token = 13abb02598fat73a03672615b648a3a4
+
+[monitor]
+hostgroupid = 68
