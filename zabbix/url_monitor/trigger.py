@@ -30,4 +30,4 @@ def updateTrigger(triggerid, description, expression):
 
 if __name__ == '__main__':
 	#print(getApplicationByName("10654", "tv_desktop"))
-	print(getTriggerByName("10120", "Scenario test Failed: base_ota_upgrade.hdtv.letv.com_getUpgradeProfile"))
+	print(getTriggerByName("10120", "Scenario test Failed: base_ota__getUpgradeProfile"))
