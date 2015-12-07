@@ -13,7 +13,7 @@ import urllib
 import json
 
 def push():
-	req = urllib.urlopen("http://push.scloud.letv.com/api/v1/server")
+	req = urllib.urlopen("http://127.0.0.1")
 	rs = req.read()
 	result = json.loads(rs)
 	print(result)

@@ -3,7 +3,7 @@
 	<url base="http://repo.annhe.net/yourcmdb" />
 	<qrcodes ecc-level="L" urlbase="" />
 	<i18n language="zh_CN.utf8" />
-	<title name="LeTV SCloud" />
+	<title name="CMDB" />
 	<menu-item name="服务器" url="http://repo.annhe.net/yourcmdb/object.php?action=list&amp;type=%E6%9C%8D%E5%8A%A1%E5%99%A8" />
 	<menu-item name="域名" url="http://repo.annhe.net/yourcmdb/list/域名" />-->
 	<menu-item name="API" url="http://repo.annhe.net/yourcmdb/list/API" />
