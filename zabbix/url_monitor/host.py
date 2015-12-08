@@ -14,8 +14,7 @@ import json
 import re
 import sys
 
-def getHostByName(argv):
-	hostname = argv[0]
+def getHostByName(hostname):
 	params = {"output": ["hostid", "host", "name"], "selectInterfaces":"extend", "selectGroups": ["groupid","name"], "selectParentTemplates": ["templateid", "name"], "filter": {"name":hostname}}
 	data = zabbixApi.apiRun("host.get", params)
 	return(data)
@@ -24,7 +23,6 @@ def addHost(argv):
 	hostname = argv[0]
 	grpids = argv[1]
 	name = argv[2]
-	templateids = argv[3]
 
 	groups = []
 	for grpid in  grpids.split(","):

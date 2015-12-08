@@ -10,6 +10,7 @@
 ############################
 
 import configparser
+import json
 import requests
 
 ini = "config.ini"
@@ -33,10 +34,13 @@ def runRequest(request):
 	data['errno'] = r.status_code
 	return(data)
 
-def getObjectById(assetId):
+def getObjectById(assetId, orig=1):
 	action = "objects"
 	request = url + action + "/" + assetId
 	data = runRequest(request)
+	
+	if orig != 1:
+		return(data)
 
 	ret = {}
 	ret['errno'] = data['errno']
@@ -53,6 +57,19 @@ def getObjectById(assetId):
 		return(data)
 	return(ret)
 
+def updateObject(argv):
+	action = "objects"
+	request = url + action + "/" + argv['objid']
+
+	objtype = argv['objtype']
+	objid = argv['objid']
+	objfields = argv['objfields']
+
+	param={"objectType":objtype,"objectId":objid,"status":"A","objectFields":objfields}
+	data = requests.put(request, data=json.dumps(param), auth=requests.auth.HTTPBasicAuth(user, passwd))
+	print(data)
+
+
 def getObjectList(objectType):
 	action = "objectlist/by-objecttype"
 	request = url + action + "/" + objectType
@@ -60,5 +77,9 @@ def getObjectList(objectType):
 	return(data)
 
 if __name__ == '__main__':
-	#print(getObjectById("1257"))
-	print(getObjectList("API"))
+	#print(getObjectById("1257",0))
+	#print(getObjectById("70"))
+	#print(getObjectById("1254"))
+	argv = {"assetid":"1257", "objtype":"API"}
+	updateObject(argv)
+	#print(getObjectList("API"))

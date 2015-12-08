@@ -24,4 +24,5 @@ def createApplication(hostid, name):
 	return(data)
 
 if __name__ == '__main__':
-	print(createApplication("10597", "tv_desktop"))
+	#print(getApplicationByName("10654", "tv_desktop"))
+	print(createApplication("10654", "tv_desktop"))

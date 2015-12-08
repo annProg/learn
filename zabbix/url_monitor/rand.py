@@ -28,3 +28,4 @@ if __name__=="__main__":
     for i in range(10):
         #密码的长度为8
         print(GenDigit(4))
+        print(GenPassword(10))
