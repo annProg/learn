@@ -43,6 +43,7 @@ def sms(contact, content):
 		status = x['errno']
 		smslog(status, phone, content)
 def getContent(orig):
+	html = "<table><tr>	
 	return(json.dumps(orig))
 
 if __name__ == '__main__':
