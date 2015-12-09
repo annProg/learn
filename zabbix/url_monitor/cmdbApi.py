@@ -77,9 +77,9 @@ def getObjectList(objectType):
 	return(data)
 
 if __name__ == '__main__':
-	#print(getObjectById("1257",0))
+	print(getObjectById("1257"))
 	#print(getObjectById("70"))
 	#print(getObjectById("1254"))
-	argv = {"assetid":"1257", "objtype":"API"}
-	updateObject(argv)
+	#argv = {"assetid":"1257", "objtype":"API"}
+	#updateObject(argv)
 	#print(getObjectList("API"))

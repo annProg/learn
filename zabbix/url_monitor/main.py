@@ -70,12 +70,14 @@ def getApplicationId(hostid, name):
 def createTrigger(hostid, hostname, scenario):
 	desc_resp = "Response time too long: " + scenario
 	exp_resp = "{" + hostname + ":web.test.time[" + scenario + ",api Check,resp].last(#10)}>8000"
-	desc_fail = "Scenario test Failed: " + scenario
+	desc_fail = "API请求失败: " + scenario
 	exp_fail = "{" + hostname + ":web.test.fail[" + scenario + "].last(#5)}<>0"
+	desc_error = "Request Error: " + scenario
+	exp_error = "{" + hostname + ":web.test.error[" + scenario + "].nodata(60)}=0"
 
 	triggers = []
 	triggers.append({"desc":desc_resp, "exp":exp_resp})
-	triggers.append({"desc":desc_fail, "exp":exp_fail})
+	triggers.append({"desc":desc_error, "exp":exp_error})
 
 	for tri in triggers:
 		old_trigger = trigger.getTriggerByName(hostid, tri['desc'])
@@ -95,26 +97,30 @@ def main():
 
 	ret = {}
 	for assetId in apiList:
-		api = cmdbApi.getObjectById(str(assetId))['result']
-		if not api:
+		cmdbObj = cmdbApi.getObjectById(str(assetId))['result']
+		if not cmdbObj:
 			continue
 		
 		argv = {}
-		location = "http://" + api['domain'] + "/" + api['location']
-		if (api['requestmethod'] == "GET"):
-			argv['url'] = location + "?" + api['getparam']
+		location = "http://" + cmdbObj['domain'] + "/" + cmdbObj['location']
+		if (cmdbObj['requestmethod'] == "GET"):
+			argv['url'] = location + "?" + cmdbObj['param']
+			argv['posts'] = ""
 		else:
 			argv['url'] = location
-		hostname= getHostName(api['product'])
-		argv['name'] = hostname + "_" + api['domain'] + "_" + api['location'].split('/')[-1]
-		#argv['name'] = api['domain'] + "/" + api['location']
-		argv['status'] = api['responsecode']
+			argv['posts'] = cmdbObj['param']
+
+		hostname= getHostName(cmdbObj['product'])
+		argv['name'] = hostname + "_" + cmdbObj['domain'] + "_" + cmdbObj['location'].split('/')[-1]
+		#argv['name'] = cmdbObj['domain'] + "/" + cmdbObj['location']
+		argv['status'] = cmdbObj['responsecode']
 		argv['no'] = 1
 		argv['hostid'] = getHostId(hostname)
 		argv['delay'] = 30
-		argv['required'] = api['responsedata']
+		argv['required'] = cmdbObj['responsedata']
 		argv['agent'] = agent
 		argv['applicationid'] = getApplicationId(argv['hostid'], argv['name'])
+		
 		
 		scenario =  web.getScenarioByName(argv['hostid'], argv['name'])
 
