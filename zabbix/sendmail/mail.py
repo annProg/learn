@@ -12,6 +12,7 @@
 import sys
 import smtplib
 from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 import time
 import ConfigParser
 import re
@@ -44,9 +45,13 @@ def send_mail(to_list,sub,content):
 	send_mail("admin@qq.com","sub","content")
 	'''
 	address=mail_user+"<"+mail_user+"@"+mail_postfix+">"
-	msg = MIMEText(content, 'plain', 'utf-8')
+	#msg = MIMEText(content, 'plain', 'utf-8')
+	msg = MIMEMultipart('alternative')
 	msg['Subject'] = sub
 	msg['From'] = address
+
+	part = MIMEText(content, 'html', 'utf-8')
+	msg.attach(part)
 
 	to_list = to_list.split(",")
 	msg['To'] =";".join(to_list)

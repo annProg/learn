@@ -18,4 +18,4 @@ def getItem(hostid):
 	return(data)
 
 if __name__ == '__main__':
-	print(json.dumps(getItem("10656"),indent=1))
+	print(json.dumps(getItem("10120"),indent=1))

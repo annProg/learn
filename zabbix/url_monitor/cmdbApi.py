@@ -27,11 +27,12 @@ def runRequest(request):
 		r = requests.get(request, auth=requests.auth.HTTPBasicAuth(user, passwd))
 		data['errmsg'] = "suc"
 		data['result'] = r.json()
+		data['errno'] = r.status_code
 	except:
 		data['errmsg'] = "failed"
 		data['result'] = {}
+		data['errno'] = "10001"
 
-	data['errno'] = r.status_code
 	return(data)
 
 def getObjectById(assetId, orig=1):
@@ -55,6 +56,8 @@ def getObjectById(assetId, orig=1):
 				ret['result'][key] = value
 	except:
 		return(data)
+
+	ret['result']['objid'] = assetId
 	return(ret)
 
 def updateObject(argv):
@@ -76,8 +79,15 @@ def getObjectList(objectType):
 	data = runRequest(request)
 	return(data)
 
+def getObjectListByValue(fieldvalue):
+	action = "objectlist/by-fieldvalue"
+	request = url + action + "/" + fieldvalue
+	data = runRequest(request)
+	return(data)
+
 if __name__ == '__main__':
 	print(getObjectById("1257"))
+	#print(getObjectListByValue("GET"))
 	#print(getObjectById("70"))
 	#print(getObjectById("1254"))
 	#argv = {"assetid":"1257", "objtype":"API"}

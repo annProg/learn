@@ -15,6 +15,7 @@ import application
 import trigger
 import cmdbApi
 import configparser
+import db
 
 ini = "config.ini"
 config = configparser.ConfigParser()
@@ -142,6 +143,10 @@ def main():
 				[{'name': 'httptestid', 'type': 'text', 'value': argv['httptestid'], 'label': 'httptestid'}]
 				}
 		cmdbApi.updateObject(cmdb_argv)
+
+		if not cmdbObj['httptestid']:
+			cmdbObj['httptestid'] = argv['httptestid']
+		db.updateDB(argv['hostid'], cmdbObj)
 
 	return(ret)
 
