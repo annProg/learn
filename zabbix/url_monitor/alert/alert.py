@@ -57,8 +57,8 @@ def getContent(orig):
 	
 	argv['status'] = orig['status']
 	if "update" in orig.keys():
-		argv['items'].append({"icon":"clock_green", "itemkey":"恢复时间", "itemvalue":orig['update'] + orig['uptime']})
 		up = orig['update'] + " " + orig['uptime']
+		argv['items'].append({"icon":"clock_green", "itemkey":"恢复时间", "itemvalue":up})
 		duration = time.mktime(time.strptime(up,'%Y.%m.%d %H:%M:%S')) - time.mktime(time.strptime(down, '%Y.%m.%d %H:%M:%S'))
 		duration = str(duration/60) + " 分钟"
 		argv['items'].append({"icon":"clock", "itemkey":"故障时长", "itemvalue":duration})
