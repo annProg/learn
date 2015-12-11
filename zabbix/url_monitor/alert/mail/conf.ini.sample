@@ -1,0 +1,11 @@
+[mailserver]
+server = smtp.163.com
+user = alarm
+postfix = 163.com
+passwd = password
+
+[send]
+; 逗号分隔
+mailto_list = a@b.com,c@d.com
+; 逗号分隔
+mailcc_list = bb.com

@@ -24,9 +24,9 @@ def itemProtoType(icon, itemkey, itemvalue):
 
 	item = '''
 <tr>
-	<td width="30" height="30" align="center" valign="top"><img src="http://stat.dnspod.cn/static/warning/icon_%s.png" /></td>
-	<td width="100" height="30" align="right" valign="top">%s : </td>
-	<td align="left" valign="top">&nbsp;&nbsp;&nbsp;%s</td>
+	<td width="30" height="30" align="center" valign="center"><img src="http://stat.dnspod.cn/static/warning/icon_%s.png" /></td>
+	<td style="width:100;height:30; text-align:center;padding-right:10px;valign:top">%s</td>
+	<td style="text-align:left;valign:top;padding-left:20px">%s</td>
  </tr> 
 ''' %(icon, itemkey, itemvalue)
 	return(item)
@@ -41,7 +41,7 @@ def mailTemplate(argv):
 	name = argv['name']
 	items = argv['items']
 
-	if status == "up":
+	if status == "OK":
 		img = "ok"
 		color = "#319400"
 		desc = name
@@ -92,7 +92,7 @@ style='width:90%%;border:1px solid #ddd;font-family: "Helvetica Neue", "Luxi San
 </tr>
 <tr>
     <td bgcolor="ffffff" style="font-size:16px;padding-left:30px;padding-top:10px;padding-bottom:15px;" >
-	<table width="90%%" border="0" cellspacing="0" cellpadding="0">
+	<table width="90%%" border="1" cellspacing="0" cellpadding="0">
 ''' %(color, color)
 
 	item_all = ""

@@ -12,11 +12,12 @@
 import sys
 import requests
 import time
-#from mail.mail import *   #zabbix邮件脚本
+from mail.mail import *   #zabbix邮件脚本
 #from python.sms import *  #zabbix短信发送脚本
 import logging
 import json
 import tpl
+import re
 
 url = "http://10.135.28.97:8000/contact.php"
 cmdb = "http://10.135.28.97:8000"
@@ -54,20 +55,19 @@ def getContent(orig):
 	argv['items'].append({"icon":"clock_red", "itemkey":"故障时间", "itemvalue":down})
 	argv['items'].append({"icon":"clock", "itemkey":"告警时间", "itemvalue":orig['now']})
 	
+	argv['status'] = orig['status']
 	if "update" in orig.keys():
-		argv['status'] = "up"
 		argv['items'].append({"icon":"clock_green", "itemkey":"恢复时间", "itemvalue":orig['update'] + orig['uptime']})
-		up = orig['uptime'] + " " + orig['uptime']
+		up = orig['update'] + " " + orig['uptime']
 		duration = time.mktime(time.strptime(up,'%Y.%m.%d %H:%M:%S')) - time.mktime(time.strptime(down, '%Y.%m.%d %H:%M:%S'))
 		duration = str(duration/60) + " 分钟"
 		argv['items'].append({"icon":"clock", "itemkey":"故障时长", "itemvalue":duration})
-	else:
-		argv['status'] = "down"
-
-	argv['items'].append({"icon":"reason", "itemkey":"报警详情", "itemvalue":orig['itemvalue']})
+	
+	itemvalue = re.sub("(http://.*$)", "<a href=\"\\1\">\\1</a>", orig['itemvalue']).replace("#", "\"")
+	argv['items'].append({"icon":"reason", "itemkey":"报警详情", "itemvalue":itemvalue})
 	argv['items'].append({"icon":"switch", "itemkey":"报警级别", "itemvalue":orig['severity']})
 	argv['items'].append({"icon":"switch", "itemkey":"主机名称", "itemvalue":orig['hostname']})
-	argv['items'].append({"icon":"switch", "itemkey":"报警名称", "itemvalue":orig['itemname']})
+	argv['items'].append({"icon":"switch", "itemkey":"报警名称", "itemvalue":orig['itemname'].replace("#", "\"")})
 	argv['items'].append({"icon":"switch", "itemkey":"报警项目", "itemvalue":orig['itemkey']})
 
 	eventurl= zabbix + "/tr_events.php?triggerid=" + orig['triggerid'] + "&eventid=" + orig['eventid']
@@ -75,35 +75,34 @@ def getContent(orig):
 	argv['items'].append({"icon":"link", "itemkey":"事件ID", "itemvalue":eventid})
 
 	httptesturl = zabbix + "/httpdetails.php?httptestid=" + orig['httptestid']
-	argv['items'].append({"icon":"link", "itemkey":"监控详情", "itemvalue":httptesturl})
-	cmdburl = cmdb + "/object.php?action=show&id=" + orig['objid']
-	argv['items'].append({"icon":"link", "itemkey":"CMDB详情", "itemvalue":cmdburl})
+	httptestid = "<a href=\"" + httptesturl + "\">" + httptesturl + "</a>"
+	argv['items'].append({"icon":"link", "itemkey":"监控详情", "itemvalue":httptestid})
+	objurl = cmdb + "/object.php?action=show&id=" + orig['objid']
+	objid = "<a href=\"" + objurl + "\">" + objurl + "</a>"
+	argv['items'].append({"icon":"link", "itemkey":"CMDB详情", "itemvalue":objid})
 	argv['items'].append({"icon":"link", "itemkey":"负责人", "itemvalue":orig['admin']})
 
 	return(tpl.mailTemplate(argv))
 
 if __name__ == '__main__':
-#	try:
-#		with open("/tmp/err.log", 'a+') as f:
-#			f.write(sys.argv[3] + "  :   " + str(type(sys.argv[3])) + "\n")
-	orig = sys.argv[3].replace('"', '#')
-	orig = orig.replace('\'', '"')
-	data = json.loads(orig)
+	try:
+		with open("/tmp/err.log", 'a+') as f:
+			f.write(sys.argv[3] + "  :   " + str(type(sys.argv[3])) + "\n")
+		orig = sys.argv[3].replace('"', '#')
+		orig = orig.replace('\'', '"')
+		data = json.loads(orig)
 
-	itemid = data['itemid']
-	subject = sys.argv[2]
-	contact = init(itemid)
-	print(contact)
-	data['httptestid'] = contact['httptestid']
-	data['objid'] = contact['objid']
-	data['admin'] = contact['email'].split('@')[0] + "(" + contact['phone'] + ")"
-	content = getContent(data)
-
-	print("##############\n\n")
-	print(content)
-		#mail(contact, subject, content)
+		itemid = data['itemid']
+		subject = sys.argv[2]
+		contact = init(itemid)
+		print(contact)
+		data['httptestid'] = contact['httptestid']
+		data['objid'] = contact['objid']
+		data['admin'] = contact['email'].split('@')[0] + "(" + contact['phone'] + ")"
+		content = getContent(data)
+		mail(contact, subject, content)
 		#sms(contact, subject)
 
-#	except:
-#		logging.exception("Exception Logged")
+	except:
+		logging.exception("Exception Logged")
 
