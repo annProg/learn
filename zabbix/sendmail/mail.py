@@ -37,20 +37,24 @@ def maillog(status, mailto_list, subject):
 		f.write(curdate + " " + status + " " + ",".join(mailto_list) + " " + subject + "\n")
 
 #定义send_mail函数
-def send_mail(to_list,sub,content):
+def send_mail(to_list,sub,content, html=1):
 	'''
 	to_list:发送列表，逗号分隔
 	sub:主题
 	content:内容
 	send_mail("admin@qq.com","sub","content")
 	'''
+
 	address=mail_user+"<"+mail_user+"@"+mail_postfix+">"
-	#msg = MIMEText(content, 'plain', 'utf-8')
+	
 	msg = MIMEMultipart('alternative')
+	if html == 0:
+		part = MIMEText(content, 'plain', 'utf-8')
+	else:
+		part = MIMEText(content, 'html', 'utf-8')
 	msg['Subject'] = sub
 	msg['From'] = address
 
-	part = MIMEText(content, 'html', 'utf-8')
 	msg.attach(part)
 
 	to_list = to_list.split(",")
@@ -87,6 +91,6 @@ if __name__ == '__main__':
 			to = to + "@letv.com"
 			new_list.append(to)
 	new_list = ",".join(new_list)
-	send_mail(new_list, sub, sys.argv[3])
+	send_mail(new_list, sub, sys.argv[3], 0)
 
 	#send_mail(mailto_list, "test", "this is a test message")
