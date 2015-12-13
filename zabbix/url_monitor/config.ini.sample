@@ -13,3 +13,4 @@ token = 13abb02598fat73a03672615b648a3a4
 
 [monitor]
 hostgroupid = 68
+agent = Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.8 (KHTML, like Gecko) Chrome/17.0.940.0 Safari/535.8

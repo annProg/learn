@@ -103,21 +103,26 @@ def main():
 			continue
 		
 		argv = {}
-		location = "http://" + cmdbObj['domain'] + "/" + cmdbObj['location']
-		if (cmdbObj['requestmethod'] == "GET"):
-			argv['url'] = location + "?" + cmdbObj['param']
+		method = cmdbApi.getObjectById(cmdbObj['requestmethod'])['result']['method']
+		if (method == "GET"):
+			argv['url'] = cmdbObj['url'] + "?" + cmdbObj['param']
 			argv['posts'] = ""
 		else:
-			argv['url'] = location
+			argv['url'] = cmdbObj['url']
 			argv['posts'] = cmdbObj['param']
 
 		hostname= getHostName(cmdbObj['product'])
-		argv['name'] = hostname + "_" + cmdbObj['domain'] + "_" + cmdbObj['location'].split('/')[-1]
+		argv['name'] = hostname + "_" + cmdbObj['url'].split('/')[2] + "_" + cmdbObj['url'].split('/')[-1]
 		#argv['name'] = cmdbObj['domain'] + "/" + cmdbObj['location']
 		argv['status'] = cmdbObj['responsecode']
 		argv['no'] = 1
 		argv['hostid'] = getHostId(hostname)
-		argv['delay'] = 30
+		argv['delay'] = cmdbObj['delay']
+		if not argv['delay'].isdigit():
+			argv['delay'] = 60
+		#argv['timeout'] = cmdbObj['timeout']
+		#if argv['timeout'] == "":
+		#	argv['timeout'] = 15
 		argv['required'] = cmdbObj['responsedata']
 		argv['agent'] = agent
 		argv['applicationid'] = getApplicationId(argv['hostid'], argv['name'])
