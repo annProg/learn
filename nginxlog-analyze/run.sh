@@ -47,7 +47,7 @@ function runAppAnalyze()
 		./analyze.sh plot $id $datadir time
 		
 		mv $id $applogbak
-	}&
+	}
 	done
 	wait
 }
@@ -61,7 +61,7 @@ function getHttpCode()
 	{
 		echo $codelogdir/code_$code.log
 		grep "\]  $code" $logfile >$codelogdir/code_$code.log;sleep 2
-	}&
+	}
 	done
 	wait
 }

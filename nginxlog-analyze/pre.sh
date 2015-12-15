@@ -27,9 +27,9 @@ function getAppLog()
 	for id in `awk '{print $2}' $more3s |sed 's/\[.*\]//g'`;do
 	{
 		newlog=$applogdir/`echo $id |sed 's#/iptv/##g' |tr -s '/' '-'`".app.log"
-		grep "$id" $logfile >$newlog
+		cat $logfile |gunzip | grep "$id" >$newlog
 		echo "$id done"; sleep 2
-	}&
+	}
 	done
 	wait
 }
@@ -43,7 +43,7 @@ function getHttpCode()
 	{
 		echo $codelogdir/code_$code.log
 		grep "\]  $code" $logfile >$codelogdir/code_$code.log;sleep 2
-	}&
+	}
 	done
 	wait
 }
