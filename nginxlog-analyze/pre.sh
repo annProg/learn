@@ -29,7 +29,7 @@ function getAppLog()
 		newlog=$applogdir/`echo $id |sed 's#/iptv/##g' |tr -s '/' '-'`".app.log"
 		cat $logfile |gunzip | grep "$id" >$newlog
 		echo "$id done"
-	}
+	}&
 	done
 	wait
 }
@@ -43,7 +43,7 @@ function getHttpCode()
 	{
 		echo $codelogdir/code_$code.log
 		grep "\]  $code" $logfile >$codelogdir/code_$code.log
-	}
+	}&
 	done
 	wait
 }
