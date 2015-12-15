@@ -90,26 +90,30 @@ def resetMedia():
 def doUpdateMedia():
 	grps = getUserGrps()
 	for grp in grps:
+		medias = []
 		grpname = grp['name']
 		grpid = grp['usrgrpid']
 		if grpid in readgroup:
 			continue
 		grpmedia = getGrpMedias(grpid)
-		medias = []
+		#print(grpmedia)
 		for k,v in grpmedia.items():
 			sendto = ",".join(v)
 			sendto = sendto.replace("@letv.com", "")
 			if k in readmedia:
 				continue
-			if k=="1":
+			elif k=="1":
 				mediaitem = {"mediatypeid": "4", "sendto": sendto, "active": 0, "severity": 63, "period": "1-7,00:00-24:00"}
-			if k=="3":
+			elif k=="3":
 				mediaitem = {"mediatypeid": "3", "sendto": sendto, "active": 0, "severity": 63, "period": "1-7,00:00-24:00"}
+			else:
+				continue
 			medias.append(mediaitem)
 
 		userid = getUserId(grpname)
 		data = updateMedias(userid, medias)
 		print(data)
+		#print(medias)
 
 if __name__ == '__main__':
 	doUpdateMedia()
