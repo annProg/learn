@@ -28,7 +28,7 @@ function getAppLog()
 	{
 		newlog=$applogdir/`echo $id |sed 's#/iptv/##g' |tr -s '/' '-'`".app.log"
 		cat $logfile |gunzip | grep "$id" >$newlog
-		echo "$id done"; sleep 2
+		echo "$id done"
 	}
 	done
 	wait
@@ -42,7 +42,7 @@ function getHttpCode()
 	for code in {400,404,499,500,502,504};do
 	{
 		echo $codelogdir/code_$code.log
-		grep "\]  $code" $logfile >$codelogdir/code_$code.log;sleep 2
+		grep "\]  $code" $logfile >$codelogdir/code_$code.log
 	}
 	done
 	wait

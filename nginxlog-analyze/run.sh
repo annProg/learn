@@ -60,7 +60,7 @@ function getHttpCode()
 	for code in {400,404,499,500,502,504};do
 	{
 		echo $codelogdir/code_$code.log
-		grep "\]  $code" $logfile >$codelogdir/code_$code.log;sleep 2
+		grep "\]  $code" $logfile >$codelogdir/code_$code.log
 	}
 	done
 	wait
