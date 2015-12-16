@@ -18,15 +18,17 @@
 list=$1
 core=$2
 
-templateids="10596,10124,10192,10237,10109"
+#TV-Nginx
+templateids="10610,10127,10109"
+#templateids="10596,10124,10192,10237,10109"
 [ "$core"x == "8"x ] && templateids="10109,10177"
-groupids="22,9"
+groupids="44,9"
 
 while read id;do
 	ip=`echo $id |awk '{print $1}'`
 	name=`echo $id |awk '{print $2}'`
 	isp=`echo $name |cut -f2 -d'.'`
-	[ "$isp"x == "ct"x ] && groupids="9,51"
+	[ "$isp"x == "ct"x ] && groupids="44,9"
 	./host.py add $ip $name $groupids $templateids
 	#echo "./host.py add $ip $name $groupids $templateids"
 done <$list
