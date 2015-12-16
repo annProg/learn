@@ -14,4 +14,5 @@ logfile=$1
 # '"$request_method $scheme://$server_name$request_uri" '
 # '"$http_referer" "$http_user_agent" "$http_x_forwarded_for" '
 # '"$request_time" "$upstream_addr" "$upstream_status" "$upstream_response_time"';
-awk '{print $}
+
+cat $logfile |gunzip |awk '{print $2,$3 >$3".txt"}'
