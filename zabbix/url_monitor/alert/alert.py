@@ -13,17 +13,20 @@ import sys
 import requests
 import time
 from mail.mail import *   #zabbix邮件脚本
-#from python.sms import *  #zabbix短信发送脚本
+from python.sms import *  #zabbix短信发送脚本
 import logging
 import json
 import tpl
 import re
 
-url = "http://10.135.28.97:8000/contact.php"
-cmdb = "http://10.135.28.97:8000"
-zabbix = "http://zabbix.scloud.letv.cn"
+url = "http://repo.annhe.net/contact.php"
+cmdb = "http://repo.annhe.net/yourcmdb"
+zabbix = "http://repo.annhe.net/zabbix"
 log = "/tmp/alert_phone.log"
-logging.basicConfig(filename=log,level=logging.DEBUG)
+logging.basicConfig(level=logging.DEBUG,
+		format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s', 
+		datefmt='%a, %d %b %Y %H:%M:%S',
+		filename=log)
 
 def init(itemid):
 	request = url + "?itemid=" + itemid
@@ -60,7 +63,7 @@ def getContent(orig):
 		up = orig['update'] + " " + orig['uptime']
 		argv['items'].append({"icon":"clock_green", "itemkey":"恢复时间", "itemvalue":up})
 		duration = time.mktime(time.strptime(up,'%Y.%m.%d %H:%M:%S')) - time.mktime(time.strptime(down, '%Y.%m.%d %H:%M:%S'))
-		duration = str(duration/60) + " 分钟"
+		duration = str("%.2f" %(duration/60)) + " 分钟"
 		argv['items'].append({"icon":"clock", "itemkey":"故障时长", "itemvalue":duration})
 	
 	itemvalue = re.sub("(http://.*$)", "<a href=\"\\1\">\\1</a>", orig['itemvalue']).replace("#", "\"")
@@ -86,8 +89,6 @@ def getContent(orig):
 
 if __name__ == '__main__':
 	try:
-		with open("/tmp/err.log", 'a+') as f:
-			f.write(sys.argv[3] + "  :   " + str(type(sys.argv[3])) + "\n")
 		orig = sys.argv[3].replace('"', '#')
 		orig = orig.replace('\'', '"')
 		data = json.loads(orig)
@@ -98,10 +99,11 @@ if __name__ == '__main__':
 		print(contact)
 		data['httptestid'] = contact['httptestid']
 		data['objid'] = contact['objid']
-		data['admin'] = contact['email'].split('@')[0] + "(" + contact['phone'] + ")"
+		data['admin'] = contact['email'].replace('@letv.com', '') + "(" + contact['phone'] + ")"
 		content = getContent(data)
 		mail(contact, subject, content)
-		#sms(contact, subject)
+		sms_content = subject + ": " + data['itemvalue']
+		sms(contact, sms_content)
 
 	except:
 		logging.exception("Exception Logged")

@@ -36,7 +36,7 @@ def getHostName(productId):
 		print(ob_business)
 		return(False)
 	business = ob_business['result']['code']
-	hostname = business + "_" + product
+	hostname = business + "." + product
 	return(hostname)
 
 def getHostId(hostname):
@@ -112,8 +112,7 @@ def main():
 			argv['posts'] = cmdbObj['param']
 
 		hostname= getHostName(cmdbObj['product'])
-		argv['name'] = hostname + "_" + cmdbObj['url'].split('/')[2] + "_" + cmdbObj['url'].split('/')[-1]
-		#argv['name'] = cmdbObj['domain'] + "/" + cmdbObj['location']
+		argv['name'] = hostname + "-" + "/".join(cmdbObj['url'].split('/')[3:])
 		argv['status'] = cmdbObj['responsecode']
 		argv['no'] = 1
 		argv['hostid'] = getHostId(hostname)

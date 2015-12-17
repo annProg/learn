@@ -20,7 +20,11 @@ import os
 import logging
 
 errlog = "/tmp/err_sendmail.log"
-logging.basicConfig(filename=errlog,level=logging.DEBUG)
+logging.basicConfig(level=logging.DEBUG,
+	format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
+	datefmt='%a, %d %b %Y %H:%M:%S',
+	filename=errlog)
+
 #解析配置文件
 abspath = os.path.abspath('.')
 confpath = abspath + "/conf.ini"
