@@ -16,6 +16,7 @@ import trigger
 import cmdbApi
 import configparser
 import db
+import sys
 
 ini = "config.ini"
 config = configparser.ConfigParser()
@@ -65,7 +66,6 @@ def getApplicationId(hostid, name):
 			return(False)
 
 	appid = appids[0]['applicationid']
-	print(appid)
 	return(appid)
 		
 def createTrigger(hostid, hostname, scenario):
@@ -85,75 +85,81 @@ def createTrigger(hostid, hostname, scenario):
 		if old_trigger:
 			triggerid = old_trigger[0]['triggerid']
 			data = trigger.updateTrigger(triggerid, tri['desc'], tri['exp'])
-			print(data)
 		else:
 			data = trigger.createTrigger(tri['desc'], tri['exp'])
-			print(data)
 
-def main():
+def run(assetId):
+	ret = {}
+	cmdbObj = cmdbApi.getObjectById(str(assetId))['result']
+	if not cmdbObj:
+		return(False)
+	
+	argv = {}
+	method = cmdbApi.getObjectById(cmdbObj['requestmethod'])['result']['method']
+	if (method == "GET"):
+		argv['url'] = cmdbObj['url'] + "?" + cmdbObj['param']
+		argv['posts'] = ""
+	else:
+		argv['url'] = cmdbObj['url']
+		argv['posts'] = cmdbObj['param']
+
+	hostname= getHostName(cmdbObj['product'])
+	argv['name'] = hostname + "-" + "/".join(cmdbObj['url'].split('/')[3:])
+	argv['status'] = cmdbObj['responsecode']
+	argv['no'] = 1
+	argv['hostid'] = getHostId(hostname)
+	argv['delay'] = cmdbObj['delay']
+	if not argv['delay'].isdigit():
+		argv['delay'] = 60
+	#argv['timeout'] = cmdbObj['timeout']
+	#if argv['timeout'] == "":
+	#	argv['timeout'] = 15
+	argv['required'] = cmdbObj['responsedata']
+	argv['agent'] = agent
+	argv['applicationid'] = getApplicationId(argv['hostid'], argv['name'])
+	
+	
+	scenario =  web.getScenarioByName(argv['hostid'], argv['name'])
+
+	if scenario:
+		argv['httptestid'] = scenario[0]['httptestid']
+		argv['httpstepid'] = scenario[0]['steps'][0]['httpstepid']
+		data = web.updateScenario(argv)
+	else:
+		data = web.createScenario(argv)
+		argv['httptestid'] = data['httptestids'][0]
+	ret[assetId] = data
+	createTrigger(argv['hostid'], hostname, argv['name'])
+	
+	#update cmdb
+	cmdb_argv = {}
+	cmdb_argv['objtype'] = "API"
+	cmdb_argv['objid'] = str(assetId)
+	cmdb_argv['objfields'] = {'Zabbix Info': 
+			[{'name': 'httptestid', 'type': 'text', 'value': argv['httptestid'], 'label': 'httptestid'}]
+			}
+	cmdbApi.updateObject(cmdb_argv)
+
+	if not cmdbObj['httptestid']:
+		cmdbObj['httptestid'] = argv['httptestid']
+	db.updateDB(argv['hostid'], argv['applicationid'], cmdbObj)
+	return(ret)
+
+def allUpdate():
 	apiList = cmdbApi.getObjectList("API")['result']
 	if not apiList:
 		print("no api")
 		exit()
 
-	ret = {}
 	for assetId in apiList:
-		cmdbObj = cmdbApi.getObjectById(str(assetId))['result']
-		if not cmdbObj:
-			continue
-		
-		argv = {}
-		method = cmdbApi.getObjectById(cmdbObj['requestmethod'])['result']['method']
-		if (method == "GET"):
-			argv['url'] = cmdbObj['url'] + "?" + cmdbObj['param']
-			argv['posts'] = ""
-		else:
-			argv['url'] = cmdbObj['url']
-			argv['posts'] = cmdbObj['param']
-
-		hostname= getHostName(cmdbObj['product'])
-		argv['name'] = hostname + "-" + "/".join(cmdbObj['url'].split('/')[3:])
-		argv['status'] = cmdbObj['responsecode']
-		argv['no'] = 1
-		argv['hostid'] = getHostId(hostname)
-		argv['delay'] = cmdbObj['delay']
-		if not argv['delay'].isdigit():
-			argv['delay'] = 60
-		#argv['timeout'] = cmdbObj['timeout']
-		#if argv['timeout'] == "":
-		#	argv['timeout'] = 15
-		argv['required'] = cmdbObj['responsedata']
-		argv['agent'] = agent
-		argv['applicationid'] = getApplicationId(argv['hostid'], argv['name'])
-		
-		
-		scenario =  web.getScenarioByName(argv['hostid'], argv['name'])
-
-		if scenario:
-			argv['httptestid'] = scenario[0]['httptestid']
-			argv['httpstepid'] = scenario[0]['steps'][0]['httpstepid']
-			data = web.updateScenario(argv)
-		else:
-			data = web.createScenario(argv)
-			argv['httptestid'] = data['httptestids'][0]
-		ret[assetId] = data
-		createTrigger(argv['hostid'], hostname, argv['name'])
-		
-		#update cmdb
-		cmdb_argv = {}
-		cmdb_argv['objtype'] = "API"
-		cmdb_argv['objid'] = str(assetId)
-		cmdb_argv['objfields'] = {'Zabbix Info': 
-				[{'name': 'httptestid', 'type': 'text', 'value': argv['httptestid'], 'label': 'httptestid'}]
-				}
-		cmdbApi.updateObject(cmdb_argv)
-
-		if not cmdbObj['httptestid']:
-			cmdbObj['httptestid'] = argv['httptestid']
-		db.updateDB(argv['hostid'], cmdbObj)
-
-	return(ret)
+		print(run(assetId))
 
 if __name__ == '__main__':
-	print(main())
-	#print(getHostId("base_ota"))
+	func = sys.argv[1]
+	if func == "up":
+		data = run(sys.argv[2])
+	elif func == "all":
+		data = allUpdate()
+	else:
+		data = "args error"
+	print(data)

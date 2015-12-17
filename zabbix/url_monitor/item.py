@@ -12,10 +12,11 @@
 import zabbixApi
 import json
 
-def getItem(hostid):
-	params = {"output":["hostid", "key_", "name"], "hostids": hostid, "webitems":1}
+def getItem(hostid,applicationid):
+	params = {"output":["hostid", "key_", "name"], "hostids": hostid, 
+			"applicationids": applicationid, "webitems":1}
 	data = zabbixApi.apiRun("item.get", params)
 	return(data)
 
 if __name__ == '__main__':
-	print(json.dumps(getItem("10120"),indent=1))
+	print(json.dumps(getItem("10123", "537"),indent=1))

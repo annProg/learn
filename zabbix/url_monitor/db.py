@@ -30,9 +30,9 @@ def init_DB():
 			db = {}
 	return(db)
 
-def updateDB(hostid, cmdbObj):
+def updateDB(hostid, applicationid, cmdbObj):
 	db = init_DB()
-	data = item.getItem(hostid)
+	data = item.getItem(hostid, applicationid)
 	for i in data:
 		itemid = i['itemid']
 		db[itemid] = {}
@@ -40,6 +40,7 @@ def updateDB(hostid, cmdbObj):
 		db[itemid]['email'] = cmdbObj['alertemail']
 		db[itemid]['phone'] = cmdbObj['alertphone']
 		db[itemid]['httptestid'] = cmdbObj['httptestid']
+		#print(itemid + ": " + str(db[itemid]))
 	with open(file_db, 'w') as f:
 		json.dump(db, f)
 

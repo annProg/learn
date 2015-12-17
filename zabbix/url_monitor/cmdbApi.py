@@ -70,7 +70,7 @@ def updateObject(argv):
 
 	param={"objectType":objtype,"objectId":objid,"status":"A","objectFields":objfields}
 	data = requests.put(request, data=json.dumps(param), auth=requests.auth.HTTPBasicAuth(user, passwd))
-	print(data)
+	return(data)
 
 
 def getObjectList(objectType):
