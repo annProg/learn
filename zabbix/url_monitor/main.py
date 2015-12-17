@@ -71,12 +71,12 @@ def getApplicationId(hostid, name):
 def createTrigger(hostid, hostname, scenario, failcount=3, timeoutcount=10, timeout=8000):
 	desc_resp = "Response time too long: " + scenario
 	# 最后timeoutcount次的请求都大于timeout毫秒
-	exp_resp = "{" + hostname + ":web.test.time[" + scenario + ",api Check,resp].last(#" + timeoutcount + ")}>" + timeout
+	exp_resp = "{" + hostname + ":web.test.time[" + scenario + ",api Check,resp].last(#" + str(timeoutcount) + ")}>" + str(timeout)
 
 	desc_error = "Request Error: " + scenario
 	# 满足最后failcount次失败且60s内有error数据，使用web.test.error主要是为了获得具体报错信息
-	exp_error = "{" + hostname + ":web.test.error[" + scenario + "].nodata(60)}=0" + " and " +
-				"{" + hostname + ":web.test.fail[" + scenario + "].last(#" + failcount + ")}<>0"
+	exp_error = "{" + hostname + ":web.test.error[" + scenario + "].nodata(60)}=0" + " and " + "{" + hostname + ":web.test.fail[" + scenario + "].last(#" + str(failcount) + ")}<>0"
+
 	triggers = []
 	triggers.append({"desc":desc_resp, "exp":exp_resp})
 	triggers.append({"desc":desc_error, "exp":exp_error})
@@ -153,6 +153,7 @@ def allUpdate():
 		exit()
 
 	for assetId in apiList:
+		print(assetId,end="")
 		print(run(assetId))
 
 if __name__ == '__main__':
