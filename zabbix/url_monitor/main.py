@@ -112,9 +112,6 @@ def run(assetId):
 	argv['delay'] = cmdbObj['delay']
 	if not argv['delay'].isdigit():
 		argv['delay'] = 60
-	#argv['timeout'] = cmdbObj['timeout']
-	#if argv['timeout'] == "":
-	#	argv['timeout'] = 15
 	argv['required'] = cmdbObj['responsedata']
 	argv['agent'] = agent
 	argv['applicationid'] = getApplicationId(argv['hostid'], argv['name'])
@@ -130,7 +127,15 @@ def run(assetId):
 		data = web.createScenario(argv)
 		argv['httptestid'] = data['httptestids'][0]
 	ret[assetId] = data
-	createTrigger(argv['hostid'], hostname, argv['name'])
+
+	# trigger
+	if not cmdbObj['timeout'].isdigit():
+		cmdbObj['timeout'] = 8000
+	if not cmdbObj['timeoutcount'].isdigit():
+		cmdbObj['timeoutcount'] = 10
+	if not cmdbObj['failcount'].isdigit():
+		cmdbObj['failcount'] = 3
+	createTrigger(argv['hostid'], hostname, argv['name'], cmdbObj['failcount'], cmdbObj['timeoutcount'], cmdbObj['timeout'])
 	
 	#update cmdb
 	cmdb_argv = {}

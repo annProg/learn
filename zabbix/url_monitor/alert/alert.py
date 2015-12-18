@@ -41,7 +41,16 @@ def smslog(status, to, subject):
 
 def mail(contact, subject, content):
 	to_list = contact['email']
-	send_mail(to_list, subject, content)
+	to_list = to_list.split(",")
+	new_list = []
+	for to in to_list:
+		if "@" in to:
+			new_list.append(to)
+		else:
+			to = to + "@letv.com"
+			new_list.append(to)
+	new_list = ",".join(new_list)
+	send_mail(new_list, subject, content)
 
 def sms(contact, content):
 	to_list = contact['phone'].split(',')
