@@ -128,8 +128,13 @@ def run(assetId):
 	argv['applicationid'] = getApplicationId(argv['hostid'], argv['name'])
 	argv['status'] = getStatus(cmdbObj['status'])
 	
-	
-	scenario =  web.getScenarioByName(argv['hostid'], argv['name'])
+	# 如果某个cmdb项目已经在zabbix创建过，则不以web监控名称判断web monitor是否存在(存在cmdb中修改URL的情况)
+	if cmdbObj['httptestid']:
+		scenario = web.getScenarioById(argv['hostid'], cmdbObj['httptestid'])
+		if not scenario:
+			scenario =  web.getScenarioByName(argv['hostid'], argv['name'])
+	else:
+		scenario =  web.getScenarioByName(argv['hostid'], argv['name'])
 
 	if scenario:
 		argv['httptestid'] = scenario[0]['httptestid']
