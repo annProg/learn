@@ -140,6 +140,7 @@ def run(assetId):
 		argv['httptestid'] = scenario[0]['httptestid']
 		argv['httpstepid'] = scenario[0]['steps'][0]['httpstepid']
 		data = web.updateScenario(argv)
+		#triggername = data
 	else:
 		data = web.createScenario(argv)
 		argv['httptestid'] = data['httptestids'][0]
@@ -161,7 +162,7 @@ def run(assetId):
 	cmdb_argv['objfields'] = {'Zabbix Info': 
 			[{'name': 'httptestid', 'type': 'text', 'value': argv['httptestid'], 'label': 'httptestid'}]
 			}
-	cmdbApi.updateObject(cmdb_argv)
+	print(cmdbApi.updateObject(cmdb_argv))
 
 	if not cmdbObj['httptestid']:
 		cmdbObj['httptestid'] = argv['httptestid']
