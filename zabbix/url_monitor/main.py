@@ -89,6 +89,17 @@ def createTrigger(hostid, hostname, scenario, failcount=3, timeoutcount=10, time
 		else:
 			data = trigger.createTrigger(tri['desc'], tri['exp'])
 
+def getStatus(assetId):
+	try:
+		status = cmdbApi.getObjectById(assetId)['result']['code']
+		if status == "offline":
+			status = 1
+		else:
+			status = 0
+	except:
+		status = 0
+	return(status)
+	
 def run(assetId):
 	ret = {}
 	cmdbObj = cmdbApi.getObjectById(str(assetId))['result']
@@ -106,7 +117,7 @@ def run(assetId):
 
 	hostname= getHostName(cmdbObj['product'])
 	argv['name'] = hostname + "-" + "/".join(cmdbObj['url'].split('/')[3:])
-	argv['status'] = cmdbObj['responsecode']
+	argv['status_code'] = cmdbObj['responsecode']
 	argv['no'] = 1
 	argv['hostid'] = getHostId(hostname)
 	argv['delay'] = cmdbObj['delay']
@@ -115,6 +126,7 @@ def run(assetId):
 	argv['required'] = cmdbObj['responsedata']
 	argv['agent'] = agent
 	argv['applicationid'] = getApplicationId(argv['hostid'], argv['name'])
+	argv['status'] = getStatus(cmdbObj['status'])
 	
 	
 	scenario =  web.getScenarioByName(argv['hostid'], argv['name'])

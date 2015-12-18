@@ -21,20 +21,28 @@ def getScenarioByName(hostid, name):
 	data = zabbixApi.apiRun("httptest.get", params)
 	return(data)
 
+def getScenarioById(hostid, httptestid):
+	filters = {"hostid": hostid, "httptestid": httptestid}
+	params = {"output": ["httptestid", "name", "hostid"], "selectSteps": ["httpstepid"],"filter": filters}
+	data = zabbixApi.apiRun("httptest.get", params)
+	return(data)
+
 def createScenario(argv):
 	name = argv['name']
 	hostid = argv['hostid']
 	url = argv['url']
-	status = argv['status']
+	status_code = argv['status_code']
 	no = argv['no']
 	required = argv['required']
 	delay = argv['delay']
 	agent = argv['agent']	
 	applicationid = argv['applicationid']
 	posts = argv['posts']
+	status = argv['status']
 
-	steps = [{"name": "api Check", "url": url, "posts": posts, "status_codes": status, "no": no, "required": required}]
-	params = {"name": name, "hostid": hostid, "steps": steps, "delay": delay, "agent": agent, "applicationid":applicationid}
+	steps = [{"name": "api Check", "url": url, "posts": posts, "status_codes": status_code, "no": no, "required": required}]
+	params = {"name": name, "hostid": hostid, "steps": steps, "delay": delay, "agent": agent, 
+			"applicationid":applicationid, "status": status}
 
 	data = zabbixApi.apiRun("httptest.create", params)
 	return(data)
@@ -43,7 +51,7 @@ def updateScenario(argv):
 	name = argv['name']
 	hostid = argv['hostid']
 	url = argv['url']
-	status = argv['status']
+	status_code = argv['status_code']
 	no = argv['no']
 	required = argv['required']
 	delay = argv['delay']
@@ -54,9 +62,9 @@ def updateScenario(argv):
 	posts = argv['posts']
 
 	steps = [{"httpstepid":httpstepid, "name": "api Check", "url": url, "posts": posts, 
-		"status_codes": status, "no": no, "required": required}]
+		"status_codes": status_code, "no": no, "required": required}]
 	params = {"name": name, "hostid": hostid, "steps": steps, "delay": delay, "agent": agent, 
-			"applicationid":applicationid, "httptestid": httptestid}
+			"applicationid":applicationid, "httptestid": httptestid, "status": argv['status']}
 
 	data = zabbixApi.apiRun("httptest.update", params)
 	return(data)
@@ -64,7 +72,7 @@ def updateScenario(argv):
 if __name__ == '__main__':
 	func = sys.argv[1]
 	if func == "get":
-		print(json.dumps(getScenarioByName("10597", "ota_tv_getUpgradeProfile"),indent=1))
+		print(json.dumps(getScenarioById("10122", "8"),indent=1))
 	if func == "create":
 		argv = {"name":"api_m_test", "hostid":"10653", "url": "http://10.181.117.47:8000/upstream", "status":"200", "no":1, "required":"br", "delay":30, "agent":"curl"}
 		print(json.dumps(createScenario(argv)))

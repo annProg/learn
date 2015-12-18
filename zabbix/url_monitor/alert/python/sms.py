@@ -11,4 +11,6 @@
 
 class Sender(object):
     def done(self, msg, destAddr, srcAddr = 122222, corpID = 211111, downMsgID = None):
-		print("OK")
+		ret={}
+		ret['errno'] = 10000
+		return(ret)

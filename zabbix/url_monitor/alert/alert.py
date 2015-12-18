@@ -54,10 +54,12 @@ def mail(contact, subject, content):
 
 def sms(contact, content):
 	to_list = contact['phone'].split(',')
+	content = content.replace("#", "\"")
 	for phone in to_list:
 		x = Sender().done(content, str(phone))
 		status = x['errno']
 		smslog(status, phone, content)
+
 def getContent(orig):
 	argv = {}
 	argv['name'] = orig['name']
