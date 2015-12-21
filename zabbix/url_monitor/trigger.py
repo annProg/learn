@@ -12,8 +12,8 @@
 import zabbixApi
 import json
 
-def getTriggerByName(hostid, description):
-	filters = {"description": description}
+def getTriggerByExp(hostid, expression):
+	filters = {"expression": expression}
 	params = {"output": "extend", "hostids":hostid, "filter":filters}
 	data = zabbixApi.apiRun("trigger.get", params)
 	return(data)
@@ -27,6 +27,9 @@ def updateTrigger(triggerid, description, expression):
 	params = {"triggerid":triggerid, "description": description, "expression": expression, "priority": 3}
 	data = zabbixApi.apiRun("trigger.update", params)
 	return(data)
+
+def deleteTrigger(triggerid):
+	pass
 
 if __name__ == '__main__':
 	#print(getApplicationByName("10654", "tv_desktop"))

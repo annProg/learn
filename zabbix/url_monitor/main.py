@@ -82,7 +82,7 @@ def createTrigger(hostid, hostname, scenario, failcount=3, timeoutcount=10, time
 	triggers.append({"desc":desc_error, "exp":exp_error})
 
 	for tri in triggers:
-		old_trigger = trigger.getTriggerByName(hostid, tri['desc'])
+		old_trigger = trigger.getTriggerByExp(hostid, tri['exp'])
 		if old_trigger:
 			triggerid = old_trigger[0]['triggerid']
 			data = trigger.updateTrigger(triggerid, tri['desc'], tri['exp'])
@@ -116,7 +116,11 @@ def run(assetId):
 		argv['posts'] = cmdbObj['param']
 
 	hostname= getHostName(cmdbObj['product'])
-	argv['name'] = hostname + "-" + "/".join(cmdbObj['url'].split('/')[3:])
+	location = "/".join(cmdbObj['url'].split('/')[3:])
+	if not location:
+		location = "/".join(cmdbObj['url'].split('/')[2:])
+	argv['name'] = hostname + "-" + location
+	argv['name'] = argv['name'][-64:]
 	argv['status_code'] = cmdbObj['responsecode']
 	argv['no'] = 1
 	argv['hostid'] = getHostId(hostname)
