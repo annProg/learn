@@ -160,7 +160,9 @@ def run(assetId):
 	cmdb_argv['objtype'] = "API"
 	cmdb_argv['objid'] = str(assetId)
 	cmdb_argv['objfields'] = {'Zabbix Info': 
-			[{'name': 'httptestid', 'type': 'text', 'value': argv['httptestid'], 'label': 'httptestid'}]
+			[{'name': 'httptestid', 'type': 'text', 'value': argv['httptestid'], 'label': 'httptestid'}],
+			"Basic":
+			[{"name":"url","label":"URL","type":"text","value":cmdbObj['url']}]
 			}
 	print(cmdbApi.updateObject(cmdb_argv))
 
