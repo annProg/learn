@@ -14,7 +14,13 @@ import json
 
 def getApplicationByName(hostid, name):
 	filters = {"name": name}
-	params = {"output": "extend", "hostids":hostid, "filter":filters}
+	params = {"output": ["name", "hostid"], "hostids":hostid, "filter":filters}
+	data = zabbixApi.apiRun("application.get", params)
+	return(data)
+
+def getApplicationById(hostid, applicationid):
+	filters = {"applicationid": applicationid}
+	params = {"output": ["name","hostid"], "hostids":hostid, "filter":filters}
 	data = zabbixApi.apiRun("application.get", params)
 	return(data)
 
@@ -23,6 +29,12 @@ def createApplication(hostid, name):
 	data = zabbixApi.apiRun("application.create", params)
 	return(data)
 
+def updateApplication(hostid, name):
+	pass
+
+def deleteApplicatioin():
+	pass
+
 if __name__ == '__main__':
 	#print(getApplicationByName("10654", "tv_desktop"))
-	print(createApplication("10654", "tv_desktop"))
+	print(getApplicationById("10122", "591"))

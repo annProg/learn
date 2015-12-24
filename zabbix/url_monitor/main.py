@@ -54,21 +54,25 @@ def getHostId(hostname):
 	hostid = hostids[0]['hostid']
 	return(hostid)
 	
-def getApplicationId(hostid, name):
-	appids = application.getApplicationByName(hostid, name)
-	if not appids:
+def getApplicationId(hostid, name, applicationid=null):
+	if not applicationid:
 		appids = application.createApplication(hostid, name)
+	else:
 		try:
-			appid = appids['applicationids'][0]
-			return(appid)
+			appids = application.getApplicationById(hostid, applicationid)
+			appids = application.updateApplication(hostid, name ,applicationid)
 		except:
-			print(appids)
-			return(False)
-
-	appid = appids[0]['applicationid']
-	return(appid)
+			appids = application.getApplicationName(hostid, name)
+		if not appids:
+			appids = application.createApplication(hostid, name)
+	try:
+		appid = appids['applicationids'][0]
+		return(appid)
+	except:
+		print(appids)
+		return(False)
 		
-def createTrigger(hostid, hostname, scenario, failcount=3, timeoutcount=10, timeout=8000):
+def createTrigger(hostid, hostname, scenario, triggerids=null, failcount=3, timeoutcount=10, timeout=8000):
 	desc_resp = "Response time too long: " + scenario
 	# 最后timeoutcount次的请求都大于timeout毫秒
 	exp_resp = "{" + hostname + ":web.test.time[" + scenario + ",api Check,resp].last(#" + str(timeoutcount) + ")}>" + str(timeout)
@@ -81,13 +85,17 @@ def createTrigger(hostid, hostname, scenario, failcount=3, timeoutcount=10, time
 	triggers.append({"desc":desc_resp, "exp":exp_resp})
 	triggers.append({"desc":desc_error, "exp":exp_error})
 
+	ret_triggerids = []
 	for tri in triggers:
 		old_trigger = trigger.getTriggerByExp(hostid, tri['exp'])
 		if old_trigger:
 			triggerid = old_trigger[0]['triggerid']
 			data = trigger.updateTrigger(triggerid, tri['desc'], tri['exp'])
+			ret_triggerids.append(data[0]['triggerid'])
 		else:
 			data = trigger.createTrigger(tri['desc'], tri['exp'])
+			ret_triggerids.append(data[0]['triggerid'])
+	return(ret_triggerids)
 
 def getStatus(assetId):
 	try:
@@ -129,7 +137,7 @@ def run(assetId):
 		argv['delay'] = 60
 	argv['required'] = cmdbObj['responsedata']
 	argv['agent'] = agent
-	argv['applicationid'] = getApplicationId(argv['hostid'], argv['name'])
+	cmdbObj['applicationid'] = getApplicationId(argv['hostid'], argv['name'], cmdbObj['applicationid'])
 	argv['status'] = getStatus(cmdbObj['status'])
 	
 	# 如果某个cmdb项目已经在zabbix创建过，则不以web监控名称判断web monitor是否存在(存在cmdb中修改URL的情况)
@@ -164,7 +172,9 @@ def run(assetId):
 	cmdb_argv['objtype'] = "API"
 	cmdb_argv['objid'] = str(assetId)
 	cmdb_argv['objfields'] = {'Zabbix Info': 
-			[{'name': 'httptestid', 'type': 'text', 'value': argv['httptestid'], 'label': 'httptestid'}],
+			[{'name': 'httptestid', 'value': argv['httptestid']}],
+			[{'name': 'applicationid', 'value': cmdbObj['applicationid']}],
+			[{'name': 'triggerid', 'value': argv['triggerid']}],
 			"Basic":
 			[{"name":"url","label":"URL","type":"text","value":cmdbObj['url']}]
 			}
