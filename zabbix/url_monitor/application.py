@@ -29,8 +29,10 @@ def createApplication(hostid, name):
 	data = zabbixApi.apiRun("application.create", params)
 	return(data)
 
-def updateApplication(hostid, name):
-	pass
+def updateApplication(name, applicationid):
+	params = {"name": name, "applicationid": applicationid}
+	data = zabbixApi.apiRun("application.update", params)
+	return(data)
 
 def deleteApplicatioin():
 	pass

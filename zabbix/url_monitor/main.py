@@ -17,6 +17,7 @@ import cmdbApi
 import configparser
 import db
 import sys
+import hashlib
 
 ini = "config.ini"
 config = configparser.ConfigParser()
@@ -54,25 +55,42 @@ def getHostId(hostname):
 	hostid = hostids[0]['hostid']
 	return(hostid)
 	
-def getApplicationId(hostid, name, applicationid=null):
+def getScenarioName(hostname, url):
+	print(type(url))
+	md5 = hashlib.md5()
+	md5.update(url.encode('utf-8'))
+	urlhash = md5.hexdigest()[0:9]
+
+	domain = "/".join(url.split('/')[2:3])
+	domain =".".join(domain.split('.')[0:2])
+	location = "/".join(url.split('/')[3:])
+	location = "/".join(location.split('/')[-2:])
+	scenario = domain + "-" + location + "-" + urlhash
+	return(scenario)
+
+def getApplicationId(hostid, name, applicationid=None):
 	if not applicationid:
-		appids = application.createApplication(hostid, name)
+		try:
+			appids = application.getApplicationByName(hostid, name)
+		except:	
+			appids = application.createApplication(hostid, name)
 	else:
 		try:
 			appids = application.getApplicationById(hostid, applicationid)
-			appids = application.updateApplication(hostid, name ,applicationid)
+			appids = application.updateApplication(name ,applicationid)
+			return(appids['applicationids'][0])
 		except:
-			appids = application.getApplicationName(hostid, name)
+			appids = application.getApplicationByName(hostid, name)
 		if not appids:
 			appids = application.createApplication(hostid, name)
 	try:
-		appid = appids['applicationids'][0]
+		appid = appids[0]['applicationid']
 		return(appid)
 	except:
 		print(appids)
 		return(False)
-		
-def createTrigger(hostid, hostname, scenario, triggerids=null, failcount=3, timeoutcount=10, timeout=8000):
+
+def getTriggerExps(hostname, scenario, failcount=3, timeoutcount=10, timeout=8000):
 	desc_resp = "Response time too long: " + scenario
 	# 最后timeoutcount次的请求都大于timeout毫秒
 	exp_resp = "{" + hostname + ":web.test.time[" + scenario + ",api Check,resp].last(#" + str(timeoutcount) + ")}>" + str(timeout)
@@ -84,17 +102,39 @@ def createTrigger(hostid, hostname, scenario, triggerids=null, failcount=3, time
 	triggers = []
 	triggers.append({"desc":desc_resp, "exp":exp_resp})
 	triggers.append({"desc":desc_error, "exp":exp_error})
+	return(triggers)
 
+def getTriggerId(triggers, triggerids=None):
 	ret_triggerids = []
 	for tri in triggers:
-		old_trigger = trigger.getTriggerByExp(hostid, tri['exp'])
-		if old_trigger:
-			triggerid = old_trigger[0]['triggerid']
-			data = trigger.updateTrigger(triggerid, tri['desc'], tri['exp'])
-			ret_triggerids.append(data[0]['triggerid'])
+		if not triggerids:
+			try:
+				old_trigger = trigger.getTriggerByName(tri['desc'])
+				data = trigger.updateTrigger(old_trigger[0]['triggerid'], tri['desc'], tri['exp'])
+				ret_triggerids.append(data['triggerids'][0])
+				continue
+			except:
+				data = trigger.createTrigger(tri['desc'], tri['exp'])
+				try:
+					ret_triggerids.append(data['triggerids'][0])
+				except:
+					print(data)
 		else:
-			data = trigger.createTrigger(tri['desc'], tri['exp'])
-			ret_triggerids.append(data[0]['triggerid'])
+			for triggerid in triggerids:
+				if trigger.getTriggerById(triggerid):
+					try:
+						data = trigger.updateTrigger(triggerid, tri['desc'], tri['exp'])
+						ret_triggerids.append(data['triggerids'][0])
+						break
+					except:
+						continue
+				else:
+					try:
+						data = trigger.createTrigger(tri['desc'], tri['exp'])
+						ret_triggerids.append(data['triggerids'][0])
+					except:
+						continue
+	print("ret_tri:" + str(ret_triggerids))
 	return(ret_triggerids)
 
 def getStatus(assetId):
@@ -124,10 +164,7 @@ def run(assetId):
 		argv['posts'] = cmdbObj['param']
 
 	hostname= getHostName(cmdbObj['product'])
-	location = "/".join(cmdbObj['url'].split('/')[3:])
-	if not location:
-		location = "/".join(cmdbObj['url'].split('/')[2:])
-	argv['name'] = hostname + "-" + location
+	argv['name'] = getScenarioName(hostname, cmdbObj['url'])
 	argv['name'] = argv['name'][-64:]
 	argv['status_code'] = cmdbObj['responsecode']
 	argv['no'] = 1
@@ -137,7 +174,7 @@ def run(assetId):
 		argv['delay'] = 60
 	argv['required'] = cmdbObj['responsedata']
 	argv['agent'] = agent
-	cmdbObj['applicationid'] = getApplicationId(argv['hostid'], argv['name'], cmdbObj['applicationid'])
+	argv['applicationid'] = getApplicationId(argv['hostid'], argv['name'], cmdbObj['applicationid'])
 	argv['status'] = getStatus(cmdbObj['status'])
 	
 	# 如果某个cmdb项目已经在zabbix创建过，则不以web监控名称判断web monitor是否存在(存在cmdb中修改URL的情况)
@@ -165,19 +202,25 @@ def run(assetId):
 		cmdbObj['timeoutcount'] = 10
 	if not cmdbObj['failcount'].isdigit():
 		cmdbObj['failcount'] = 3
-	createTrigger(argv['hostid'], hostname, argv['name'], cmdbObj['failcount'], cmdbObj['timeoutcount'], cmdbObj['timeout'])
+	triggers = getTriggerExps(hostname, argv['name'], cmdbObj['failcount'], cmdbObj['timeoutcount'], cmdbObj['timeout'])
+	triggerids = cmdbObj['triggerid'] and cmdbObj['triggerid'].split(',') or None
+	print(triggerids)
+	argv['triggerid'] = ",".join(getTriggerId(triggers,triggerids))
 	
 	#update cmdb
 	cmdb_argv = {}
 	cmdb_argv['objtype'] = "API"
 	cmdb_argv['objid'] = str(assetId)
-	cmdb_argv['objfields'] = {'Zabbix Info': 
-			[{'name': 'httptestid', 'value': argv['httptestid']}],
-			[{'name': 'applicationid', 'value': cmdbObj['applicationid']}],
-			[{'name': 'triggerid', 'value': argv['triggerid']}],
-			"Basic":
-			[{"name":"url","label":"URL","type":"text","value":cmdbObj['url']}]
-			}
+	cmdb_argv['objfields'] = {
+		'Zabbix Info': [
+			{'name': 'httptestid', 'value': argv['httptestid']},
+			{'name': 'applicationid', 'value': argv['applicationid']},
+			{'name': 'triggerid', 'value': argv['triggerid']}
+		],
+		"Basic":[
+			{"name":"url","label":"URL","type":"text","value":cmdbObj['url']}
+		]
+	}
 	print(cmdbApi.updateObject(cmdb_argv))
 
 	if not cmdbObj['httptestid']:

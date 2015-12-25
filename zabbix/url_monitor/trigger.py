@@ -12,15 +12,15 @@
 import zabbixApi
 import json
 
-def getTriggerByName(hostid, description):
+def getTriggerByName(description):
 	filters = {"description": description}
-	params = {"output": "extend", "hostids":hostid, "filter":filters}
+	params = {"output": "extend", "filter":filters}
 	data = zabbixApi.apiRun("trigger.get", params)
 	return(data)
 
-def getTriggerById(hostid, triggerid):
+def getTriggerById(triggerid):
 	filters = {"triggerid": triggerid}
-	params = {"output": "extend", "hostids":hostid, "filter":filters}
+	params = {"output": "extend", "filter":filters}
 	data = zabbixApi.apiRun("trigger.get", params)
 	return(data)
 
@@ -40,4 +40,4 @@ def deleteTrigger(triggerid):
 if __name__ == '__main__':
 	#print(getApplicationByName("10654", "tv_desktop"))
 	#print(getTriggerById("10122", "13805"))
-	print(getTriggerByName("10122", "Request Error: a-interact.scloud.letv.com/api/v1/InteractProgram/currentProgram"))
+	print(getTriggerByName("Request Error: a-interact.scloud.letv.com/api/v1/InteractProgram/currentProgram"))

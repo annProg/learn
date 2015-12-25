@@ -86,7 +86,7 @@ def getObjectListByValue(fieldvalue):
 	return(data)
 
 if __name__ == '__main__':
-	print(getObjectById("1918"))
+	print(getObjectById("1919"))
 	#print(getObjectListByValue("GET"))
 	#print(getObjectById("70"))
 	#print(getObjectById("1254"))
