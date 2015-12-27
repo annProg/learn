@@ -71,9 +71,12 @@ def getScenarioName(hostname, url):
 def getApplicationId(hostid, name, applicationid=None):
 	if not applicationid:
 		try:
-			appids = application.getApplicationByName(hostid, name)
+			old_appids = application.getApplicationByName(hostid, name)
+			appids = application.updateApplication(name, old_appids[0]['applicationid'])
+			return(appids['applicationid'][0])
 		except:	
 			appids = application.createApplication(hostid, name)
+			return(appids['applicationid'][0])
 	else:
 		try:
 			appids = application.getApplicationById(hostid, applicationid)
@@ -81,14 +84,11 @@ def getApplicationId(hostid, name, applicationid=None):
 			return(appids['applicationids'][0])
 		except:
 			appids = application.getApplicationByName(hostid, name)
-		if not appids:
-			appids = application.createApplication(hostid, name)
-	try:
-		appid = appids[0]['applicationid']
-		return(appid)
-	except:
-		print(appids)
-		return(False)
+			if not appids:
+				appids = application.createApplication(hostid, name)
+				return(appids['applicationids'][0])
+			else:
+				return(appids[0]['applicationid'])
 
 def getTriggerExps(hostname, scenario, failcount=3, timeoutcount=10, timeout=8000):
 	desc_resp = "Response time too long: " + scenario
