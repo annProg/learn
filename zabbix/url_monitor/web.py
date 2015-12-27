@@ -39,8 +39,9 @@ def createScenario(argv):
 	applicationid = argv['applicationid']
 	posts = argv['posts']
 	status = argv['status']
+	header = argv['header']
 
-	steps = [{"name": "api Check", "url": url, "posts": posts, "status_codes": status_code, "no": no, "required": required}]
+	steps = [{"name": "api Check", "url": url, "headers": header, "posts": posts, "status_codes": status_code, "no": no, "required": required}]
 	params = {"name": name, "hostid": hostid, "steps": steps, "delay": delay, "agent": agent, 
 			"applicationid":applicationid, "status": status}
 
@@ -60,8 +61,9 @@ def updateScenario(argv):
 	httptestid = argv['httptestid']
 	httpstepid = argv['httpstepid']
 	posts = argv['posts']
+	header = argv['header']
 
-	steps = [{"httpstepid":httpstepid, "name": "api Check", "url": url, "posts": posts, 
+	steps = [{"httpstepid":httpstepid, "name": "api Check", "url": url, "headers": header, "posts": posts, 
 		"status_codes": status_code, "no": no, "required": required}]
 	params = {"name": name, "hostid": hostid, "steps": steps, "delay": delay, "agent": agent, 
 			"applicationid":applicationid, "httptestid": httptestid, "status": argv['status']}

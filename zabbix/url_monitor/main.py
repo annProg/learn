@@ -57,7 +57,6 @@ def getHostId(hostname):
 	return(hostid)
 	
 def getScenarioName(hostname, url):
-	print(type(url))
 	md5 = hashlib.md5()
 	md5.update(url.encode('utf-8'))
 	urlhash = md5.hexdigest()[0:9]
@@ -110,11 +109,17 @@ def getTriggerId(triggers, triggerids=None):
 
 	for tri in triggers:
 		try:
-			data = trigger.updateTrigger(triggerids[tri['desc']], tri['desc'], tri['exp'])
-			ret_triggerids[tri['desc'] = data['triggerids'][0]
+			old_trigger = trigger.getTriggerById(triggerids[tri['desc']])
+			data = trigger.updateTrigger(old_trigger[0]['triggerid'], tri['desc'], tri['exp'])
+			#print("i am here")
 		except:
-			data = trigger.createTrigger(tri['desc'], tri['exp'])
-			ret_triggerids[tri['desc'] = data['triggerids'][0]
+			try:
+				old_trigger = trigger.getTriggerByName(tri['desc'])
+				data = trigger.updateTrigger(old_trigger[0]['triggerid'], tri['desc'], tri['exp'])
+			except:
+				data = trigger.createTrigger(tri['desc'], tri['exp'])
+		#print(str(tri) + ": " + str(data))
+		ret_triggerids[tri['desc']] = data['triggerids'][0]
 	return(ret_triggerids)
 
 '''
@@ -151,8 +156,14 @@ def getTriggerId(triggers, triggerids=None):
 '''
 
 def deleteTriggers(triggerids):
-	triggers = triggerids.split(',')
-	ret = trigger.deleteTrigger(triggers)
+	try:
+		triggers = json.loads(triggerids)
+	except:
+		return("triggerids not dict string")
+	ids = []
+	for key in triggers.keys():
+		ids.append(triggers[key])
+	ret = trigger.deleteTrigger(ids)
 	print("delete trigger: " + str(ret))
 
 def getStatus(assetId):
@@ -194,6 +205,7 @@ def run(assetId):
 	argv['agent'] = agent
 	argv['applicationid'] = getApplicationId(argv['hostid'], argv['name'], cmdbObj['applicationid'])
 	argv['status'] = getStatus(cmdbObj['status'])
+	argv['header'] = cmdbObj['header']
 	
 	# 如果某个cmdb项目已经在zabbix创建过，则不以web监控名称判断web monitor是否存在(存在cmdb中修改URL的情况)
 	if cmdbObj['httptestid']:
@@ -201,7 +213,7 @@ def run(assetId):
 		if not scenario:
 			scenario =  web.getScenarioByName(argv['hostid'], argv['name'])
 		#如果主机名变更，删除过期的触发器
-		if not scenario[0]['name'] == argv['name']:
+		elif not scenario[0]['name'] == argv['name']:
 			deleteTriggers(cmdbObj['triggerid'])
 	else:
 		scenario =  web.getScenarioByName(argv['hostid'], argv['name'])
@@ -224,8 +236,10 @@ def run(assetId):
 	if not cmdbObj['failcount'].isdigit():
 		cmdbObj['failcount'] = 3
 	triggers = getTriggerExps(hostname, argv['name'], cmdbObj['failcount'], cmdbObj['timeoutcount'], cmdbObj['timeout'])
-	triggerids = cmdbObj['triggerid'] and json.loads(cmdbObj['triggerid']) or None
-	print(triggerids)
+	try:
+		triggerids = json.loads(cmdbObj['triggerid'])
+	except:
+		triggerids = None
 	argv['triggerid'] = json.dumps(getTriggerId(triggers,triggerids))
 	
 	#update cmdb
