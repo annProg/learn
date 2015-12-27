@@ -137,6 +137,11 @@ def getTriggerId(triggers, triggerids=None):
 	print("ret_tri:" + str(ret_triggerids))
 	return(ret_triggerids)
 
+def deleteTriggers(triggerids):
+	triggers = triggerids.split(',')
+	ret = trigger.deleteTrigger(triggers)
+	print("delete trigger: " + str(ret))
+
 def getStatus(assetId):
 	try:
 		status = cmdbApi.getObjectById(assetId)['result']['code']
@@ -182,6 +187,9 @@ def run(assetId):
 		scenario = web.getScenarioById(argv['hostid'], cmdbObj['httptestid'])
 		if not scenario:
 			scenario =  web.getScenarioByName(argv['hostid'], argv['name'])
+		#如果主机名变更，删除过期的触发器
+		if not scenario[0]['name'] == argv['name']:
+			deleteTriggers(cmdbObj['triggerid'])
 	else:
 		scenario =  web.getScenarioByName(argv['hostid'], argv['name'])
 

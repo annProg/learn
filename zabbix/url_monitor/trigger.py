@@ -34,8 +34,10 @@ def updateTrigger(triggerid, description, expression):
 	data = zabbixApi.apiRun("trigger.update", params)
 	return(data)
 
-def deleteTrigger(triggerid):
-	pass
+def deleteTrigger(triggerids):
+	param = triggerids
+	data = zabbixApi.apiRun("trigger.delete", params)
+	return(data)
 
 if __name__ == '__main__':
 	#print(getApplicationByName("10654", "tv_desktop"))
