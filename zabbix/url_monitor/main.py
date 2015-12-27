@@ -18,6 +18,7 @@ import configparser
 import db
 import sys
 import hashlib
+import json
 
 ini = "config.ini"
 config = configparser.ConfigParser()
@@ -105,7 +106,18 @@ def getTriggerExps(hostname, scenario, failcount=3, timeoutcount=10, timeout=800
 	return(triggers)
 
 def getTriggerId(triggers, triggerids=None):
-	ret_triggerids = []
+	ret_triggerids = {}
+
+	for tri in triggers:
+		try:
+			data = trigger.updateTrigger(triggerids[tri['desc']], tri['desc'], tri['exp'])
+			ret_triggerids[tri['desc'] = data['triggerids'][0]
+		except:
+			data = trigger.createTrigger(tri['desc'], tri['exp'])
+			ret_triggerids[tri['desc'] = data['triggerids'][0]
+	return(ret_triggerids)
+
+'''
 	for tri in triggers:
 		if not triggerids:
 			try:
@@ -136,6 +148,7 @@ def getTriggerId(triggers, triggerids=None):
 					#	continue
 	print("ret_tri:" + str(ret_triggerids))
 	return(ret_triggerids)
+'''
 
 def deleteTriggers(triggerids):
 	triggers = triggerids.split(',')
@@ -211,9 +224,9 @@ def run(assetId):
 	if not cmdbObj['failcount'].isdigit():
 		cmdbObj['failcount'] = 3
 	triggers = getTriggerExps(hostname, argv['name'], cmdbObj['failcount'], cmdbObj['timeoutcount'], cmdbObj['timeout'])
-	triggerids = cmdbObj['triggerid'] and cmdbObj['triggerid'].split(',') or None
+	triggerids = cmdbObj['triggerid'] and json.loads(cmdbObj['triggerid']) or None
 	print(triggerids)
-	argv['triggerid'] = ",".join(getTriggerId(triggers,triggerids))
+	argv['triggerid'] = json.dumps(getTriggerId(triggers,triggerids))
 	
 	#update cmdb
 	cmdb_argv = {}
