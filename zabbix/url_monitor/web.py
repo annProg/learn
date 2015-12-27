@@ -72,7 +72,7 @@ def updateScenario(argv):
 if __name__ == '__main__':
 	func = sys.argv[1]
 	if func == "get":
-		print(json.dumps(getScenarioById("10122", "8"),indent=1))
+		print(json.dumps(getScenarioById(sys.argv[2], sys.argv[3]),indent=1))
 	if func == "create":
 		argv = {"name":"api_m_test", "hostid":"10653", "url": "http://10.181.117.47:8000/upstream", "status":"200", "no":1, "required":"br", "delay":30, "agent":"curl"}
 		print(json.dumps(createScenario(argv)))
