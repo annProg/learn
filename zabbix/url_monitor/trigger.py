@@ -11,6 +11,7 @@
 
 import zabbixApi
 import json
+import sys
 
 def getTriggerByName(description):
 	filters = {"description": description}
@@ -35,11 +36,12 @@ def updateTrigger(triggerid, description, expression):
 	return(data)
 
 def deleteTrigger(triggerids):
-	param = triggerids
+	params = triggerids
 	data = zabbixApi.apiRun("trigger.delete", params)
 	return(data)
 
 if __name__ == '__main__':
-	#print(getApplicationByName("10654", "tv_desktop"))
-	#print(getTriggerById("10122", "13805"))
-	print(getTriggerByName("Request Error: a-interact.scloud.letv.com/api/v1/InteractProgram/currentProgram"))
+	if sys.argv[1] == "id":
+		print(getTriggerById(sys.argv[2]))
+	if sys.argv[1] == "name":
+		print(getTriggerByName(sys.argv[2]))

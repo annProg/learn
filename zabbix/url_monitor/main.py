@@ -122,18 +122,18 @@ def getTriggerId(triggers, triggerids=None):
 		else:
 			for triggerid in triggerids:
 				if trigger.getTriggerById(triggerid):
-					try:
-						data = trigger.updateTrigger(triggerid, tri['desc'], tri['exp'])
-						ret_triggerids.append(data['triggerids'][0])
-						break
-					except:
-						continue
+					#try:
+					data = trigger.updateTrigger(triggerid, tri['desc'], tri['exp'])
+					ret_triggerids.append(data['triggerids'][0])
+					break
+					#except:
+					#	continue
 				else:
-					try:
-						data = trigger.createTrigger(tri['desc'], tri['exp'])
-						ret_triggerids.append(data['triggerids'][0])
-					except:
-						continue
+					#try:
+					data = trigger.createTrigger(tri['desc'], tri['exp'])
+					ret_triggerids.append(data['triggerids'][0])
+					#except:
+					#	continue
 	print("ret_tri:" + str(ret_triggerids))
 	return(ret_triggerids)
 
