@@ -115,11 +115,11 @@ def getTriggerExps(hostname, scenario, nodatatime, failcount=3, timeoutcount=10,
 	nodata = str(int(nodatatime)*2)
 	desc_resp = "Response time too long: " + scenario
 	# 最后timeoutcount次的请求都大于timeout毫秒
-	exp_resp = "{" + hostname + ":web.test.time[" + scenario + ",api Check,resp].last(#" + str(timeoutcount) + ")}>" + str(timeout)
+	exp_resp = "{" + hostname + ":web.test.time[" + scenario + ",api Check,resp].count(#" + str(timeoutcount) + "," + str(timeout) + ",\"gt\")}=" + str(timeoutcount)
 
 	desc_error = "Request Error: " + scenario
 	# 满足最后failcount次失败且60s内有error数据，使用web.test.error主要是为了获得具体报错信息
-	exp_error = "{" + hostname + ":web.test.error[" + scenario + "].nodata(" + nodata + ")}=0" + " and " + "{" + hostname + ":web.test.fail[" + scenario + "].last(#" + str(failcount) + ")}<>0"
+	exp_error = "{" + hostname + ":web.test.error[" + scenario + "].nodata(" + nodata + ")}=0" + " and " + "{" + hostname + ":web.test.fail[" + scenario + "].count(#" + str(failcount) + ",1" + ")}=" + str(failcount)
 
 	triggers = []
 	triggers.append({"desc":desc_resp, "exp":exp_resp})
