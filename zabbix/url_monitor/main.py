@@ -68,6 +68,27 @@ def getScenarioName(hostname, url):
 	scenario = domain + "-" + location + "-" + urlhash
 	return(scenario)
 
+def getCurlCmd(url,method,header,params):
+	if header:
+		headers = header.split('\r\n')
+	else:
+		headers = []
+	curl_cmd = "curl -s "
+	header_str = ""
+	if headers:
+		for item in headers:
+			item_str = "-H \"" + item + "\" "
+			header_str += item_str
+	curl_cmd += header_str
+
+	if method == "GET":
+		curl_data = "\"" + url + "?" + params + "\""
+		curl_cmd += curl_data
+	else:
+		curl_data = url + " --data \"" + params + "\""
+		curl_cmd += curl_data
+	return(curl_cmd)
+
 def getApplicationId(hostid, name, applicationid=None):
 	if not applicationid:
 		try:
@@ -207,7 +228,8 @@ def run(assetId):
 	argv['applicationid'] = getApplicationId(argv['hostid'], argv['name'], cmdbObj['applicationid'])
 	argv['status'] = getStatus(cmdbObj['status'])
 	argv['header'] = cmdbObj['header']
-	
+	cmdbObj['curl'] = getCurlCmd(cmdbObj['url'], method, cmdbObj['header'], cmdbObj['param'])
+
 	# 如果某个cmdb项目已经在zabbix创建过，则不以web监控名称判断web monitor是否存在(存在cmdb中修改URL的情况)
 	if cmdbObj['httptestid']:
 		scenario = web.getScenarioById(argv['hostid'], cmdbObj['httptestid'])
@@ -255,6 +277,9 @@ def run(assetId):
 		],
 		"Basic":[
 			{"name":"url","label":"URL","type":"text","value":cmdbObj['url']}
+		],
+		"Extend":[
+			{"name":"curl", "value":cmdbObj['curl']}	
 		]
 	}
 	print(cmdbApi.updateObject(cmdb_argv))
