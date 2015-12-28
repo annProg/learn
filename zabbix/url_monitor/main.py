@@ -90,14 +90,15 @@ def getApplicationId(hostid, name, applicationid=None):
 			else:
 				return(appids[0]['applicationid'])
 
-def getTriggerExps(hostname, scenario, failcount=3, timeoutcount=10, timeout=8000):
+def getTriggerExps(hostname, scenario, nodatatime, failcount=3, timeoutcount=10, timeout=8000):
+	nodata = str(int(nodatatime)*2)
 	desc_resp = "Response time too long: " + scenario
 	# 最后timeoutcount次的请求都大于timeout毫秒
 	exp_resp = "{" + hostname + ":web.test.time[" + scenario + ",api Check,resp].last(#" + str(timeoutcount) + ")}>" + str(timeout)
 
 	desc_error = "Request Error: " + scenario
 	# 满足最后failcount次失败且60s内有error数据，使用web.test.error主要是为了获得具体报错信息
-	exp_error = "{" + hostname + ":web.test.error[" + scenario + "].nodata(60)}=0" + " and " + "{" + hostname + ":web.test.fail[" + scenario + "].last(#" + str(failcount) + ")}<>0"
+	exp_error = "{" + hostname + ":web.test.error[" + scenario + "].nodata(" + nodata + ")}=0" + " and " + "{" + hostname + ":web.test.fail[" + scenario + "].last(#" + str(failcount) + ")}<>0"
 
 	triggers = []
 	triggers.append({"desc":desc_resp, "exp":exp_resp})
@@ -235,7 +236,7 @@ def run(assetId):
 		cmdbObj['timeoutcount'] = 10
 	if not cmdbObj['failcount'].isdigit():
 		cmdbObj['failcount'] = 3
-	triggers = getTriggerExps(hostname, argv['name'], cmdbObj['failcount'], cmdbObj['timeoutcount'], cmdbObj['timeout'])
+	triggers = getTriggerExps(hostname, argv['name'], argv['delay'], cmdbObj['failcount'], cmdbObj['timeoutcount'], cmdbObj['timeout'])
 	try:
 		triggerids = json.loads(cmdbObj['triggerid'])
 	except:
