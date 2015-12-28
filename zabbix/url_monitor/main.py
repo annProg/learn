@@ -73,10 +73,10 @@ def getApplicationId(hostid, name, applicationid=None):
 		try:
 			old_appids = application.getApplicationByName(hostid, name)
 			appids = application.updateApplication(name, old_appids[0]['applicationid'])
-			return(appids['applicationid'][0])
+			return(appids['applicationids'][0])
 		except:	
 			appids = application.createApplication(hostid, name)
-			return(appids['applicationid'][0])
+			return(appids['applicationids'][0])
 	else:
 		try:
 			appids = application.getApplicationById(hostid, applicationid)
@@ -241,7 +241,7 @@ def run(assetId):
 		triggerids = json.loads(cmdbObj['triggerid'])
 	except:
 		triggerids = None
-	argv['triggerid'] = json.dumps(getTriggerId(triggers,triggerids))
+	argv['triggerid'] = json.dumps(getTriggerId(triggers,triggerids), sort_keys=True)
 	
 	#update cmdb
 	cmdb_argv = {}
