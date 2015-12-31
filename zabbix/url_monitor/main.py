@@ -253,7 +253,7 @@ def run(assetId):
 
 	# trigger
 	if not cmdbObj['timeout'].isdigit():
-		cmdbObj['timeout'] = 8000
+		cmdbObj['timeout'] = 8
 	if not cmdbObj['timeoutcount'].isdigit():
 		cmdbObj['timeoutcount'] = 10
 	if not cmdbObj['failcount'].isdigit():
