@@ -78,10 +78,11 @@ def getContent(orig):
 		argv['items'].append({"icon":"clock", "itemkey":"故障时长", "itemvalue":duration})
 	
 	itemvalue = re.sub("(http://.*$)", "<a href=\"\\1\">\\1</a>", orig['itemvalue']).replace("#", "\"")
+	itemvalue = "【" + orig['itemname'].replace("#", "\"") + "】 " + itemvalue
 	argv['items'].append({"icon":"reason", "itemkey":"报警详情", "itemvalue":itemvalue})
 	argv['items'].append({"icon":"switch", "itemkey":"报警级别", "itemvalue":orig['severity']})
 	argv['items'].append({"icon":"switch", "itemkey":"主机名称", "itemvalue":orig['hostname']})
-	argv['items'].append({"icon":"switch", "itemkey":"报警名称", "itemvalue":orig['itemname'].replace("#", "\"")})
+	#argv['items'].append({"icon":"switch", "itemkey":"报警名称", "itemvalue":orig['itemname'].replace("#", "\"")})
 	argv['items'].append({"icon":"switch", "itemkey":"报警项目", "itemvalue":orig['itemkey']})
 
 	eventurl= zabbix + "/tr_events.php?triggerid=" + orig['triggerid'] + "&eventid=" + orig['eventid']
