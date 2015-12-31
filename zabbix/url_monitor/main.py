@@ -111,10 +111,10 @@ def getApplicationId(hostid, name, applicationid=None):
 			else:
 				return(appids[0]['applicationid'])
 
-def getTriggerExps(hostname, scenario, nodatatime, failcount=3, timeoutcount=10, timeout=8000):
+def getTriggerExps(hostname, scenario, nodatatime, failcount=3, timeoutcount=10, timeout=8):
 	nodata = str(int(nodatatime)*2)
 	desc_resp = "Response time too long: " + scenario
-	# 最后timeoutcount次的请求都大于timeout毫秒
+	# 最后timeoutcount次的请求都大于timeout秒
 	exp_resp = "{" + hostname + ":web.test.time[" + scenario + ",api Check,resp].count(#" + str(timeoutcount) + "," + str(timeout) + ",\"gt\")}=" + str(timeoutcount)
 
 	desc_error = "Request Error: " + scenario
