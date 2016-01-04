@@ -103,6 +103,7 @@ if __name__ == '__main__':
 	try:
 		orig = sys.argv[3].replace('"', '#')
 		orig = orig.replace('\'', '"')
+		orig = orig.replace('ouldn"t', 'ould not')
 		data = json.loads(orig)
 
 		itemid = data['itemid']
