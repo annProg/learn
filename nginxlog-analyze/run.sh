@@ -36,10 +36,11 @@ function runAppAnalyze()
 		./analyze.sh err $id $datadir
 		./analyze.sh response $id $datadir
 		./analyze.sh plot $id $datadir all,200
-		./analyze.sh plot $id $datadir 500,502,504
-		./analyze.sh plot $id $datadir 400,404,499,500,502,504
+		./analyze.sh plot $id $datadir 500,502,503,504
+		./analyze.sh plot $id $datadir 400,404,499,500,502,503,504
 		./analyze.sh plot $id $datadir 500
 		./analyze.sh plot $id $datadir 502
+		./analyze.sh plot $id $datadir 503
 		./analyze.sh plot $id $datadir 504
 		./analyze.sh plot $id $datadir 499
 		./analyze.sh plot $id $datadir 404
@@ -57,7 +58,7 @@ function getHttpCode()
 	codelogdir=codelog
 	[ ! -d $codelogdir ] && mkdir $codelogdir
 	
-	for code in {400,404,499,500,502,504};do
+	for code in {400,404,499,500,502,503,504};do
 	{
 		echo $codelogdir/code_$code.log
 		grep "\]  $code" $logfile >$codelogdir/code_$code.log

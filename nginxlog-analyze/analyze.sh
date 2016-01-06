@@ -30,7 +30,7 @@ pltdir="$datadir/plt"
 [ ! -d $datadir ] && mkdir $datadir
 [ ! -d $pltdir ] && mkdir $pltdir
 
-for id in {all,code,time,200,400,404,499,500,502,504};do
+for id in {all,code,time,200,400,404,499,500,502,503,504};do
 	eval file_$id="$datadir/$id.txt"
 done
 
@@ -57,7 +57,7 @@ function timeSeries_200()
 
 function timeSeries_error()
 {
-	for code in {400,404,499,500,502,504};do
+	for code in {400,404,499,500,502,503,504};do
 		eval filevar=\$file_$code
 		exist $filevar && grep "\]  $code " $logfile | awk '{print $2}' |sort |uniq -c |awk '{print $2,$1}' |sed -r 's/\[.*?T|\+.*?\]//g' > $filevar
 	done

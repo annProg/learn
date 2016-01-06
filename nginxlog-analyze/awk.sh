@@ -15,4 +15,4 @@ logfile=$1
 # '"$http_referer" "$http_user_agent" "$http_x_forwarded_for" '
 # '"$request_time" "$upstream_addr" "$upstream_status" "$upstream_response_time"';
 
-cat $logfile |gunzip |awk '{print $2,$3 >$3".txt"}'
+zcat $logfile |awk '{print $2,$3 >$3".txt"}'
