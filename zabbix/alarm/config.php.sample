@@ -1,0 +1,15 @@
+<?php
+/**
+ * Usage:
+ * File Name: config.php
+ * Author: annhe  
+ * Mail: i@annhe.net
+ * Created Time: 2016-01-12 18:43:32
+ **/
+
+$config['cmdb']['url'] = "http://127.0.0.1/rest.php/";
+$config['cmdb']['user'] = "admin";
+$config['cmdb']['password'] = "yourcmdb";
+$config['cmdb']['objtype'] = "人员";
+
+$config['log']['path'] = "/tmp/alarm.log";
