@@ -16,7 +16,7 @@ $config['cmdb']['user'] = "admin";
 $config['cmdb']['password'] = "yourcmdb";
 $config['cmdb']['objtype'] = "人员";
 
-$config['type'] = array("sms", "mail", "wechat", "all");
+$config['type'] = array("sms", "mail", "wechat");
 $config['log']['path'] = "/tmp/alarm.log";
 
 $config['sms']['api'] = "http://127.0.0.1/sms.php";

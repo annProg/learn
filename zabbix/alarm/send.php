@@ -192,7 +192,7 @@ if(isset($argv[1]) && isset($argv[2])) {
 	if(isset($argv[4])) {
 		$typelist = array_unique(explode(",", $argv[4]));
 	} else {
-		$typelist = array("all");
+		$typelist = $config['type'];
 	}
 
 	$to = $argv[1];
@@ -211,7 +211,7 @@ if(isset($argv[1]) && isset($argv[2])) {
 		if(isset($_POST['type'])) {
 			$typelist = array_unique(explode(",", $_POST['type']));
 		} else {
-			$typelist = array("all");
+			$typelist = $config['type'];
 		}
 	} else {
 		$ret['errno'] = "101";
@@ -229,11 +229,6 @@ $typelist = array_intersect($typelist, $config['type']);
 
 $stat = sendMsg($to, $sub, $msg, $typelist);
 
-$all = array("all");
-if($typelist == $all) {
-	$to['errortype'] = $ret['errortype'];
-	die(json_encode($to));
-}
 foreach($typelist as $k=>$v) {
 	$ret[$v]['to'] = $to[$v];
 	$ret[$v]['stat'] = $stat[$v];
