@@ -109,8 +109,12 @@ function sendMail($to, $sub, $msg) {
 	global $config;
 	$tolist = $to['mail'];
 	$cmd = $config['mail']['api'];
-	$data = exec("$cmd $tolist $sub $msg", $out, $ret);
-	return($ret);
+	$data = exec("$cmd $tolist $sub $msg 2>&1", $out, $ret);
+	if($ret) {
+		alarmLog($sub, $out);
+		return("failed");
+	}
+	return("succ");
 }
 
 function sendSMS($to, $msg) {
@@ -126,8 +130,13 @@ function sendSMS($to, $msg) {
 	$param = http_build_query($param);
 
 	$data = curlPost($config['sms']['api'], $param);
-	
-	return($data);
+	$data = str_replace("'", "\"", $data);
+	if(json_decode($data, true)['data']['result'] == "OK") {
+		return("succ");
+	} else {
+		alarmLog($msg, $data);
+		return("failed");
+	}
 
 }
 
@@ -136,24 +145,24 @@ function sendWechat($to, $msg) {
 }
 
 function sendMsg($to, $sub, $msg, $typelist) {
+	$status = array();
 	if(in_array("all", $typelist)) {
-		sendSMS($to, $msg);
-		sendMail($to, $sub, $msg);
-		sendWechat($to, $msg);
-		return(True);
+		$status['sms'] = sendSMS($to, $msg);
+		$status['mail'] = sendMail($to, $sub, $msg);
+		$status['wechat'] = sendWechat($to, $msg);
 	}
 
 	if(in_array("sms", $typelist))
-		sendSMS($to, $msg);
+		$status['sms'] = sendSMS($to, $msg);
 
 	if(in_array("mail", $typelist)) {
-		sendMail($to, $sub, $msg);
+		$status['mail'] = sendMail($to, $sub, $msg);
 	}
 
 	if(in_array("wechat", $typelist)) {
-		sendWechat($to, $msg);
+		$status['wechat'] = sendWechat($to, $msg);
 	}
-
+	return($status);
 }
 
 function alarmLog($sub, $ret) {
@@ -172,7 +181,7 @@ function alarmLog($sub, $ret) {
 		$user = "localhost";
 	}
 	
-	$ret_str = json_encode($ret);
+	$ret_str = json_encode($ret, JSON_UNESCAPED_UNICODE);
 	$datetime = date("Y-m-d H:i:s");
 	file_put_contents($log, "$ipaddr - $user - $datetime - $sub - $ret_str\n", FILE_APPEND);
 }
@@ -218,13 +227,16 @@ if(isset($argv[1]) && isset($argv[2])) {
 $ret['errortype'] = implode(",", array_diff($typelist, $config['type']));
 $typelist = array_intersect($typelist, $config['type']);
 
-sendMsg($to, $sub, $msg, $typelist);
+$stat = sendMsg($to, $sub, $msg, $typelist);
 
-if($typelist == ["all"]) {
+$all = array("all");
+if($typelist == $all) {
+	$to['errortype'] = $ret['errortype'];
 	die(json_encode($to));
 }
 foreach($typelist as $k=>$v) {
-	$ret[$v] = $to[$v];
+	$ret[$v]['to'] = $to[$v];
+	$ret[$v]['stat'] = $stat[$v];
 }
 $ret["failed"] = $to['failed'];
 alarmLog($sub, $ret);

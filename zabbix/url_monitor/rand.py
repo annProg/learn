@@ -15,6 +15,7 @@
 #生成随机密码
 from random import choice
 import string
+import sys
 
 #python3中为string.ascii_letters,而python2下则可以使用string.letters和string.ascii_letters
 
@@ -25,7 +26,8 @@ def GenDigit(length=4,chars=string.digits):
     return ''.join([choice(chars) for i in range(length)])
 if __name__=="__main__":
     #生成10个随机密码    
+    passlen = int(sys.argv[1])
     for i in range(10):
         #密码的长度为8
         print(GenDigit(4))
-        print(GenPassword(10))
+        print(GenPassword(passlen))
