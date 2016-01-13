@@ -7,6 +7,10 @@
  * Created Time: 2016-01-12 18:43:32
  **/
 
+$config = array();
+$config['user']['admin'] = "";
+$config['user']['api'] = "";
+
 $config['cmdb']['url'] = "http://127.0.0.1/rest.php/";
 $config['cmdb']['user'] = "admin";
 $config['cmdb']['password'] = "yourcmdb";
@@ -19,4 +23,4 @@ $config['sms']['api'] = "http://127.0.0.1/sms.php";
 $config['sms']['user'] = "admin";
 $config['sms']['passwd'] = "admin";
 
-$config['mail']['api'] = "";
+$config['mail']['api'] = "/root/mail.py";
