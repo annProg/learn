@@ -23,6 +23,17 @@ function curlGet($url) {
 	return($data);
 }
 
+function curlPost($url, $param) {
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_POST, 1);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $param);
+	
+	$data = curl_exec($ch);
+	return($data);
+}
+
 function getObj($objid) {
 	global $config;
 	$param = "objects/$objid";
@@ -36,7 +47,7 @@ function getObj($objid) {
 			$ret[$v['name']] = $v['value'];
 		}
 	}
-	print_r($ret);
+	return($ret);
 }
 
 function getStaffList() {
@@ -55,7 +66,7 @@ function getStaffvalue($staff) {
 
 function getStaffObj($staff) {
 	$stafflist = json_decode(getStaffList());
-	$valuelist = json_decode(getStaffvalue("hean"));
+	$valuelist = json_decode(getStaffvalue($staff));
 	$staffid = array_intersect($valuelist, $stafflist);
 	foreach($staffid as $k => $v) {
 		$data = getObj($v);
@@ -66,46 +77,107 @@ function getStaffObj($staff) {
 	return(False);
 }
 
-function sendMail($to, $msg) {
+function getToList($to) {
+	$tos = explode(",", $to);
+	$tos = array_unique($tos);
+	$tolist = array();
+	$tolist['sms'] = array();
+	$tolist['mail'] = array();
+	$tolist['wechat'] = array();
+	$tolist['failed'] = array();
+
+	foreach($tos as $k=>$v) {
+		$t1 = microtime(true);
+		$staff = getStaffObj($v);
+		$t2 = microtime(true);
+		echo $v . '耗时'.round($t2-$t1,3)."秒\n";
+		if(!$staff) {
+			array_push($tolist['failed'], $v);
+			break;
+		}
+		array_push($tolist['mail'], $staff['email']);	
+		array_push($tolist['sms'], $staff['phone']);	
+		array_push($tolist['wechat'], $staff['phone']);	
+	}
+	foreach($tolist as $k=>$v) {
+		$tolist[$k] = implode(",", $v);
+	}
+	return($tolist);
+}
+
+function sendMail($to, $sub, $msg) {
+	print("send mail\n");
 
 }
 
 function sendSMS($to, $msg) {
+	print("send sms\n");
+	global $config;
+	$tolist = $to['sms'];
+
+	$param = array();
+	$param['user'] = $config['sms']['user'];
+	$param['passwd'] = $config['sms']['passwd'];
+	$param['phone'] = $tolist;
+	$param['msg'] = $msg;
+
+	$param = http_build_query($param);
+
+	$data = curlPost($config['sms']['api'], $param);
+	
+	print_r($data);
 
 }
 
-function sendWechat($to, $msg) {}
+function sendWechat($to, $msg) {
+	print("send wechat\n");
 
-function sendMsg($to, $msg, $type) {
+}
+
+function sendMsg($to, $sub, $msg, $type) {
 	$typelist = explode(",", $type);
+	if(in_array("all", $typelist)) {
+		sendSMS($to, $msg);
+		sendMail($to, $sub, $msg);
+		sendWechat($to, $msg);
+		return(True);
+	}
+
 	if(in_array("sms", $typelist))
 		sendSMS($to, $msg);
 
-	if(in_array("mail", $typelist))
-		sendMail($to, $msg);
+	if(in_array("mail", $typelist)) {
+		sendMail($to, $sub, $msg);
+	}
 
-	if(in_array("wechat", $typelist))
+	if(in_array("wechat", $typelist)) {
 		sendWechat($to, $msg);
+	}
 
-	if(in_array("all", $typelist))
-		sendSMS($to, $msg);
-		sendMail($to, $msg);
-		sendWechat($to, $msg);
 }
 
-function 
+//function 
 
 //main
 if(isset($argv[1]) && isset($argv[2])) {
-	if(isset($argv[3])) {
-		$type = $argv[3];
+	if(isset($argv[4])) {
+		$type = $argv[4];
+		if (!in_array($type, $config['type'])) {
+			die("type error. type should be in " . json_encode($config['type']));
+		}
 	} else {
 		$type = "all";
 	}
 
 	$to = $argv[1];
-	$msg = $argv[2];
-	sendMsg($to, $msg, $type);
+	$t1 = microtime(true);
+	$to = getToList($to);
+	$t2 = microtime(true);
+	echo '总耗时'.round($t2-$t1,3)."秒\n";
+	$sub = $argv[2];
+	$msg = $argv[3];
+	sendMsg($to, $sub, $msg, $type);
 } else {
 	die("nothing to do");
 }
+
