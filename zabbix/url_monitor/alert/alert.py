@@ -19,6 +19,10 @@ import json
 import tpl
 import re
 
+sms_api="http://127.0.0.1/sms.php"
+sms_user="user"
+sms_passwd="passwd"
+
 url = "http://repo.annhe.net/contact.php"
 cmdb = "http://repo.annhe.net/yourcmdb"
 zabbix = "http://repo.annhe.net/zabbix"
@@ -59,6 +63,14 @@ def sms(contact, content):
 		x = Sender().done(content, str(phone))
 		status = x['errno']
 		smslog(status, phone, content)
+
+def sms_http(contact, content):
+	param = {"user":sms_user, "passwd":sms_passwd, "phone":contact, "msg":content}
+	r = requests.post(sms_api, data=param)
+	ret = r.text.replace("'", '"')
+	status = json.loads(ret)['errno']
+	smslog(status, phone, content)
+
 
 def getContent(orig):
 	argv = {}
