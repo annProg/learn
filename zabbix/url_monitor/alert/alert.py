@@ -65,7 +65,8 @@ def sms(contact, content):
 		smslog(status, phone, content)
 
 def sms_http(contact, content):
-	param = {"user":sms_user, "passwd":sms_passwd, "phone":contact, "msg":content}
+	phone = contact['phone']
+	param = {"user":sms_user, "passwd":sms_passwd, "phone":phone, "msg":content}
 	r = requests.post(sms_api, data=param)
 	ret = r.text.replace("'", '"')
 	status = json.loads(ret)['errno']
