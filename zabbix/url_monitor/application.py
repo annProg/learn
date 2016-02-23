@@ -18,9 +18,8 @@ def getApplicationByName(hostid, name):
 	data = zabbixApi.apiRun("application.get", params)
 	return(data)
 
-def getApplicationById(hostid, applicationid):
-	filters = {"applicationid": applicationid}
-	params = {"output": ["name","hostid"], "hostids":hostid, "filter":filters}
+def getApplicationById(applicationid):
+	params = {"output": ["name","hostid"], "applicationids":applicationid}
 	data = zabbixApi.apiRun("application.get", params)
 	return(data)
 
@@ -34,9 +33,13 @@ def updateApplication(name, applicationid):
 	data = zabbixApi.apiRun("application.update", params)
 	return(data)
 
-def deleteApplicatioin():
-	pass
+def deleteApplication(applicationid):
+	params = []
+	params.append(applicationid)
+	data = zabbixApi.apiRun("application.delete", params)
+	return(data)
 
 if __name__ == '__main__':
 	#print(getApplicationByName("10654", "tv_desktop"))
-	print(getApplicationById("10122", "591"))
+	#print(deleteApplicatioin("595"))
+	print(getApplicationById("596"))

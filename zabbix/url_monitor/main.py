@@ -100,7 +100,7 @@ def getApplicationId(hostid, name, applicationid=None):
 			return(appids['applicationids'][0])
 	else:
 		try:
-			appids = application.getApplicationById(hostid, applicationid)
+			appids = application.getApplicationById(applicationid)
 			appids = application.updateApplication(name ,applicationid)
 			return(appids['applicationids'][0])
 		except:
@@ -232,19 +232,27 @@ def run(assetId):
 
 	# 如果某个cmdb项目已经在zabbix创建过，则不以web监控名称判断web monitor是否存在(存在cmdb中修改URL的情况)
 	if cmdbObj['httptestid']:
-		scenario = web.getScenarioById(argv['hostid'], cmdbObj['httptestid'])
+		scenario = web.getScenarioById(cmdbObj['httptestid'])
 		if not scenario:
 			scenario =  web.getScenarioByName(argv['hostid'], argv['name'])
-		#如果主机名变更，删除过期的触发器
+		#如果web scenario名称变更，删除过期的触发器
 		elif not scenario[0]['name'] == argv['name']:
 			deleteTriggers(cmdbObj['triggerid'])
 	else:
 		scenario =  web.getScenarioByName(argv['hostid'], argv['name'])
 
 	if scenario:
+		# 如果接口产品线变更（对应zabbix主机名变更）需要重新获得applicationid
+		if not scenario[0]['hostid'] == argv['hostid']:
+			application.deleteApplication(argv['applicationid'])
+			argv['applicationid'] = getApplicationId(argv['hostid'], argv['name'])
+
+		print(scenario)
 		argv['httptestid'] = scenario[0]['httptestid']
 		argv['httpstepid'] = scenario[0]['steps'][0]['httpstepid']
 		data = web.updateScenario(argv)
+		print(argv)
+		print(data)
 		#triggername = data
 	else:
 		data = web.createScenario(argv)

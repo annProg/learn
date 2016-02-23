@@ -21,8 +21,8 @@ def getScenarioByName(hostid, name):
 	data = zabbixApi.apiRun("httptest.get", params)
 	return(data)
 
-def getScenarioById(hostid, httptestid):
-	filters = {"hostid": hostid, "httptestid": httptestid}
+def getScenarioById(httptestid):
+	filters = {"httptestid": httptestid}
 	params = {"output": ["httptestid", "name", "hostid"], "selectSteps": ["httpstepid"],"filter": filters}
 	data = zabbixApi.apiRun("httptest.get", params)
 	return(data)
@@ -71,10 +71,18 @@ def updateScenario(argv):
 	data = zabbixApi.apiRun("httptest.update", params)
 	return(data)
 
+def deleteScenario(httptestid):
+	param = []
+	param.append(httptestid)
+	#data = zabbixApi.apiRun
+
 if __name__ == '__main__':
 	func = sys.argv[1]
 	if func == "get":
-		print(json.dumps(getScenarioById(sys.argv[2], sys.argv[3]),indent=1))
+		print(json.dumps(getScenarioById(sys.argv[2]),indent=1))
 	if func == "create":
-		argv = {"name":"api_m_test", "hostid":"10653", "url": "http://10.181.117.47:8000/upstream", "status":"200", "no":1, "required":"br", "delay":30, "agent":"curl"}
+		argv = {"name":"api_m_test", "hostid":"10117", "url": "http://10.181.117.47:8000/upstream", "status_code":"200", "no":1, "required":"br", "delay":30, "agent":"curl", "applicationid":"526", "posts":"", "status": 0, "header":""}
 		print(json.dumps(createScenario(argv)))
+	if func == "update":
+		argv = {"httptestid": "36", "httpstepid": "46", "name":"api_m_test", "hostid":"10120", "url": "http://10.181.117.47:8000/upstream", "status_code":"200", "no":1, "required":"br", "delay":30, "agent":"curl", "applicationid":"526", "posts":"", "status": 0, "header":""}
+		print(json.dumps(updateScenario(argv)))
