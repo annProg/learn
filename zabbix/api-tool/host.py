@@ -21,13 +21,28 @@ def getHostByName(argv):
 	data = zabbixApi.apiRun("host.get", params)
 	return(data)
 
-def getHostInterface():
+def getHostList(argv):
+	grpid = argv[0]
+	#grpid = argv[0].split(",")
+	params = {"output":["hostid", "host", "name"],"groupids":grpid}
+	#print(params)
+	data = zabbixApi.apiRun("host.get", params)
+	return(data)
+
+def getHostById(argv):
+	hostids = argv[0].split(",")
+	params = {"output":["hostid", "host", "name"], "selectInterfaces":["ip", "port", "type"], "hostids":hostids, "filter":{"type":"1"}}
+	data = zabbixApi.apiRun("host.get", params)
+	return(data)
+	
+
+def getHostInterface(argv):
 	params = {"output":["hostid", "ip"], "filter":{"type":"1"}}
 	data = zabbixApi.apiRun("hostinterface.get", params)
 	return(data)
 
-def getHostIpList():
-	data = getHostInterface()
+def getHostIpList(argv):
+	data = getHostInterface(argv)
 	iplist = {}
 	
 	for i in data:
@@ -81,12 +96,14 @@ def addHost(argv):
 
 if __name__ == '__main__':
 	function = {
-			"get": getHostByName,
-			"add": addHost
+			"get": getHostById,
+			#"get": getHostByName,
+			"add": addHost,
+			"ips": getHostIpList
 			}
 	func = sys.argv[1]
 	if func in function.keys():
 		data = function[func](sys.argv[2:])
 	else:
 		data = "args error"
-	print(data)
+	print(json.dumps(data,indent=1))
