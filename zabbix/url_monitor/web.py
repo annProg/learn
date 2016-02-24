@@ -72,9 +72,10 @@ def updateScenario(argv):
 	return(data)
 
 def deleteScenario(httptestid):
-	param = []
-	param.append(httptestid)
-	#data = zabbixApi.apiRun
+	params = []
+	params.append(httptestid)
+	data = zabbixApi.apiRun("httptest.delete", params)
+	return(data)
 
 if __name__ == '__main__':
 	func = sys.argv[1]
@@ -86,3 +87,5 @@ if __name__ == '__main__':
 	if func == "update":
 		argv = {"httptestid": "36", "httpstepid": "46", "name":"api_m_test", "hostid":"10120", "url": "http://10.181.117.47:8000/upstream", "status_code":"200", "no":1, "required":"br", "delay":30, "agent":"curl", "applicationid":"526", "posts":"", "status": 0, "header":""}
 		print(json.dumps(updateScenario(argv)))
+	if func == "delete":
+		print(deleteScenario(sys.argv[2]))

@@ -245,15 +245,15 @@ def run(assetId):
 		# 如果接口产品线变更（对应zabbix主机名变更）需要重新获得applicationid
 		if not scenario[0]['hostid'] == argv['hostid']:
 			application.deleteApplication(argv['applicationid'])
+			web.deleteScenario(scenario[0]['httptestid'])
 			argv['applicationid'] = getApplicationId(argv['hostid'], argv['name'])
-
-		print(scenario)
-		argv['httptestid'] = scenario[0]['httptestid']
-		argv['httpstepid'] = scenario[0]['steps'][0]['httpstepid']
-		data = web.updateScenario(argv)
-		print(argv)
-		print(data)
-		#triggername = data
+			data = web.createScenario(argv)
+			argv['httptestid'] = data['httptestids'][0]
+		else:
+			argv['httptestid'] = scenario[0]['httptestid']
+			argv['httpstepid'] = scenario[0]['steps'][0]['httpstepid']
+			data = web.updateScenario(argv)
+			#triggername = data
 	else:
 		data = web.createScenario(argv)
 		argv['httptestid'] = data['httptestids'][0]
