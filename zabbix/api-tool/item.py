@@ -15,7 +15,7 @@ import re
 import copy
 import sys
 
-def getItemIdList(argv):
+def getItemList(argv):
 	grpid = argv[0].split(",")
 	key = argv[1]
 	params = {"output":["hostid", "itemids", "key_", "lastvalue"], "groupids":grpid, "search": {"key_": key}}
@@ -24,7 +24,7 @@ def getItemIdList(argv):
 
 if __name__ == '__main__':
 	function = {
-			"get": getItemIdList,
+			"get": getItemList,
 			}
 	func = sys.argv[1]
 	if func in function.keys():

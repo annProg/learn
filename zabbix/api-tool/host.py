@@ -22,9 +22,9 @@ def getHostByName(argv):
 	return(data)
 
 def getHostList(argv):
-	grpid = argv[0]
-	#grpid = argv[0].split(",")
-	params = {"output":["hostid", "host", "name"],"groupids":grpid}
+	#grpid = argv[0]
+	grpid = argv[0].split(",")
+	params = {"output":["hostid", "host", "name"],"groupids":grpid, "selectInterfaces":["ip", "port", "type"]}
 	#print(params)
 	data = zabbixApi.apiRun("host.get", params)
 	return(data)
@@ -99,7 +99,8 @@ if __name__ == '__main__':
 			"get": getHostById,
 			#"get": getHostByName,
 			"add": addHost,
-			"ips": getHostIpList
+			"ips": getHostIpList,
+			"list": getHostList
 			}
 	func = sys.argv[1]
 	if func in function.keys():
