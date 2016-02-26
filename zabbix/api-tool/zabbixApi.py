@@ -14,8 +14,11 @@ import json
 import configparser
 import copy
 from rand import *
+import sys,os
 
-ini = "conf.ini"
+abspath = os.path.dirname(sys.argv[0])
+ini = abspath + "/conf.ini"
+#ini = "conf.ini"
 config = configparser.ConfigParser()
 config.read(ini)
 

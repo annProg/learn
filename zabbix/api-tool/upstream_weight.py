@@ -72,7 +72,7 @@ def calcuWeight(grpid):
 		avg1 = (1 - float(ret[ip]["system.cpu.load[percpu,avg1]"]))*40
 		steal = (100 - float(ret[ip]["system.cpu.util[,steal]"]))*0.1
 		iowait = (100 - float(ret[ip]["system.cpu.util[,iowait]"]))*0.1
-		idle = (100 - float(ret[ip]["system.cpu.util[,idle]"]))*0.1
+		idle = float(ret[ip]["system.cpu.util[,idle]"])*0.1
 
 		ret[ip]["weight_orig"] = avg5 + avg1 + steal + iowait + idle
 		# 向上取整
