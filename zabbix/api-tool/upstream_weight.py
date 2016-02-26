@@ -14,6 +14,7 @@ import host
 import re
 import json
 import time
+import math
 
 regex = re.compile(r'^10\.')
 tv = ["50","51"]
@@ -76,7 +77,7 @@ def calcuWeight(grpid):
 
 		ret[ip]["weight_orig"] = avg5 + avg1 + steal + iowait + idle
 		# 向上取整
-		ret[ip]["weight"] = int((avg5 + avg1 + steal + iowait + idle + 10 - 1)/10)
+		ret[ip]["weight"] = math.ceil((avg5 + avg1 + steal + iowait + idle)/10)
 		# 权值不小于 1
 		if ret[ip]["weight"] < 1:
 			ret[ip]["weight"] = 1
