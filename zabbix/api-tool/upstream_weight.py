@@ -56,6 +56,11 @@ def calcuWeight(grpid):
 	response = {}
 	response["time"] = time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(time.time()))
 	response["data"] = ret
+	response["stat"] = {}
+
+	for w in range(1,11):
+		response["stat"][str(w)] = 0
+
 
 	for k in data.keys():
 		v = data[k]
@@ -71,9 +76,9 @@ def calcuWeight(grpid):
 		# 权值计算
 		avg5 = (1 - float(ret[ip]["system.cpu.load[percpu,avg5]"]))*30
 		avg1 = (1 - float(ret[ip]["system.cpu.load[percpu,avg1]"]))*40
-		steal = (100 - float(ret[ip]["system.cpu.util[,steal]"]))*0.1
-		iowait = (100 - float(ret[ip]["system.cpu.util[,iowait]"]))*0.1
-		idle = float(ret[ip]["system.cpu.util[,idle]"])*0.1
+		steal = (100 - float(ret[ip]["system.cpu.util[,steal,avg5]"]))*0.1
+		iowait = (100 - float(ret[ip]["system.cpu.util[,iowait,avg5]"]))*0.1
+		idle = float(ret[ip]["system.cpu.util[,idle,avg5]"])*0.1
 
 		ret[ip]["weight_orig"] = avg5 + avg1 + steal + iowait + idle
 		# 向上取整
@@ -81,6 +86,8 @@ def calcuWeight(grpid):
 		# 权值不小于 1
 		if ret[ip]["weight"] < 1:
 			ret[ip]["weight"] = 1
+
+		response["stat"][str(ret[ip]["weight"])] += 1
 	return(response)
 	
 
