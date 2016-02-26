@@ -13,6 +13,7 @@ import item
 import host
 import re
 import json
+import time
 
 regex = re.compile(r'^10\.')
 tv = ["50","51"]
@@ -51,11 +52,17 @@ def getItemValue(grpid):
 def calcuWeight(grpid):
 	data = getItemValue(grpid)
 	ret = {}
+	response = {}
+	response["time"] = time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(time.time()))
+	response["data"] = ret
+
 	for k in data.keys():
 		v = data[k]
 		ip = v["ip"]
 		ret[ip] = {}
-		ret[ip]["weight_calculate"] = "(100-avg5*100)*0.3 + (100-avg1*100)*0.4 + (100-steal)*0.1 + idle*0.1 + (100-iowait)*0.1"
+
+		# 权值计算法方法
+		#ret[ip]["weight_calculate"] = "(100-avg5*100)*0.3 + (100-avg1*100)*0.4 + (100-steal)*0.1 + idle*0.1 + (100-iowait)*0.1"
 
 		for key in v.keys():
 			ret[ip][key] = v[key]
@@ -73,7 +80,7 @@ def calcuWeight(grpid):
 		# 权值不小于 1
 		if ret[ip]["weight"] < 1:
 			ret[ip]["weight"] = 1
-	return(ret)
+	return(response)
 	
 
 if __name__ == '__main__':
