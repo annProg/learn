@@ -125,13 +125,14 @@ function sendSMS($to, $msg) {
 	$param['user'] = $config['sms']['user'];
 	$param['passwd'] = $config['sms']['passwd'];
 	$param['phone'] = $tolist;
-	$param['msg'] = $msg;
+	$param['msg'] = str_replace("\n", "%0a", $msg);
 
 	$param = http_build_query($param);
 
 	$data = curlPost($config['sms']['api'], $param);
 	$data = str_replace("'", "\"", $data);
-	if(json_decode($data, true)['data']['result'] == "OK") {
+	$status = json_decode($data,true);
+	if($status['data']['result'] == "OK") {
 		return("succ");
 	} else {
 		alarmLog($msg, $data);
