@@ -109,7 +109,7 @@ function sendMail($to, $sub, $msg) {
 	global $config;
 	$tolist = $to['mail'];
 	$cmd = $config['mail']['api'];
-	$data = exec("$cmd $tolist $sub $msg 2>&1", $out, $ret);
+	$data = exec("$cmd $tolist \"$sub\" \"$msg\" 2>&1", $out, $ret);
 	if($ret) {
 		alarmLog($sub, $out);
 		return("failed");
