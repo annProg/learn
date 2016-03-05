@@ -94,13 +94,27 @@ def addHost(argv):
 	data = zabbixApi.apiRun("host.create", params)
 	return(data)
 
+def template_clear(argv):
+	hostid = argv[0]
+	templateid = argv[1]
+	params = {"hostid": hostid, "templates_clear": [{"templateid": templateid}]}
+	data = zabbixApi.apiRun("host.update", params)
+	return(data)
+
+def getAllHostId(argv):
+	params = {"output":["hostid"]}
+	data = zabbixApi.apiRun("host.get", params)
+	return(data)
+	
 if __name__ == '__main__':
 	function = {
 			"get": getHostById,
 			#"get": getHostByName,
 			"add": addHost,
 			"ips": getHostIpList,
-			"list": getHostList
+			"list": getHostList,
+			"ids": getAllHostId,
+			"unlink": template_clear
 			}
 	func = sys.argv[1]
 	if func in function.keys():
