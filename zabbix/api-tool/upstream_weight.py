@@ -57,6 +57,7 @@ def calcuWeight(grpid):
 	response["time"] = time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(time.time()))
 	response["data"] = ret
 	response["stat"] = {}
+	weightlist = []
 
 	for w in range(1,11):
 		response["stat"][str(w)] = 0
@@ -88,9 +89,16 @@ def calcuWeight(grpid):
 			ret[ip]["weight"] = 1
 
 		response["stat"][str(ret[ip]["weight"])] += 1
+
+		# 权值列表
+		weightlist.append(ret[ip]["weight"])
+	print(weightlist)
 	return(response)
 	
+def statistics(data):
+	pass
 
 if __name__ == '__main__':
 	#print(getHostList(tv))
-	print(json.dumps(calcuWeight(tv), indent=1))
+	calcuWeight(tv)
+	#print(json.dumps(calcuWeight(tv), indent=1))
