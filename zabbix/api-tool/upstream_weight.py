@@ -16,9 +16,15 @@ import json
 import time
 import math
 import numpy as np
+import sys
+import os
 
 regex = re.compile(r'^10\.')
-tv = ["50","51"]
+
+zabbixIp = "10.1.1.1"
+cluster_conf = {"tv":{"grp": ["50","51"], "hostname": "capacity.clusters.newtv"},
+		   "online":{"grp": ["30", "34"], "hostname": "capacity.clusters.online"}
+}
 
 def getHostList(grpid):
 	argv = []
@@ -109,7 +115,27 @@ def statistics(data):
 	ret["bad"] = float(sum([x<20 for x in data])/length)*100
 	return(ret)
 
+def sendZabbix(hostname, data):
+	status = data["status"]
+	statistics = data["statistics"]
+	cmd_pre = "zabbix_sender -z " + zabbixIp + " -s " + hostname + " -k"
+
+	for k in status.keys():
+		cmd = cmd_pre + ' "capacity.weight[' + k + ']" -o "' + str(status[k]) + '" &>/dev/null'
+		#print(cmd)
+		os.system(cmd)
+	for k in statistics.keys():
+		cmd = cmd_pre + ' "capacity.' + k + '" -o "' + str(statistics[k]) + '" &>/dev/null'
+		#print(cmd)
+		os.system(cmd)
+
 if __name__ == '__main__':
 	#print(getHostList(tv))
 	#calcuWeight(tv)
-	print(json.dumps(calcuWeight(tv)))
+	cluster = sys.argv[1]
+	grpid = cluster_conf[cluster]["grp"]
+	hostname = cluster_conf[cluster]["hostname"]
+
+	data = calcuWeight(grpid)
+	sendZabbix(hostname, data)
+	print(json.dumps(data))
