@@ -15,6 +15,7 @@ import re
 import json
 import time
 import math
+import numpy as np
 
 regex = re.compile(r'^10\.')
 tv = ["50","51"]
@@ -56,11 +57,11 @@ def calcuWeight(grpid):
 	response = {}
 	response["time"] = time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(time.time()))
 	response["data"] = ret
-	response["stat"] = {}
+	response["status"] = {}
 	weightlist = []
 
 	for w in range(1,11):
-		response["stat"][str(w)] = 0
+		response["status"][str(w)] = 0
 
 
 	for k in data.keys():
@@ -83,22 +84,32 @@ def calcuWeight(grpid):
 
 		ret[ip]["weight_orig"] = avg5 + avg1 + steal + iowait + idle
 		# 向上取整
-		ret[ip]["weight"] = math.ceil((avg5 + avg1 + steal + iowait + idle)/10)
+		ret[ip]["weight"] = math.ceil(ret[ip]["weight_orig"]/10)
 		# 权值不小于 1
 		if ret[ip]["weight"] < 1:
 			ret[ip]["weight"] = 1
 
-		response["stat"][str(ret[ip]["weight"])] += 1
+		response["status"][str(ret[ip]["weight"])] += 1
 
 		# 权值列表
-		weightlist.append(ret[ip]["weight"])
-	print(weightlist)
+		weightlist.append(ret[ip]["weight_orig"])
+	response["statistics"] = statistics(weightlist)
 	return(response)
 	
 def statistics(data):
-	pass
+	ret = {}
+	ret["median"] = np.median(data)
+	ret["max"] = np.max(data)
+	ret["min"] = np.min(data)
+	ret["var"] = np.var(data)
+	ret["mean"] = np.mean(data)
+
+	length = len(data)
+	ret["fine"] = float(sum([x>79 for x in data])/length)*100
+	ret["bad"] = float(sum([x<20 for x in data])/length)*100
+	return(ret)
 
 if __name__ == '__main__':
 	#print(getHostList(tv))
-	calcuWeight(tv)
-	#print(json.dumps(calcuWeight(tv), indent=1))
+	#calcuWeight(tv)
+	print(json.dumps(calcuWeight(tv)))
