@@ -91,7 +91,7 @@ if __name__ == '__main__':
 			to = to + "@letv.com"
 			new_list.append(to)
 	new_list = ",".join(new_list)
-	if len(sys.argv) == 3:
+	if len(sys.argv) == 4:
 		send_mail(new_list, sub, sys.argv[3], 0)
 	else:
 		send_mail(new_list, sub, sys.argv[3])
