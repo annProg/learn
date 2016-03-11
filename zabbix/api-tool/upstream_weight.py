@@ -2,7 +2,8 @@
 #-*- coding:utf-8 -*-  
 
 ############################
-# Usage:
+# Usage:计算服务器权值，统计服务器状态分布，并发送数据到zabbix
+#       zabbix模板见 ../templates/zabbix_tpl_capacity.xml
 # File Name: upstream_weight.py
 # Author: annhe  
 # Mail: i@annhe.net
