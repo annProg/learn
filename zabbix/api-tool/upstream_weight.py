@@ -108,7 +108,7 @@ def statistics(data):
 	ret["median"] = np.median(data)
 	ret["max"] = np.max(data)
 	ret["min"] = np.min(data)
-	ret["var"] = np.var(data)
+	ret["std"] = np.std(data)
 	ret["mean"] = np.mean(data)
 
 	length = len(data)
