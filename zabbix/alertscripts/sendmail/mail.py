@@ -91,9 +91,20 @@ if __name__ == '__main__':
 			to = to + "@letv.com"
 			new_list.append(to)
 	new_list = ",".join(new_list)
-	if len(sys.argv) == 4:
-		send_mail(new_list, sub, sys.argv[3], 0)
+
+	# 当msg参数以path:开头时，从文本读取邮件内容。可以处理邮件内容过长超过Linux系统参数长度的情况
+	if re.match("^path:", sys.argv[3]):
+		path = sys.argv[3].split(':')[1]
+		try:
+			msg = open(path).read()
+		except:
+			msg = sys.argv[3]
 	else:
-		send_mail(new_list, sub, sys.argv[3])
+		msg = sys.argv[3]
+
+	if len(sys.argv) == 4:
+		send_mail(new_list, sub, msg, 0)
+	else:
+		send_mail(new_list, sub, msg)
 
 	#send_mail(mailto_list, "test", "this is a test message")
