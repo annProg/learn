@@ -13,6 +13,7 @@ import sys
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from email.mime.image import MIMEImage
 import time
 import ConfigParser
 import re
@@ -36,8 +37,18 @@ def maillog(status, mailto_list, subject):
 	with open(log, 'a+') as f:
 		f.write(curdate + " " + status + " " + ",".join(mailto_list) + " " + subject + "\n")
 
+def addImg(src, imgid):
+	fp = open(src, 'rb')  
+	try:
+		msgImage = MIMEImage(fp.read())
+		fp.close()  
+		msgImage.add_header('Content-ID', imgid)  
+		return msgImage
+	except:
+		return(False)
+
 #定义send_mail函数
-def send_mail(to_list,sub,content, html=1):
+def send_mail(to_list, sub, content, html=1, imgs=""):
 	'''
 	to_list:发送列表，逗号分隔
 	sub:主题
@@ -47,7 +58,7 @@ def send_mail(to_list,sub,content, html=1):
 
 	address=mail_user+"<"+mail_user+"@"+mail_postfix+">"
 	
-	msg = MIMEMultipart('alternative')
+	msg = MIMEMultipart('mixed')
 	if html == 0:
 		part = MIMEText(content, 'plain', 'utf-8')
 	else:
@@ -56,6 +67,14 @@ def send_mail(to_list,sub,content, html=1):
 	msg['From'] = address
 
 	msg.attach(part)
+	
+	# 图片
+	for img in imgs.split(","):
+		imgid = img.split("/")[-1]
+		if addImg(img, imgid):
+			msg.attach(addImg(img, imgid))
+		else:
+			continue
 
 	to_list = to_list.split(",")
 	msg['To'] =";".join(to_list)
@@ -101,10 +120,15 @@ if __name__ == '__main__':
 			msg = sys.argv[3]
 	else:
 		msg = sys.argv[3]
+	
+	if len(sys.argv) == 6:
+		imgs = sys.argv[5]
+	else:
+		imgs = ""
 
 	if len(sys.argv) == 4:
 		send_mail(new_list, sub, msg, 0)
 	else:
-		send_mail(new_list, sub, msg)
+		send_mail(new_list, sub, msg, 1, imgs)
 
 	#send_mail(mailto_list, "test", "this is a test message")
