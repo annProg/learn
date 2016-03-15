@@ -21,10 +21,17 @@ def getItemList(argv):
 	params = {"output":["hostid", "itemids", "key_", "lastvalue"], "groupids":grpid, "search": {"key_": key}}
 	data = zabbixApi.apiRun("item.get", params)
 	return(data)
+def getHostItem(argv):
+	hostid = argv[0].split(",")
+	key = argv[1]
+	params = {"output":["itemids", "key_"],"hostids":hostid, "search":{"key_":key}, "startSearch":1}
+	data = zabbixApi.apiRun("item.get", params)
+	return(data)
 
 if __name__ == '__main__':
 	function = {
 			"get": getItemList,
+			"host": getHostItem
 			}
 	func = sys.argv[1]
 	if func in function.keys():
