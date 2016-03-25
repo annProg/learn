@@ -46,6 +46,6 @@ def updateDB(hostid, applicationid, cmdbObj):
 
 if __name__ == '__main__':
 	print(init_DB())
-	cmdbObj = {"objid":"12345", "alertemail":"hean@letv.com", "alertphone":"1311111111", "httptestid":"123"}
+	cmdbObj = {"objid":"12345", "alertemail":"aa@bb.com", "alertphone":"1311111111", "httptestid":"123"}
 	updateDB("10120",cmdbObj)
 	

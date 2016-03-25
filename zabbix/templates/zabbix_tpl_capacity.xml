@@ -9,8 +9,8 @@
     </groups>
     <templates>
         <template>
-            <template>LETV_capacity</template>
-            <name>LETV_容量指数</name>
+            <template>TPL_capacity</template>
+            <name>TPL_容量指数</name>
             <description/>
             <groups>
                 <group>
@@ -791,7 +791,7 @@
                     <calc_fnc>4</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>LETV_capacity</host>
+                        <host>TPL_capacity</host>
                         <key>capacity.median</key>
                     </item>
                 </graph_item>
@@ -803,7 +803,7 @@
                     <calc_fnc>4</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>LETV_capacity</host>
+                        <host>TPL_capacity</host>
                         <key>capacity.mean</key>
                     </item>
                 </graph_item>
@@ -815,7 +815,7 @@
                     <calc_fnc>4</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>LETV_capacity</host>
+                        <host>TPL_capacity</host>
                         <key>capacity.std</key>
                     </item>
                 </graph_item>
@@ -827,7 +827,7 @@
                     <calc_fnc>4</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>LETV_capacity</host>
+                        <host>TPL_capacity</host>
                         <key>capacity.max</key>
                     </item>
                 </graph_item>
@@ -839,7 +839,7 @@
                     <calc_fnc>4</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>LETV_capacity</host>
+                        <host>TPL_capacity</host>
                         <key>capacity.min</key>
                     </item>
                 </graph_item>
@@ -851,7 +851,7 @@
                     <calc_fnc>4</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>LETV_capacity</host>
+                        <host>TPL_capacity</host>
                         <key>capacity.fine</key>
                     </item>
                 </graph_item>
@@ -863,7 +863,7 @@
                     <calc_fnc>4</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>LETV_capacity</host>
+                        <host>TPL_capacity</host>
                         <key>capacity.bad</key>
                     </item>
                 </graph_item>
@@ -895,7 +895,7 @@
                     <calc_fnc>4</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>LETV_capacity</host>
+                        <host>TPL_capacity</host>
                         <key>capacity.weight[1]</key>
                     </item>
                 </graph_item>
@@ -907,7 +907,7 @@
                     <calc_fnc>4</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>LETV_capacity</host>
+                        <host>TPL_capacity</host>
                         <key>capacity.weight[2]</key>
                     </item>
                 </graph_item>
@@ -919,7 +919,7 @@
                     <calc_fnc>4</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>LETV_capacity</host>
+                        <host>TPL_capacity</host>
                         <key>capacity.weight[3]</key>
                     </item>
                 </graph_item>
@@ -931,7 +931,7 @@
                     <calc_fnc>4</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>LETV_capacity</host>
+                        <host>TPL_capacity</host>
                         <key>capacity.weight[4]</key>
                     </item>
                 </graph_item>
@@ -943,7 +943,7 @@
                     <calc_fnc>4</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>LETV_capacity</host>
+                        <host>TPL_capacity</host>
                         <key>capacity.weight[5]</key>
                     </item>
                 </graph_item>
@@ -955,7 +955,7 @@
                     <calc_fnc>4</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>LETV_capacity</host>
+                        <host>TPL_capacity</host>
                         <key>capacity.weight[6]</key>
                     </item>
                 </graph_item>
@@ -967,7 +967,7 @@
                     <calc_fnc>4</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>LETV_capacity</host>
+                        <host>TPL_capacity</host>
                         <key>capacity.weight[7]</key>
                     </item>
                 </graph_item>
@@ -979,7 +979,7 @@
                     <calc_fnc>4</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>LETV_capacity</host>
+                        <host>TPL_capacity</host>
                         <key>capacity.weight[8]</key>
                     </item>
                 </graph_item>
@@ -991,7 +991,7 @@
                     <calc_fnc>4</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>LETV_capacity</host>
+                        <host>TPL_capacity</host>
                         <key>capacity.weight[9]</key>
                     </item>
                 </graph_item>
@@ -1003,7 +1003,7 @@
                     <calc_fnc>4</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>LETV_capacity</host>
+                        <host>TPL_capacity</host>
                         <key>capacity.weight[10]</key>
                     </item>
                 </graph_item>
