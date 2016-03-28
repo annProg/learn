@@ -1,0 +1,34 @@
+digraph G {
+	subgraph cluster_1 {
+		box[label="box", shape="box"]
+		polygon[label="polygon", shape="polygon"]
+		ellipse[label="ellipse", shape="ellipse"]
+		circle[label="circle", shape="circle"]
+		plaintext[label="plaintext", shape="plaintext"]
+		point[label="point", shape="point"]
+		egg[label="egg", shape="egg"]
+	}
+	
+	subgraph cluster_2 {
+		triangle[label="triangle", shape="triangle"]
+		diamond[label="diamond", shape="diamond"]
+		trapezium[label="trapezium", shape="trapezium"]
+		parallelogram[label="parallelogram", shape="parallelogram"]
+		house[label="house", shape="house"]
+		hexagon[label="hexagon", shape="hexagon"]
+		octagon[label="octagon", shape="octagon"]
+	}
+	
+	subgraph cluster_3 {
+		doublecircle[label="doublecircle", shape="doublecircle"]
+		doubleoctagon[label="doubleoctagon", shape="doubleoctagon"]
+		tripleoctagon[label="tripleoctagon", shape="tripleoctagon"]
+		invtriangle[label="invtriangle", shape="invtriangle"]
+		invtrapezium[label="<head>invtrapezium|hello", shape="invtrapezium"]
+		record[label="<head>record|hello", shape="record"]
+		mrecord[label="mrecord", shape="Mrecord"]
+	}
+	
+	box->polygon->ellipse->circle->point->egg->triangle->plaintext->diamond->trapezium->parallelogram->house->hexagon->octagon->doublecircle->doubleoctagon->tripleoctagon->invtriangle->invtrapezium->record->mrecord->box;
+
+}
