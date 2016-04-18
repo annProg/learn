@@ -1,12 +1,7 @@
 {% extends "base.html" %}
-{% block title %}Flasky{% endblock %}
+{% block title %}User - My application{% endblock %}
 
-{% block navbar %}
-	super()
-{% endblock %}
-
-{% block content %}
-<div class="container">
+{% block page_content %}
 	<div class="page-header">
 		{% if name %}
 			<h1>Hello {{ name }}!</h1>
@@ -14,5 +9,4 @@
 			<h1>Hello Stranger!</h1>
 		{% endif %}
 	</div>
-</div>
 {% endblock %}

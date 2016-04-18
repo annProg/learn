@@ -1,5 +1,12 @@
 {% extends "bootstrap/base.html" %}
-{% block title %}Flasky{% endblock %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block head %}
+{{ super() }}
+<link rel="shortcut icon" href="{{ url_for('static', filename = 'favicon.ico') }}" type="image/x-icon">
+<link rel="icon" href="{{ url_for('static', filename = 'favicon.ico') }}" type="image/x-icon">
+{% endblock %}
+
+{% block title %}Flasky - My application{% endblock %}
 
 {% block navbar %}
 <div class="navbar navbar-inverse" role="navigation">
@@ -11,12 +18,13 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/">Flasky</a>
+			<a class="navbar-brand" href="{{ url_for('index') }}">Flasky</a>
 		</div>
 
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="">Home</a></li>
+				<li><a href="{{ url_for('index') }}">Home</a></li>
+				<li><a href="{{ url_for('user', name="hean") }}">Hean</a></li>
 			</ul>
 		</div>
 	</div>
@@ -25,6 +33,14 @@
 
 {% block content %}
 <div class="container">
+	{% for message in get_flashed_messages() %}
+	<div class="alert alert-warning"><button class="close" type="button" data-dismiss="alert">&times;</button>{{ message }}</div>
+	{% endfor %}
 	{% block page_content %}{% endblock %}
 </div>
+{% endblock %}
+
+{% block scripts %}
+	{{ super() }}
+	{{ moment.include_moment() }}
 {% endblock %}
