@@ -2,9 +2,16 @@
 {% block title %}Index - My application{% endblock %}
 
 {% block page_content %}
+<div class="page-header">
+
 <h1>Hello, {% if name %}{{ name }}{% else %}Stranger{% endif %}!</h1>
-<!--<p>当前时间是 {{ moment(current_time).format('LLL') }}.</p>
-<p>当前是 {{ moment(current_time).fromNow(refresh=True) }}</p>-->
+
+{% if not known %}
+<p>感谢您的注册</p>
+{% else %}
+<p>感谢回访</p>
+{% endif %}
+</div>
 
 {{ wtf.quick_form(form) }}
 {% endblock %}
