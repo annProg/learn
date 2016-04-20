@@ -1,0 +1,6 @@
+Flasky Admin:
+
+新用户注册，用户名 {{ user }}
+
+--------
+From Flasky
