@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Index - My application{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+
+<h1>Hello, {% if name %}{{ name }}{% else %}Stranger{% endif %}!</h1>
+
+{% if not known %}
+<p>感谢您的注册</p>
+{% else %}
+<p>感谢回访</p>
+{% endif %}
+</div>
+
+{{ wtf.quick_form(form) }}
+{% endblock %}
