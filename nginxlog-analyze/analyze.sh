@@ -22,7 +22,7 @@ logfile=$2
 datadir=$3
 datadir=`echo $datadir |sed 's#/$##g'`
 
-logdate=`tail -n 1000 $logfile |awk '{print $2}' |awk -F 'T' '{print $1}' | tr -d '[' |sort |uniq -c |sort -nr |awk '{print $2}' |head -1`
+logdate=`tail -n 1000 $logfile |awk '{print $3}' |awk -F 'T' '{print $1}' | tr -d '[' |sort |uniq -c |sort -nr |awk '{print $2}' |head -1`
 plottpl="plot.tpl"
 datetime=`date +%m%d%H%M%S`
 pltdir="$datadir/plt"
@@ -36,7 +36,7 @@ done
 
 function getStatusCode()
 {
-	exist $file_code && awk '{print $3}' $logfile | sort |uniq -c |sort -nr > $file_code
+	exist $file_code && awk '{print $4}' $logfile | sort |uniq -c |sort -nr > $file_code
 }
 
 function exist()
@@ -51,15 +51,15 @@ function exist()
 
 function timeSeries_200()
 {
-	exist $file_all && awk '{print $2}' $logfile |sort |uniq -c |awk '{print $2,$1}' |sed -r 's/\[.*?T|\+.*?\]//g' > $file_all
-	exist $file_200 && grep "\]  200 " $logfile | awk '{print $2}' |sort |uniq -c |awk '{print $2,$1}' |sed -r 's/\[.*?T|\+.*?\]//g' > $file_200
+	exist $file_all && awk '{print $3}' $logfile |sort |uniq -c |awk '{print $2,$1}' |sed -r 's/\[.*?T|\+.*?\]//g' > $file_all
+	exist $file_200 && grep "\]  200 " $logfile | awk '{print $3}' |sort |uniq -c |awk '{print $2,$1}' |sed -r 's/\[.*?T|\+.*?\]//g' > $file_200
 }
 
 function timeSeries_error()
 {
 	for code in {400,404,499,500,502,503,504};do
 		eval filevar=\$file_$code
-		exist $filevar && grep "\]  $code " $logfile | awk '{print $2}' |sort |uniq -c |awk '{print $2,$1}' |sed -r 's/\[.*?T|\+.*?\]//g' > $filevar
+		exist $filevar && grep "\]  $code " $logfile | awk '{print $3}' |sort |uniq -c |awk '{print $2,$1}' |sed -r 's/\[.*?T|\+.*?\]//g' > $filevar
 	done
 }
 
@@ -113,7 +113,7 @@ function plot()
 
 function responseTime()
 {
-	exist $file_time && cut -f1,10 -d'"' $logfile |awk -F '[T|+|"]' '{print $2,$4}' >$file_time
+	exist $file_time && cut -f3,12 -d'"' $logfile |awk -F '[T|+|"]' '{print $2,$4}' >$file_time
 }
 
 case $func in
