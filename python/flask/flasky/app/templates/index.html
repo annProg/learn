@@ -3,15 +3,11 @@
 
 {% block page_content %}
 <div class="page-header">
-
-<h1>Hello, {% if name %}{{ name }}{% else %}Stranger{% endif %}!</h1>
-
-{% if not known %}
-<p>感谢您的注册</p>
+	<h1>Hello,
+{% if current_user.is_authenticated %}
+{{ current_user.username }}
 {% else %}
-<p>感谢回访</p>
-{% endif %}
+	Stranger
+	{% endif %}!</h1>
 </div>
-
-{{ wtf.quick_form(form) }}
 {% endblock %}
