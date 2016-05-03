@@ -1,0 +1,10 @@
+Dear {{ user.username }}
+
+欢迎来到Flasky!
+
+点击以下链接验证您的账号:
+{{ url_for('auth.confirm', token=token, _external=True) }}
+
+Flasky团队
+
+注意：请勿回复此邮件

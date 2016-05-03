@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Flasky - 账号激活{% endblock %}
+
+{% block page_content %}
+	<div class="page-header">
+		<h1>Hello {{ name }}!</h1>
+		该账号尚未激活，如需激活，请 <a href="{{ url_for('auth.resend_confirmation') }}" />点这里</a>
+	</div>
+{% endblock %}
