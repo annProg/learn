@@ -28,7 +28,15 @@
 
 			<ul class="nav navbar-nav navbar-right">
 				{% if current_user.is_authenticated %}
-				<li><a href="{{ url_for('auth.logout') }}">退出登录</a></li>
+				<li class="dropdown">
+					<a class="dropdown-toggle" href="#" data-toggle="dropdown">账号管理<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="{{ url_for('auth.change_password') }}">修改密码</a></li>
+						<li><a href="{{ url_for('auth.change_email_request') }}">修改邮箱</a></li>
+						<li><a href="{{ url_for('auth.logout') }}">退出登录</a></li>
+					</ul>
+				</li>
+
 				{% else %}
 				<li><a href="{{ url_for('auth.login') }}">登录</a></li>
 				{% endif %}

@@ -35,3 +35,34 @@ class RegistrationForm(Form):
 	def validate_username(self, field):
 		if User.query.filter_by(username=field.data).first():
 			raise ValidationError('此用户名已被占用')
+
+class ChangePasswordForm(Form):
+	old_password = PasswordField('原密码', validators=[Required()])
+	password = PasswordField('新密码', validators=[Required(), EqualTo('password2', message='两次输入密码必须一致')])
+	password2 = PasswordField('确认密码', validators=[Required()])
+	submit = SubmitField('更新密码')
+
+class PasswordResetRequestForm(Form):
+	email = StringField('邮箱', validators=[Required(), Length(1,64), Email()])
+	submit = SubmitField('重置密码')
+
+class PasswordResetForm(Form):
+	email = StringField('邮箱', validators=[Required(), Length(1,64), Email()])
+	password = PasswordField('新密码', validators=[Required(), EqualTo('password2', message="两次输入必须一致")])
+	password2 = PasswordField('确认密码', validators=[Required()])
+	submit = SubmitField('重置密码')
+
+	def validate_email(self, field):
+		if User.query.filter_by(email=field.data).first() is None:
+			raise ValidationError('邮箱不存在')
+
+
+class ChangeEmailForm(Form):
+	email = StringField('New Email', validators=[Required(), Length(1, 64),
+												 Email()])
+	password = PasswordField('Password', validators=[Required()])
+	submit = SubmitField('Update Email Address')
+
+	def validate_email(self, field):
+		if User.query.filter_by(email=field.data).first():
+			raise ValidationError('Email already registered.')
