@@ -17,6 +17,7 @@ from . import main
 from .forms import EditProfileForm, NameForm, EditProfileAdminForm
 from flask.ext.login import login_required, current_user
 from ..decorators import admin_required
+import hashlib
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
@@ -72,6 +73,7 @@ def edit_profile_admin(id):
 	form = EditProfileAdminForm(user=user)
 	if form.validate_on_submit():
 		user.email = form.email.data
+		user.avatar_hash = hashlib.md5(user.email.encode('utf-8')).hexdigest()
 		user.username = form.username.data
 		user.confirmed = form.confirmed.data
 		user.role = Role.query.get(form.role.data)
