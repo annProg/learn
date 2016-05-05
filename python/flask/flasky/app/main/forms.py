@@ -10,6 +10,7 @@
 ############################
 
 from flask.ext.wtf import Form
+from flask.ext.pagedown.fields import PageDownField
 from wtforms import StringField, TextAreaField, SubmitField, BooleanField, SelectField
 from wtforms.validators import Required, Length, Email, Regexp
 from wtforms import ValidationError
@@ -52,5 +53,5 @@ class EditProfileAdminForm(Form):
 			raise ValidationError('用户名已被占用')
 
 class PostForm(Form):
-	body = TextAreaField('写下您的想法', validators=[Required()])
+	body = PageDownField('写下您的想法', validators=[Required()])
 	submit = SubmitField('提交')

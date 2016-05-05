@@ -16,12 +16,13 @@ from flask.ext.moment import Moment
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from config import config
-
+from flask.ext.pagedown import PageDown
 
 bootstrap = Bootstrap()
 moment = Moment()
 mail = Mail()
 db = SQLAlchemy()
+pagedown = PageDown()
 
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
@@ -44,5 +45,6 @@ def create_app(config_name):
 	app.register_blueprint(auth_blueprint, url_prefix='/auth')
 
 	login_manager.init_app(app)
+	pagedown.init_app(app)
 
 	return app
