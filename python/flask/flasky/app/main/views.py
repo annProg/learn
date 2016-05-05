@@ -11,30 +11,24 @@
 
 from flask import render_template, session, redirect, url_for, current_app, flash
 from .. import db
-from ..models import User, Role
+from ..models import User, Role, Post, Permission
 from ..email import send_mail
 from . import main
-from .forms import EditProfileForm, NameForm, EditProfileAdminForm
+from .forms import EditProfileForm, NameForm, EditProfileAdminForm, PostForm
 from flask.ext.login import login_required, current_user
 from ..decorators import admin_required
 import hashlib
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
-	form = NameForm()
-	if form.validate_on_submit():
-		user = User.query.filter_by(username=form.name.data).first()
-		if user is None:
-			user = User(username=form.name.data)
-			db.session.add(user)
-			session['known'] = False
-			if current_app.config['FLASKY_ADMIN']:
-				send_mail(current_app.config['FLASKY_ADMIN'], 'New User', 'mail/new_user', user=user)
-		else:
-			session['known'] = True
-		session['name'] = form.name.data
+	form = PostForm()
+	if current_user.can(Permission.WRITE_ARTICLES) and form.validate_on_submit():
+		post = Post(body=form.body.data, author=current_user._get_current_object())
+		db.session.add(post)
+		db.session.commit()
 		return redirect(url_for('.index'))
-	return render_template('index.html', form=form, name=session.get('name'), known=session.get('known', False))
+	posts = Post.query.order_by(Post.timestamp.desc()).all()
+	return render_template('index.html', form=form, posts=posts)
 
 @main.route('/user/<username>')
 def user(username):
@@ -91,3 +85,5 @@ def edit_profile_admin(id):
 	form.location.data = user.location
 	form.about_me.data = user.about_me
 	return render_template('edit_profile.html', form=form, user=user)
+
+
