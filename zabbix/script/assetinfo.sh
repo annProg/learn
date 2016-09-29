@@ -8,10 +8,10 @@
 # Created Time: 2016-09-29 15:11:36
 ############################
 
-sn=`dmidecode -s system-serial-number`
-uuid=`dmidecode -s system-uuid`
-manufacturer=`dmidecode -s system-manufacturer`
-product=`dmidecode -s system-product-name`
+sn=`dmidecode -s system-serial-number|grep -v "^#"`
+uuid=`dmidecode -s system-uuid|grep -v "^#"`
+manufacturer=`dmidecode -s system-manufacturer|grep -v "^#"`
+product=`dmidecode -s system-product-name|grep -v "^#"`
 
 echo $sn |grep -E " |-" &>/dev/null && assettag=$uuid || assettag=$sn
 
