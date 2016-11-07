@@ -16,13 +16,13 @@ fi
 str='{\n\t"data":['
 
 if [ "$include"x != ""x ];then
-	for id in `sudo ss -lpn |awk '{print $4,$6}' |perl -pe 's/.*?:(\d)/\1/' |sed 's/users:((\"//g'|sed 's/\".*$//' |grep -vE "127.0.0.1|172.17.|Local" |sort -u |grep -v ":" |tr ' ' ':' | grep -v ":$" | grep -Ew "$include"`;do
+	for id in `sudo ss -lpn |awk '{print $4,$6}' |sed 's/::ffff://g' |perl -pe 's/.*?:(\d)/\1/' |sed 's/users:((\"//g'|sed 's/\".*$//' |grep -vE "127.0.0.1|172.17.|Local" |sort -u |grep -v ":" |tr ' ' ':' | grep -v ":$" | grep -Ew "$include"`;do
 	    proc=`echo $id | cut -f2 -d':'`
 	    port=`echo $id | cut -f1 -d':'`
 	    str="$str\n\t\t{\"{#PROCNAME}\":\"$proc\", \"{#PORT}\":\"$port\"},"
 	done
 else
-	for id in `sudo ss -lpn |awk '{print $4,$6}' |perl -pe 's/.*?:(\d)/\1/' |sed 's/users:((\"//g'|sed 's/\".*$//' |grep -vE "127.0.0.1|172.17.|Local" |sort -u |grep -v ":" |tr ' ' ':' |grep -v ":$" |grep -vEw "$exclude"`;do
+	for id in `sudo ss -lpn |awk '{print $4,$6}' |sed 's/::ffff://g' |perl -pe 's/.*?:(\d)/\1/' |sed 's/users:((\"//g'|sed 's/\".*$//' |grep -vE "127.0.0.1|172.17.|Local" |sort -u |grep -v ":" |tr ' ' ':' |grep -v ":$" |grep -vEw "$exclude"`;do
 	    proc=`echo $id | cut -f2 -d':'`
 	    port=`echo $id | cut -f1 -d':'`
 	    str="$str\n\t\t{\"{#PROCNAME}\":\"$proc\", \"{#PORT}\":\"$port\"},"
