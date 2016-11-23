@@ -10,7 +10,7 @@ package main
 
 import "os"
 import "fmt"
-import "simplemath"
+import "calcproj/simplemath"
 import "strconv"
 
 var Usage = func() {
