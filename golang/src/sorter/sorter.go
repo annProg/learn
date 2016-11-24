@@ -8,8 +8,8 @@ import "os"
 import "strconv"
 import "time"
 
-import "qsort/algorithm/bubblesort"
-import "qsort/algorithm/qsort"
+import "sorter/algorithms/bubblesort"
+import "sorter/algorithms/qsort"
 
 var infile *string = flag.String("i", "infile", "待排序数据文件")
 var outfile *string = flag.String("o", "outfile", "排序结构输出文件")
@@ -77,11 +77,20 @@ func main() {
 
 	values, err := readValues(*infile)
 	if err == nil {
+		t1 := time.Now()
+		switch *algorithm {
+		case "qsort":
+			qsort.QuickSort(values)
+		case "bubblesort":
+			bubblesort.BubbleSort(values)
+		default:
+			fmt.Println("Sorting algorithm", *algorithm, "is either unkonw or unsupported.")
+		}
+		t2 := time.Now()
+		fmt.Println(*algorithm, "算法耗时:", t2.Sub(t1))
 
-		fmt.Println("Read values:", values)
+		writeValues(values, *outfile)
 	} else {
 		fmt.Println(err)
 	}
-
-	writeValues(values, *outfile)
 }
