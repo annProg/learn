@@ -1,0 +1,13 @@
+<script>
+	for (var i=1; i<101; i++) {
+		var f3 = i%3;
+		var f5 = i%5;
+		var f = f3 + f5;
+		switch(f) {
+			case 0: console.log("FizzBuzz"); break;
+			case f5: console.log("Fizz"); break;
+			case f3: console.log("Buzz"); break;
+			default: console.log(i); break;
+		}
+	}
+</script>
