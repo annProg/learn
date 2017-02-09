@@ -9,7 +9,14 @@
 ############################
 [ $# -lt 1 ] && echo -e "Usage:\n\t$0 iplist_file" && exit 1
 file=$1
+checkfile=/tmp/mg.check
+
 while read ip;do
 	echo -n "$ip - "
-	echo "show dbs" |mongo $ip --quiet &>/dev/null && echo "FAILED" || echo "OK"
+	echo "show dbs" |mongo $ip --quiet &>$checkfile && r=0 || r=1
+	if [ $r -eq 0 ];then
+		grep "not authorized" $checkfile &>/dev/null && echo "OK" || echo "Problem"
+	else
+		echo "OK"
+	fi
 done <$file
