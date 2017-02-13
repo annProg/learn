@@ -1,0 +1,55 @@
+<script>
+// Your code here.
+function arrayToList(array)
+{
+	var l=null;
+	for(var i=array.length-1; i >= 0; i--)
+	{
+		l={value: array[i], rest: l};
+	}
+	return(l);
+}
+
+function listToArray(list)
+{
+	var a=[];
+	var l=list;
+	var i;
+	do
+	{
+		a.push(l.value);
+		l=l.rest;
+	}while(l!=null);
+	return(a);
+}
+
+function prepend(add, list)
+{
+	return({value: add, list});
+}
+
+function nth(list, index)
+{
+	var a=listToArray(list);
+	return(a[index]);
+}
+
+// 递归版本
+function recursive_nth(list, index)
+{
+	if(!list)
+		return undefined;
+	else if (index == 0)
+		return list.value;
+	else
+		return recursive_nth(list.rest, index-1);
+}
+console.log(arrayToList([10, 20]));
+// → {value: 10, rest: {value: 20, rest: null}}
+console.log(listToArray(arrayToList([10, 20, 30])));
+// → [10, 20, 30]
+console.log(prepend(10, prepend(20, null)));
+// → {value: 10, rest: {value: 20, rest: null}}
+console.log(nth(arrayToList([10, 20, 30]), 1));
+console.log(recursive_nth(arrayToList([10, 20, 30]), 1));
+// → 20</script>
