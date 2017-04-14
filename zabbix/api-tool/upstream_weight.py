@@ -83,11 +83,15 @@ def calcuWeight(grpid):
 			ret[ip][key] = v[key]
 		
 		# 权值计算
-		avg5 = (1 - float(ret[ip]["system.cpu.load[percpu,avg5]"]))*30
-		avg1 = (1 - float(ret[ip]["system.cpu.load[percpu,avg1]"]))*40
-		steal = (100 - float(ret[ip]["system.cpu.util[,steal,avg5]"]))*0.1
-		iowait = (100 - float(ret[ip]["system.cpu.util[,iowait,avg5]"]))*0.1
-		idle = float(ret[ip]["system.cpu.util[,idle,avg5]"])*0.1
+		# 防止因某个ip中断
+		try:
+			avg5 = (1 - float(ret[ip]["system.cpu.load[percpu,avg5]"]))*30
+			avg1 = (1 - float(ret[ip]["system.cpu.load[percpu,avg1]"]))*40
+			steal = (100 - float(ret[ip]["system.cpu.util[,steal,avg5]"]))*0.1
+			iowait = (100 - float(ret[ip]["system.cpu.util[,iowait,avg5]"]))*0.1
+			idle = float(ret[ip]["system.cpu.util[,idle,avg5]"])*0.1
+		except:
+			continue
 
 		ret[ip]["weight_orig"] = avg5 + avg1 + steal + iowait + idle
 		# 向上取整
