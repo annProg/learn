@@ -1,0 +1,24 @@
+# This script will be executed *after* all the other init scripts.
+# You can put your own initialization stuff in here if you don't
+# want to do the full Sys V style init stuff.
+
+touch /var/lock/subsys/local
+IPADDR=`ifconfig eth0 |grep inet\ addr |awk '{print $2}' |awk -F '[:]' '{print $2}'`
+ID=`echo $IPADDR |awk -F '[.]' '{print $4}'`
+HOSTNAME=HADOOP-$ID
+sed -i "s/#id.*/id:\ $HOSTNAME/g" /etc/salt/minion
+
+sed -i "s/HOSTNAME.*/HOSTNAME=$HOSTNAME/g" /etc/sysconfig/network
+cat /etc/hosts |grep $IPADDR && r=0 || r=1
+if [ $r -eq 0 ]; then
+sed -i "s/$IPADDR.*/$IPADDR\ $HOSTNAME/g" /etc/hosts
+
+else
+echo "$IPADDR $HOSTNAME" >> /etc/hosts
+fi
+echo "" > /etc/salt/minion_id
+/etc/init.d/network restart
+/etc/init.d/salt-minion restart
+#HOST=`hostname -f`
+#[ "$HOST"x != "$HOSTNAME"x ] && reboot
+echo "touch /var/lock/subsys/local" > /etc/rc.d/rc.local

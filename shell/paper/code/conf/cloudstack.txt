@@ -1,0 +1,448 @@
+Loaded plugins: downloadonly, fastestmirror
+Repository local is listed more than once in the configuration
+Loading mirror speeds from cached hostfile
+ * base: mirrors.163.com
+ * extras: mirrors.btte.net
+ * updates: mirrors.stuhome.net
+Setting up Install Process
+Resolving Dependencies
+--> Running transaction check
+---> Package cloudstack-management.x86_64 0:4.3.0-1.el6 will be installed
+--> Processing Dependency: cloudstack-common = 4.3.0 for package: cloudstack-management-4.3.0-1.el6.x86_64
+--> Processing Dependency: cloudstack-awsapi = 4.3.0 for package: cloudstack-management-4.3.0-1.el6.x86_64
+--> Processing Dependency: java >= 1.6.0 for package: cloudstack-management-4.3.0-1.el6.x86_64
+--> Processing Dependency: jpackage-utils for package: cloudstack-management-4.3.0-1.el6.x86_64
+--> Processing Dependency: nfs-utils for package: cloudstack-management-4.3.0-1.el6.x86_64
+--> Processing Dependency: tomcat6 for package: cloudstack-management-4.3.0-1.el6.x86_64
+--> Processing Dependency: /sbin/mount.nfs for package: cloudstack-management-4.3.0-1.el6.x86_64
+--> Processing Dependency: mkisofs for package: cloudstack-management-4.3.0-1.el6.x86_64
+--> Processing Dependency: MySQL-python for package: cloudstack-management-4.3.0-1.el6.x86_64
+--> Processing Dependency: ipmitool for package: cloudstack-management-4.3.0-1.el6.x86_64
+--> Processing Dependency: ws-commons-util for package: cloudstack-management-4.3.0-1.el6.x86_64
+--> Processing Dependency: python-paramiko for package: cloudstack-management-4.3.0-1.el6.x86_64
+--> Processing Dependency: mysql-connector-java for package: cloudstack-management-4.3.0-1.el6.x86_64
+--> Running transaction check
+---> Package MySQL-python.x86_64 0:1.2.3-0.3.c1.1.el6 will be installed
+---> Package cloudstack-awsapi.x86_64 0:4.3.0-1.el6 will be installed
+---> Package cloudstack-common.x86_64 0:4.3.0-1.el6 will be installed
+---> Package genisoimage.x86_64 0:1.1.9-12.el6 will be installed
+---> Package ipmitool.x86_64 0:1.8.11-16.el6 will be installed
+---> Package java-1.7.0-openjdk.x86_64 1:1.7.0.55-2.4.7.1.el6_5 will be installed
+--> Processing Dependency: libjpeg = 6b for package: 1:java-1.7.0-openjdk-1.7.0.55-2.4.7.1.el6_5.x86_64
+--> Processing Dependency: xorg-x11-fonts-Type1 for package: 1:java-1.7.0-openjdk-1.7.0.55-2.4.7.1.el6_5.x86_64
+--> Processing Dependency: tzdata-java for package: 1:java-1.7.0-openjdk-1.7.0.55-2.4.7.1.el6_5.x86_64
+--> Processing Dependency: libpulse.so.0(PULSE_0)(64bit) for package: 1:java-1.7.0-openjdk-1.7.0.55-2.4.7.1.el6_5.x86_64
+--> Processing Dependency: libpng12.so.0(PNG12_0)(64bit) for package: 1:java-1.7.0-openjdk-1.7.0.55-2.4.7.1.el6_5.x86_64
+--> Processing Dependency: libjpeg.so.62(LIBJPEG_6.2)(64bit) for package: 1:java-1.7.0-openjdk-1.7.0.55-2.4.7.1.el6_5.x86_64
+--> Processing Dependency: libasound.so.2(ALSA_0.9.0rc4)(64bit) for package: 1:java-1.7.0-openjdk-1.7.0.55-2.4.7.1.el6_5.x86_64
+--> Processing Dependency: libasound.so.2(ALSA_0.9)(64bit) for package: 1:java-1.7.0-openjdk-1.7.0.55-2.4.7.1.el6_5.x86_64
+--> Processing Dependency: fontconfig for package: 1:java-1.7.0-openjdk-1.7.0.55-2.4.7.1.el6_5.x86_64
+--> Processing Dependency: libpulse.so.0()(64bit) for package: 1:java-1.7.0-openjdk-1.7.0.55-2.4.7.1.el6_5.x86_64
+--> Processing Dependency: libpng12.so.0()(64bit) for package: 1:java-1.7.0-openjdk-1.7.0.55-2.4.7.1.el6_5.x86_64
+--> Processing Dependency: libjpeg.so.62()(64bit) for package: 1:java-1.7.0-openjdk-1.7.0.55-2.4.7.1.el6_5.x86_64
+--> Processing Dependency: libgif.so.4()(64bit) for package: 1:java-1.7.0-openjdk-1.7.0.55-2.4.7.1.el6_5.x86_64
+--> Processing Dependency: libfreetype.so.6()(64bit) for package: 1:java-1.7.0-openjdk-1.7.0.55-2.4.7.1.el6_5.x86_64
+--> Processing Dependency: libasound.so.2()(64bit) for package: 1:java-1.7.0-openjdk-1.7.0.55-2.4.7.1.el6_5.x86_64
+--> Processing Dependency: libXtst.so.6()(64bit) for package: 1:java-1.7.0-openjdk-1.7.0.55-2.4.7.1.el6_5.x86_64
+--> Processing Dependency: libXrender.so.1()(64bit) for package: 1:java-1.7.0-openjdk-1.7.0.55-2.4.7.1.el6_5.x86_64
+--> Processing Dependency: libXi.so.6()(64bit) for package: 1:java-1.7.0-openjdk-1.7.0.55-2.4.7.1.el6_5.x86_64
+--> Processing Dependency: libXext.so.6()(64bit) for package: 1:java-1.7.0-openjdk-1.7.0.55-2.4.7.1.el6_5.x86_64
+--> Processing Dependency: libX11.so.6()(64bit) for package: 1:java-1.7.0-openjdk-1.7.0.55-2.4.7.1.el6_5.x86_64
+---> Package jpackage-utils.noarch 0:1.7.5-3.12.el6 will be installed
+---> Package mysql-connector-java.noarch 1:5.1.17-6.el6 will be installed
+--> Processing Dependency: jta >= 1.0 for package: 1:mysql-connector-java-5.1.17-6.el6.noarch
+--> Processing Dependency: slf4j for package: 1:mysql-connector-java-5.1.17-6.el6.noarch
+---> Package nfs-utils.x86_64 1:1.2.3-39.el6 will be installed
+--> Processing Dependency: nfs-utils-lib >= 1.1.0-3 for package: 1:nfs-utils-1.2.3-39.el6.x86_64
+--> Processing Dependency: keyutils >= 1.4-4 for package: 1:nfs-utils-1.2.3-39.el6.x86_64
+--> Processing Dependency: rpcbind for package: 1:nfs-utils-1.2.3-39.el6.x86_64
+--> Processing Dependency: libtirpc for package: 1:nfs-utils-1.2.3-39.el6.x86_64
+--> Processing Dependency: libgssglue.so.1(libgssapi_CITI_2)(64bit) for package: 1:nfs-utils-1.2.3-39.el6.x86_64
+--> Processing Dependency: libgssglue for package: 1:nfs-utils-1.2.3-39.el6.x86_64
+--> Processing Dependency: libevent for package: 1:nfs-utils-1.2.3-39.el6.x86_64
+--> Processing Dependency: libtirpc.so.1()(64bit) for package: 1:nfs-utils-1.2.3-39.el6.x86_64
+--> Processing Dependency: libnfsidmap.so.0()(64bit) for package: 1:nfs-utils-1.2.3-39.el6.x86_64
+--> Processing Dependency: libgssglue.so.1()(64bit) for package: 1:nfs-utils-1.2.3-39.el6.x86_64
+--> Processing Dependency: libevent-1.4.so.2()(64bit) for package: 1:nfs-utils-1.2.3-39.el6.x86_64
+---> Package python-paramiko.noarch 0:1.7.5-2.1.el6 will be installed
+--> Processing Dependency: python-crypto >= 1.9 for package: python-paramiko-1.7.5-2.1.el6.noarch
+---> Package tomcat6.noarch 0:6.0.24-64.el6_5 will be installed
+--> Processing Dependency: tomcat6-lib = 6.0.24-64.el6_5 for package: tomcat6-6.0.24-64.el6_5.noarch
+--> Processing Dependency: mx4j for package: tomcat6-6.0.24-64.el6_5.noarch
+--> Processing Dependency: log4j for package: tomcat6-6.0.24-64.el6_5.noarch
+--> Processing Dependency: log4j for package: tomcat6-6.0.24-64.el6_5.noarch
+--> Processing Dependency: jakarta-commons-pool for package: tomcat6-6.0.24-64.el6_5.noarch
+--> Processing Dependency: jakarta-commons-logging for package: tomcat6-6.0.24-64.el6_5.noarch
+--> Processing Dependency: jakarta-commons-dbcp for package: tomcat6-6.0.24-64.el6_5.noarch
+--> Processing Dependency: jakarta-commons-daemon for package: tomcat6-6.0.24-64.el6_5.noarch
+--> Processing Dependency: jakarta-commons-collections for package: tomcat6-6.0.24-64.el6_5.noarch
+--> Processing Dependency: /lib/lsb/init-functions for package: tomcat6-6.0.24-64.el6_5.noarch
+--> Processing Dependency: /lib/lsb/init-functions for package: tomcat6-6.0.24-64.el6_5.noarch
+---> Package ws-commons-util.noarch 0:1.0.1-13.el6 will be installed
+--> Running transaction check
+---> Package alsa-lib.x86_64 0:1.0.22-3.el6 will be installed
+---> Package fontconfig.x86_64 0:2.8.0-3.el6 will be installed
+---> Package freetype.x86_64 0:2.3.11-14.el6_3.1 will be installed
+---> Package geronimo-specs-compat.noarch 0:1.0-3.5.M2.el6 will be installed
+--> Processing Dependency: geronimo-specs = 1.0-3.5.M2.el6 for package: geronimo-specs-compat-1.0-3.5.M2.el6.noarch
+---> Package giflib.x86_64 0:4.1.6-3.1.el6 will be installed
+--> Processing Dependency: libSM.so.6()(64bit) for package: giflib-4.1.6-3.1.el6.x86_64
+--> Processing Dependency: libICE.so.6()(64bit) for package: giflib-4.1.6-3.1.el6.x86_64
+---> Package jakarta-commons-collections.noarch 0:3.2.1-3.4.el6 will be installed
+---> Package jakarta-commons-daemon.x86_64 1:1.0.1-8.9.el6 will be installed
+--> Processing Dependency: java-gcj-compat for package: 1:jakarta-commons-daemon-1.0.1-8.9.el6.x86_64
+--> Processing Dependency: java-gcj-compat for package: 1:jakarta-commons-daemon-1.0.1-8.9.el6.x86_64
+--> Processing Dependency: libgcj_bc.so.1()(64bit) for package: 1:jakarta-commons-daemon-1.0.1-8.9.el6.x86_64
+---> Package jakarta-commons-dbcp.noarch 0:1.2.1-13.8.el6 will be installed
+---> Package jakarta-commons-logging.noarch 0:1.0.4-10.el6 will be installed
+---> Package jakarta-commons-pool.x86_64 0:1.3-12.7.el6 will be installed
+---> Package keyutils.x86_64 0:1.4-4.el6 will be installed
+---> Package libX11.x86_64 0:1.5.0-4.el6 will be installed
+--> Processing Dependency: libX11-common = 1.5.0-4.el6 for package: libX11-1.5.0-4.el6.x86_64
+--> Processing Dependency: libxcb.so.1()(64bit) for package: libX11-1.5.0-4.el6.x86_64
+---> Package libXext.x86_64 0:1.3.1-2.el6 will be installed
+---> Package libXi.x86_64 0:1.6.1-3.el6 will be installed
+---> Package libXrender.x86_64 0:0.9.7-2.el6 will be installed
+---> Package libXtst.x86_64 0:1.2.1-2.el6 will be installed
+---> Package libevent.x86_64 0:1.4.13-4.el6 will be installed
+---> Package libgssglue.x86_64 0:0.1-11.el6 will be installed
+---> Package libjpeg-turbo.x86_64 0:1.2.1-3.el6_5 will be installed
+---> Package libpng.x86_64 2:1.2.49-1.el6_2 will be installed
+---> Package libtirpc.x86_64 0:0.2.1-6.el6_5.1 will be installed
+---> Package log4j.x86_64 0:1.2.14-6.4.el6 will be installed
+---> Package mx4j.noarch 1:3.0.1-9.13.el6 will be installed
+--> Processing Dependency: javamail >= 1.2-5jpp for package: 1:mx4j-3.0.1-9.13.el6.noarch
+--> Processing Dependency: bcel >= 5.0 for package: 1:mx4j-3.0.1-9.13.el6.noarch
+--> Processing Dependency: axis >= 1.1 for package: 1:mx4j-3.0.1-9.13.el6.noarch
+--> Processing Dependency: xml-commons-resolver for package: 1:mx4j-3.0.1-9.13.el6.noarch
+--> Processing Dependency: xml-commons for package: 1:mx4j-3.0.1-9.13.el6.noarch
+--> Processing Dependency: jaf for package: 1:mx4j-3.0.1-9.13.el6.noarch
+---> Package nfs-utils-lib.x86_64 0:1.1.5-6.el6 will be installed
+---> Package pulseaudio-libs.x86_64 0:0.9.21-14.el6_3 will be installed
+--> Processing Dependency: libsndfile.so.1(libsndfile.so.1.0)(64bit) for package: pulseaudio-libs-0.9.21-14.el6_3.x86_64
+--> Processing Dependency: libsndfile.so.1()(64bit) for package: pulseaudio-libs-0.9.21-14.el6_3.x86_64
+--> Processing Dependency: libasyncns.so.0()(64bit) for package: pulseaudio-libs-0.9.21-14.el6_3.x86_64
+---> Package python-crypto.x86_64 0:2.0.1-22.el6 will be installed
+---> Package redhat-lsb-core.x86_64 0:4.0-7.el6.centos will be installed
+--> Processing Dependency: perl-Test-Simple for package: redhat-lsb-core-4.0-7.el6.centos.x86_64
+--> Processing Dependency: perl-Test-Harness for package: redhat-lsb-core-4.0-7.el6.centos.x86_64
+--> Processing Dependency: perl-ExtUtils-MakeMaker for package: redhat-lsb-core-4.0-7.el6.centos.x86_64
+--> Processing Dependency: perl-CGI for package: redhat-lsb-core-4.0-7.el6.centos.x86_64
+--> Processing Dependency: /usr/bin/pax for package: redhat-lsb-core-4.0-7.el6.centos.x86_64
+--> Processing Dependency: /usr/bin/patch for package: redhat-lsb-core-4.0-7.el6.centos.x86_64
+--> Processing Dependency: /usr/bin/msgfmt for package: redhat-lsb-core-4.0-7.el6.centos.x86_64
+--> Processing Dependency: /usr/bin/man for package: redhat-lsb-core-4.0-7.el6.centos.x86_64
+--> Processing Dependency: /usr/bin/bc for package: redhat-lsb-core-4.0-7.el6.centos.x86_64
+--> Processing Dependency: /usr/bin/batch for package: redhat-lsb-core-4.0-7.el6.centos.x86_64
+--> Processing Dependency: /usr/bin/at for package: redhat-lsb-core-4.0-7.el6.centos.x86_64
+--> Processing Dependency: /bin/mailx for package: redhat-lsb-core-4.0-7.el6.centos.x86_64
+--> Processing Dependency: /bin/gettext for package: redhat-lsb-core-4.0-7.el6.centos.x86_64
+--> Processing Dependency: /bin/ed for package: redhat-lsb-core-4.0-7.el6.centos.x86_64
+---> Package rpcbind.x86_64 0:0.2.0-11.el6 will be installed
+---> Package slf4j.noarch 0:1.5.8-8.el6 will be installed
+---> Package tomcat6-lib.noarch 0:6.0.24-64.el6_5 will be installed
+--> Processing Dependency: tomcat6-servlet-2.5-api = 6.0.24-64.el6_5 for package: tomcat6-lib-6.0.24-64.el6_5.noarch
+--> Processing Dependency: tomcat6-jsp-2.1-api = 6.0.24-64.el6_5 for package: tomcat6-lib-6.0.24-64.el6_5.noarch
+--> Processing Dependency: tomcat6-el-2.1-api = 6.0.24-64.el6_5 for package: tomcat6-lib-6.0.24-64.el6_5.noarch
+--> Processing Dependency: ecj for package: tomcat6-lib-6.0.24-64.el6_5.noarch
+---> Package tzdata-java.noarch 0:2014b-1.el6 will be installed
+---> Package xorg-x11-fonts-Type1.noarch 0:7.2-9.1.el6 will be installed
+--> Processing Dependency: ttmkfdir for package: xorg-x11-fonts-Type1-7.2-9.1.el6.noarch
+--> Processing Dependency: ttmkfdir for package: xorg-x11-fonts-Type1-7.2-9.1.el6.noarch
+--> Processing Dependency: mkfontdir for package: xorg-x11-fonts-Type1-7.2-9.1.el6.noarch
+--> Processing Dependency: mkfontdir for package: xorg-x11-fonts-Type1-7.2-9.1.el6.noarch
+--> Running transaction check
+---> Package at.x86_64 0:3.1.10-43.el6_2.1 will be installed
+---> Package axis.noarch 0:1.2.1-7.3.el6_3 will be installed
+--> Processing Dependency: wsdl4j for package: axis-1.2.1-7.3.el6_3.noarch
+--> Processing Dependency: jakarta-commons-httpclient for package: axis-1.2.1-7.3.el6_3.noarch
+--> Processing Dependency: jakarta-commons-discovery for package: axis-1.2.1-7.3.el6_3.noarch
+---> Package bc.x86_64 0:1.06.95-1.el6 will be installed
+---> Package bcel.x86_64 0:5.2-7.2.el6 will be installed
+--> Processing Dependency: regexp for package: bcel-5.2-7.2.el6.x86_64
+---> Package classpathx-jaf.x86_64 0:1.0-15.4.el6 will be installed
+---> Package classpathx-mail.noarch 0:1.1.1-9.4.el6 will be installed
+---> Package ecj.x86_64 1:3.4.2-6.el6 will be installed
+---> Package ed.x86_64 0:1.1-3.3.el6 will be installed
+---> Package geronimo-specs.noarch 0:1.0-3.5.M2.el6 will be installed
+--> Processing Dependency: apache-tomcat-apis for package: geronimo-specs-1.0-3.5.M2.el6.noarch
+---> Package gettext.x86_64 0:0.17-16.el6 will be installed
+--> Processing Dependency: libgomp.so.1(GOMP_1.0)(64bit) for package: gettext-0.17-16.el6.x86_64
+--> Processing Dependency: cvs for package: gettext-0.17-16.el6.x86_64
+--> Processing Dependency: libgomp.so.1()(64bit) for package: gettext-0.17-16.el6.x86_64
+---> Package java-1.5.0-gcj.x86_64 0:1.5.0.0-29.1.el6 will be installed
+--> Processing Dependency: sinjdoc for package: java-1.5.0-gcj-1.5.0.0-29.1.el6.x86_64
+---> Package libICE.x86_64 0:1.0.6-1.el6 will be installed
+---> Package libSM.x86_64 0:1.2.1-2.el6 will be installed
+---> Package libX11-common.noarch 0:1.5.0-4.el6 will be installed
+---> Package libasyncns.x86_64 0:0.8-1.1.el6 will be installed
+---> Package libgcj.x86_64 0:4.4.7-4.el6 will be installed
+--> Processing Dependency: libart_lgpl >= 2.1.0 for package: libgcj-4.4.7-4.el6.x86_64
+--> Processing Dependency: gtk2 >= 2.4.0 for package: libgcj-4.4.7-4.el6.x86_64
+--> Processing Dependency: libpangoft2-1.0.so.0()(64bit) for package: libgcj-4.4.7-4.el6.x86_64
+--> Processing Dependency: libpangocairo-1.0.so.0()(64bit) for package: libgcj-4.4.7-4.el6.x86_64
+--> Processing Dependency: libpango-1.0.so.0()(64bit) for package: libgcj-4.4.7-4.el6.x86_64
+--> Processing Dependency: libgtk-x11-2.0.so.0()(64bit) for package: libgcj-4.4.7-4.el6.x86_64
+--> Processing Dependency: libgdk_pixbuf-2.0.so.0()(64bit) for package: libgcj-4.4.7-4.el6.x86_64
+--> Processing Dependency: libgdk-x11-2.0.so.0()(64bit) for package: libgcj-4.4.7-4.el6.x86_64
+--> Processing Dependency: libcairo.so.2()(64bit) for package: libgcj-4.4.7-4.el6.x86_64
+--> Processing Dependency: libatk-1.0.so.0()(64bit) for package: libgcj-4.4.7-4.el6.x86_64
+--> Processing Dependency: libXrandr.so.2()(64bit) for package: libgcj-4.4.7-4.el6.x86_64
+---> Package libsndfile.x86_64 0:1.0.20-5.el6 will be installed
+--> Processing Dependency: libvorbisenc.so.2()(64bit) for package: libsndfile-1.0.20-5.el6.x86_64
+--> Processing Dependency: libvorbis.so.0()(64bit) for package: libsndfile-1.0.20-5.el6.x86_64
+--> Processing Dependency: libogg.so.0()(64bit) for package: libsndfile-1.0.20-5.el6.x86_64
+--> Processing Dependency: libFLAC.so.8()(64bit) for package: libsndfile-1.0.20-5.el6.x86_64
+---> Package libxcb.x86_64 0:1.8.1-1.el6 will be installed
+--> Processing Dependency: libXau.so.6()(64bit) for package: libxcb-1.8.1-1.el6.x86_64
+---> Package mailx.x86_64 0:12.4-7.el6 will be installed
+---> Package man.x86_64 0:1.6f-32.el6 will be installed
+--> Processing Dependency: lzma for package: man-1.6f-32.el6.x86_64
+---> Package patch.x86_64 0:2.6-6.el6 will be installed
+---> Package pax.x86_64 0:3.4-10.1.el6 will be installed
+---> Package perl-CGI.x86_64 0:3.51-136.el6 will be installed
+---> Package perl-ExtUtils-MakeMaker.x86_64 0:6.55-136.el6 will be installed
+--> Processing Dependency: perl-devel for package: perl-ExtUtils-MakeMaker-6.55-136.el6.x86_64
+---> Package perl-Test-Harness.x86_64 0:3.17-136.el6 will be installed
+---> Package perl-Test-Simple.x86_64 0:0.92-136.el6 will be installed
+---> Package tomcat6-el-2.1-api.noarch 0:6.0.24-64.el6_5 will be installed
+---> Package tomcat6-jsp-2.1-api.noarch 0:6.0.24-64.el6_5 will be installed
+---> Package tomcat6-servlet-2.5-api.noarch 0:6.0.24-64.el6_5 will be installed
+---> Package ttmkfdir.x86_64 0:3.0.9-32.1.el6 will be installed
+---> Package xml-commons-apis.x86_64 0:1.3.04-3.6.el6 will be installed
+---> Package xml-commons-resolver.x86_64 0:1.1-4.18.el6 will be installed
+---> Package xorg-x11-font-utils.x86_64 1:7.2-11.el6 will be installed
+--> Processing Dependency: libfontenc.so.1()(64bit) for package: 1:xorg-x11-font-utils-7.2-11.el6.x86_64
+--> Processing Dependency: libXfont.so.1()(64bit) for package: 1:xorg-x11-font-utils-7.2-11.el6.x86_64
+--> Running transaction check
+---> Package apache-tomcat-apis.noarch 0:0.1-1.el6 will be installed
+---> Package atk.x86_64 0:1.30.0-1.el6 will be installed
+---> Package cairo.x86_64 0:1.8.8-3.1.el6 will be installed
+--> Processing Dependency: libpixman-1.so.0()(64bit) for package: cairo-1.8.8-3.1.el6.x86_64
+---> Package cvs.x86_64 0:1.11.23-16.el6 will be installed
+---> Package flac.x86_64 0:1.2.1-6.1.el6 will be installed
+---> Package gtk2.x86_64 0:2.20.1-4.el6 will be installed
+--> Processing Dependency: libtiff >= 3.6.1 for package: gtk2-2.20.1-4.el6.x86_64
+--> Processing Dependency: hicolor-icon-theme for package: gtk2-2.20.1-4.el6.x86_64
+--> Processing Dependency: libtiff.so.3()(64bit) for package: gtk2-2.20.1-4.el6.x86_64
+--> Processing Dependency: libjasper.so.1()(64bit) for package: gtk2-2.20.1-4.el6.x86_64
+--> Processing Dependency: libcups.so.2()(64bit) for package: gtk2-2.20.1-4.el6.x86_64
+--> Processing Dependency: libXinerama.so.1()(64bit) for package: gtk2-2.20.1-4.el6.x86_64
+--> Processing Dependency: libXfixes.so.3()(64bit) for package: gtk2-2.20.1-4.el6.x86_64
+--> Processing Dependency: libXdamage.so.1()(64bit) for package: gtk2-2.20.1-4.el6.x86_64
+--> Processing Dependency: libXcursor.so.1()(64bit) for package: gtk2-2.20.1-4.el6.x86_64
+--> Processing Dependency: libXcomposite.so.1()(64bit) for package: gtk2-2.20.1-4.el6.x86_64
+---> Package jakarta-commons-discovery.noarch 1:0.4-5.4.el6 will be installed
+---> Package jakarta-commons-httpclient.x86_64 1:3.1-0.7.el6_3 will be installed
+---> Package libXau.x86_64 0:1.0.6-4.el6 will be installed
+---> Package libXfont.x86_64 0:1.4.5-3.el6_5 will be installed
+---> Package libXrandr.x86_64 0:1.4.0-1.el6 will be installed
+---> Package libart_lgpl.x86_64 0:2.3.20-5.1.el6 will be installed
+---> Package libfontenc.x86_64 0:1.0.5-2.el6 will be installed
+---> Package libgomp.x86_64 0:4.4.7-4.el6 will be installed
+---> Package libogg.x86_64 2:1.1.4-2.1.el6 will be installed
+---> Package libvorbis.x86_64 1:1.2.3-4.el6_2.1 will be installed
+---> Package pango.x86_64 0:1.28.1-7.el6_3 will be installed
+--> Processing Dependency: libthai >= 0.1.9 for package: pango-1.28.1-7.el6_3.x86_64
+--> Processing Dependency: libthai.so.0(LIBTHAI_0.1)(64bit) for package: pango-1.28.1-7.el6_3.x86_64
+--> Processing Dependency: libthai.so.0()(64bit) for package: pango-1.28.1-7.el6_3.x86_64
+--> Processing Dependency: libXft.so.2()(64bit) for package: pango-1.28.1-7.el6_3.x86_64
+---> Package perl-devel.x86_64 4:5.10.1-136.el6 will be installed
+--> Processing Dependency: perl(ExtUtils::ParseXS) for package: 4:perl-devel-5.10.1-136.el6.x86_64
+--> Processing Dependency: glibc-devel for package: 4:perl-devel-5.10.1-136.el6.x86_64
+--> Processing Dependency: gdbm-devel for package: 4:perl-devel-5.10.1-136.el6.x86_64
+--> Processing Dependency: db4-devel for package: 4:perl-devel-5.10.1-136.el6.x86_64
+---> Package regexp.x86_64 0:1.5-4.4.el6 will be installed
+---> Package sinjdoc.x86_64 0:0.5-9.1.el6 will be installed
+--> Processing Dependency: java_cup >= 0.10 for package: sinjdoc-0.5-9.1.el6.x86_64
+---> Package wsdl4j.noarch 0:1.5.2-7.8.el6 will be installed
+---> Package xz-lzma-compat.x86_64 0:4.999.9-0.3.beta.20091007git.el6 will be installed
+--> Processing Dependency: xz = 4.999.9-0.3.beta.20091007git.el6 for package: xz-lzma-compat-4.999.9-0.3.beta.20091007git.el6.x86_64
+--> Running transaction check
+---> Package cups-libs.x86_64 1:1.4.2-50.el6_4.5 will be installed
+--> Processing Dependency: libgnutls.so.26(GNUTLS_1_4)(64bit) for package: 1:cups-libs-1.4.2-50.el6_4.5.x86_64
+--> Processing Dependency: libgnutls.so.26()(64bit) for package: 1:cups-libs-1.4.2-50.el6_4.5.x86_64
+--> Processing Dependency: libavahi-common.so.3()(64bit) for package: 1:cups-libs-1.4.2-50.el6_4.5.x86_64
+--> Processing Dependency: libavahi-client.so.3()(64bit) for package: 1:cups-libs-1.4.2-50.el6_4.5.x86_64
+---> Package db4-devel.x86_64 0:4.7.25-18.el6_4 will be installed
+--> Processing Dependency: db4-cxx = 4.7.25-18.el6_4 for package: db4-devel-4.7.25-18.el6_4.x86_64
+--> Processing Dependency: libdb_cxx-4.7.so()(64bit) for package: db4-devel-4.7.25-18.el6_4.x86_64
+---> Package gdbm-devel.x86_64 0:1.8.0-36.el6 will be installed
+---> Package glibc-devel.x86_64 0:2.12-1.132.el6_5.1 will be installed
+--> Processing Dependency: glibc-headers = 2.12-1.132.el6_5.1 for package: glibc-devel-2.12-1.132.el6_5.1.x86_64
+--> Processing Dependency: glibc = 2.12-1.132.el6_5.1 for package: glibc-devel-2.12-1.132.el6_5.1.x86_64
+--> Processing Dependency: glibc-headers for package: glibc-devel-2.12-1.132.el6_5.1.x86_64
+---> Package hicolor-icon-theme.noarch 0:0.11-1.1.el6 will be installed
+---> Package jasper-libs.x86_64 0:1.900.1-15.el6_1.1 will be installed
+---> Package java_cup.x86_64 1:0.10k-5.el6 will be installed
+---> Package libXcomposite.x86_64 0:0.4.3-4.el6 will be installed
+---> Package libXcursor.x86_64 0:1.1.13-6.20130524git8f677eaea.el6 will be installed
+---> Package libXdamage.x86_64 0:1.1.3-4.el6 will be installed
+---> Package libXfixes.x86_64 0:5.0-3.el6 will be installed
+---> Package libXft.x86_64 0:2.3.1-2.el6 will be installed
+---> Package libXinerama.x86_64 0:1.1.2-2.el6 will be installed
+---> Package libthai.x86_64 0:0.1.12-3.el6 will be installed
+---> Package libtiff.x86_64 0:3.9.4-10.el6_5 will be installed
+---> Package perl-ExtUtils-ParseXS.x86_64 1:2.2003.0-136.el6 will be installed
+---> Package pixman.x86_64 0:0.26.2-5.1.el6_5 will be installed
+---> Package xz.x86_64 0:4.999.9-0.3.beta.20091007git.el6 will be installed
+--> Running transaction check
+---> Package avahi-libs.x86_64 0:0.6.25-12.el6 will be installed
+---> Package db4-cxx.x86_64 0:4.7.25-18.el6_4 will be installed
+---> Package glibc.x86_64 0:2.12-1.132.el6 will be updated
+--> Processing Dependency: glibc = 2.12-1.132.el6 for package: glibc-common-2.12-1.132.el6.x86_64
+---> Package glibc.x86_64 0:2.12-1.132.el6_5.1 will be an update
+---> Package glibc-headers.x86_64 0:2.12-1.132.el6_5.1 will be installed
+--> Processing Dependency: kernel-headers >= 2.2.1 for package: glibc-headers-2.12-1.132.el6_5.1.x86_64
+--> Processing Dependency: kernel-headers for package: glibc-headers-2.12-1.132.el6_5.1.x86_64
+---> Package gnutls.x86_64 0:2.8.5-13.el6_5 will be installed
+--> Running transaction check
+---> Package glibc-common.x86_64 0:2.12-1.132.el6 will be updated
+---> Package glibc-common.x86_64 0:2.12-1.132.el6_5.1 will be an update
+---> Package kernel-headers.x86_64 0:2.6.32-431.17.1.el6 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package                     Arch   Version                    Repository  Size
+================================================================================
+Installing:
+ cloudstack-management       x86_64 4.3.0-1.el6                cloudstack  75 M
+Installing for dependencies:
+ MySQL-python                x86_64 1.2.3-0.3.c1.1.el6         base        86 k
+ alsa-lib                    x86_64 1.0.22-3.el6               base       370 k
+ apache-tomcat-apis          noarch 0.1-1.el6                  base       164 k
+ at                          x86_64 3.1.10-43.el6_2.1          base        60 k
+ atk                         x86_64 1.30.0-1.el6               base       195 k
+ avahi-libs                  x86_64 0.6.25-12.el6              base        54 k
+ axis                        noarch 1.2.1-7.3.el6_3            base       1.5 M
+ bc                          x86_64 1.06.95-1.el6              base       110 k
+ bcel                        x86_64 5.2-7.2.el6                base       1.4 M
+ cairo                       x86_64 1.8.8-3.1.el6              base       309 k
+ classpathx-jaf              x86_64 1.0-15.4.el6               base       100 k
+ classpathx-mail             noarch 1.1.1-9.4.el6              base       479 k
+ cloudstack-awsapi           x86_64 4.3.0-1.el6                cloudstack  86 M
+ cloudstack-common           x86_64 4.3.0-1.el6                cloudstack  93 M
+ cups-libs                   x86_64 1:1.4.2-50.el6_4.5         base       317 k
+ cvs                         x86_64 1.11.23-16.el6             base       712 k
+ db4-cxx                     x86_64 4.7.25-18.el6_4            base       588 k
+ db4-devel                   x86_64 4.7.25-18.el6_4            base       6.6 M
+ ecj                         x86_64 1:3.4.2-6.el6              base       2.8 M
+ ed                          x86_64 1.1-3.3.el6                base        72 k
+ flac                        x86_64 1.2.1-6.1.el6              base       243 k
+ fontconfig                  x86_64 2.8.0-3.el6                base       186 k
+ freetype                    x86_64 2.3.11-14.el6_3.1          base       359 k
+ gdbm-devel                  x86_64 1.8.0-36.el6               base        25 k
+ genisoimage                 x86_64 1.1.9-12.el6               base       348 k
+ geronimo-specs              noarch 1.0-3.5.M2.el6             base       111 k
+ geronimo-specs-compat       noarch 1.0-3.5.M2.el6             base       7.1 k
+ gettext                     x86_64 0.17-16.el6                base       1.8 M
+ giflib                      x86_64 4.1.6-3.1.el6              base        37 k
+ glibc-devel                 x86_64 2.12-1.132.el6_5.1         updates    978 k
+ glibc-headers               x86_64 2.12-1.132.el6_5.1         updates    608 k
+ gnutls                      x86_64 2.8.5-13.el6_5             updates    346 k
+ gtk2                        x86_64 2.20.1-4.el6               base       3.3 M
+ hicolor-icon-theme          noarch 0.11-1.1.el6               base        40 k
+ ipmitool                    x86_64 1.8.11-16.el6              base       329 k
+ jakarta-commons-collections noarch 3.2.1-3.4.el6              base       523 k
+ jakarta-commons-daemon      x86_64 1:1.0.1-8.9.el6            base        45 k
+ jakarta-commons-dbcp        noarch 1.2.1-13.8.el6             base       116 k
+ jakarta-commons-discovery   noarch 1:0.4-5.4.el6              base        73 k
+ jakarta-commons-httpclient  x86_64 1:3.1-0.7.el6_3            base       587 k
+ jakarta-commons-logging     noarch 1.0.4-10.el6               base        52 k
+ jakarta-commons-pool        x86_64 1.3-12.7.el6               base       122 k
+ jasper-libs                 x86_64 1.900.1-15.el6_1.1         base       136 k
+ java-1.5.0-gcj              x86_64 1.5.0.0-29.1.el6           base       139 k
+ java-1.7.0-openjdk          x86_64 1:1.7.0.55-2.4.7.1.el6_5   updates     26 M
+ java_cup                    x86_64 1:0.10k-5.el6              base       197 k
+ jpackage-utils              noarch 1.7.5-3.12.el6             base        59 k
+ kernel-headers              x86_64 2.6.32-431.17.1.el6        updates    2.9 M
+ keyutils                    x86_64 1.4-4.el6                  base        39 k
+ libICE                      x86_64 1.0.6-1.el6                base        53 k
+ libSM                       x86_64 1.2.1-2.el6                base        37 k
+ libX11                      x86_64 1.5.0-4.el6                base       584 k
+ libX11-common               noarch 1.5.0-4.el6                base       192 k
+ libXau                      x86_64 1.0.6-4.el6                base        24 k
+ libXcomposite               x86_64 0.4.3-4.el6                base        20 k
+ libXcursor                  x86_64 1.1.13-6.20130524git8f677eaea.el6
+                                                               base        28 k
+ libXdamage                  x86_64 1.1.3-4.el6                base        18 k
+ libXext                     x86_64 1.3.1-2.el6                base        35 k
+ libXfixes                   x86_64 5.0-3.el6                  base        23 k
+ libXfont                    x86_64 1.4.5-3.el6_5              updates    136 k
+ libXft                      x86_64 2.3.1-2.el6                base        55 k
+ libXi                       x86_64 1.6.1-3.el6                base        35 k
+ libXinerama                 x86_64 1.1.2-2.el6                base        20 k
+ libXrandr                   x86_64 1.4.0-1.el6                base        36 k
+ libXrender                  x86_64 0.9.7-2.el6                base        30 k
+ libXtst                     x86_64 1.2.1-2.el6                base        29 k
+ libart_lgpl                 x86_64 2.3.20-5.1.el6             base        65 k
+ libasyncns                  x86_64 0.8-1.1.el6                base        24 k
+ libevent                    x86_64 1.4.13-4.el6               base        66 k
+ libfontenc                  x86_64 1.0.5-2.el6                base        24 k
+ libgcj                      x86_64 4.4.7-4.el6                base        19 M
+ libgomp                     x86_64 4.4.7-4.el6                base       118 k
+ libgssglue                  x86_64 0.1-11.el6                 base        23 k
+ libjpeg-turbo               x86_64 1.2.1-3.el6_5              updates    174 k
+ libogg                      x86_64 2:1.1.4-2.1.el6            base        21 k
+ libpng                      x86_64 2:1.2.49-1.el6_2           base       182 k
+ libsndfile                  x86_64 1.0.20-5.el6               base       233 k
+ libthai                     x86_64 0.1.12-3.el6               base       183 k
+ libtiff                     x86_64 3.9.4-10.el6_5             updates    343 k
+ libtirpc                    x86_64 0.2.1-6.el6_5.1            updates     79 k
+ libvorbis                   x86_64 1:1.2.3-4.el6_2.1          base       168 k
+ libxcb                      x86_64 1.8.1-1.el6                base       110 k
+ log4j                       x86_64 1.2.14-6.4.el6             base       679 k
+ mailx                       x86_64 12.4-7.el6                 base       235 k
+ man                         x86_64 1.6f-32.el6                base       263 k
+ mx4j                        noarch 1:3.0.1-9.13.el6           base       1.1 M
+ mysql-connector-java        noarch 1:5.1.17-6.el6             base       1.4 M
+ nfs-utils                   x86_64 1:1.2.3-39.el6             base       320 k
+ nfs-utils-lib               x86_64 1.1.5-6.el6                base        67 k
+ pango                       x86_64 1.28.1-7.el6_3             base       350 k
+ patch                       x86_64 2.6-6.el6                  base        90 k
+ pax                         x86_64 3.4-10.1.el6               base        69 k
+ perl-CGI                    x86_64 3.51-136.el6               base       209 k
+ perl-ExtUtils-MakeMaker     x86_64 6.55-136.el6               base       293 k
+ perl-ExtUtils-ParseXS       x86_64 1:2.2003.0-136.el6         base        45 k
+ perl-Test-Harness           x86_64 3.17-136.el6               base       231 k
+ perl-Test-Simple            x86_64 0.92-136.el6               base       112 k
+ perl-devel                  x86_64 4:5.10.1-136.el6           base       423 k
+ pixman                      x86_64 0.26.2-5.1.el6_5           updates    200 k
+ pulseaudio-libs             x86_64 0.9.21-14.el6_3            base       462 k
+ python-crypto               x86_64 2.0.1-22.el6               base       159 k
+ python-paramiko             noarch 1.7.5-2.1.el6              base       728 k
+ redhat-lsb-core             x86_64 4.0-7.el6.centos           base        25 k
+ regexp                      x86_64 1.5-4.4.el6                base       105 k
+ rpcbind                     x86_64 0.2.0-11.el6               base        51 k
+ sinjdoc                     x86_64 0.5-9.1.el6                base       705 k
+ slf4j                       noarch 1.5.8-8.el6                base       131 k
+ tomcat6                     noarch 6.0.24-64.el6_5            updates     90 k
+ tomcat6-el-2.1-api          noarch 6.0.24-64.el6_5            updates     46 k
+ tomcat6-jsp-2.1-api         noarch 6.0.24-64.el6_5            updates     83 k
+ tomcat6-lib                 noarch 6.0.24-64.el6_5            updates    2.9 M
+ tomcat6-servlet-2.5-api     noarch 6.0.24-64.el6_5            updates     97 k
+ ttmkfdir                    x86_64 3.0.9-32.1.el6             base        43 k
+ tzdata-java                 noarch 2014b-1.el6                updates    147 k
+ ws-commons-util             noarch 1.0.1-13.el6               base        37 k
+ wsdl4j                      noarch 1.5.2-7.8.el6              base       157 k
+ xml-commons-apis            x86_64 1.3.04-3.6.el6             base       439 k
+ xml-commons-resolver        x86_64 1.1-4.18.el6               base       145 k
+ xorg-x11-font-utils         x86_64 1:7.2-11.el6               base        75 k
+ xorg-x11-fonts-Type1        noarch 7.2-9.1.el6                base       520 k
+ xz                          x86_64 4.999.9-0.3.beta.20091007git.el6
+                                                               base       137 k
+ xz-lzma-compat              x86_64 4.999.9-0.3.beta.20091007git.el6
+                                                               base        16 k
+Updating for dependencies:
+ glibc                       x86_64 2.12-1.132.el6_5.1         updates    3.8 M
+ glibc-common                x86_64 2.12-1.132.el6_5.1         updates     14 M
+
+Transaction Summary
+================================================================================
+Install     123 Package(s)
+Upgrade       2 Package(s)
+
+Total download size: 363 M
+Is this ok [y/N]: Exiting on user Command

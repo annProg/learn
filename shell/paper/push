@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Usage:
+# History:
+#
+[ $# -eq 0 ] && { echo "comment as arg....exit"; exit 1;}
+
+git add --all && git commit -m "$1" && git push origin master

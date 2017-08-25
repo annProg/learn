@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Usage:
+# History:
+#
+
+scp root@ctrl:/root/paper/$1 $2

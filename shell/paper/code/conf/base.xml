@@ -1,0 +1,44 @@
+<group>
+<id>base</id>
+<name>Base</name>
+<name xml:lang="zh_CN">基本</name>
+<description>The basic installation of CentOS Linux.</description>
+<description xml:lang="zh_CN">红帽企业版 Linux 基本安装。</description>
+<default>true</default>
+<uservisible>true</uservisible>
+<packagelist>
+<packagereq type="default">man-pages-overrides</packagereq>
+<packagereq type="default">man-pages</packagereq>
+<packagereq type="default">ntpdate</packagereq>
+<packagereq type="default">ntp</packagereq>
+<packagereq type="default">openssh-clients</packagereq>
+<packagereq type="default">rsync</packagereq>
+<packagereq type="default">xinetd</packagereq>
+<packagereq type="default">sysstat</packagereq>
+<packagereq type="default">tcpdump</packagereq>
+<packagereq type="default">time</packagereq>
+<packagereq type="default">unzip</packagereq>
+<packagereq type="default">vim-enhanced</packagereq>
+<packagereq type="default">wget</packagereq>
+<packagereq type="default">which</packagereq>
+<packagereq type="default">yum-plugin-security</packagereq>
+<packagereq type="default">yum-utils</packagereq>
+<packagereq type="default">zip</packagereq>
+<packagereq type="mandatory">bind-utils</packagereq>
+<packagereq type="mandatory">crontabs</packagereq>
+<packagereq type="mandatory">file</packagereq>
+<packagereq type="mandatory">lsof</packagereq>
+<packagereq type="mandatory">man</packagereq>
+<packagereq type="mandatory">ntsysv</packagereq>
+<packagereq type="mandatory">parted</packagereq>
+<packagereq type="optional">dos2unix</packagereq>
+<packagereq type="optional">unix2dos</packagereq>
+<packagereq type="optional">yum-plugin-aliases</packagereq>
+<packagereq type="optional">yum-plugin-changelog</packagereq>
+<packagereq type="optional">yum-plugin-downloadonly</packagereq>
+<packagereq type="optional">yum-plugin-tmprepo</packagereq>
+<packagereq type="optional">yum-plugin-verify</packagereq>
+<packagereq type="optional">yum-plugin-versionlock</packagereq>
+<packagereq type="optional">yum-presto</packagereq>
+</packagelist>
+</group>
