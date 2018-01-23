@@ -74,3 +74,11 @@ for id in ${!eq[*]};do
 		warning "$o - $expect"
 	fi
 done
+
+sendq=`ss -lnt |grep ":80 " |awk '{print $3}'`
+expect=10000
+if [ $sendq -lt $expect ];then
+	warning "port 80 sendq: $sendq  -  $expect"
+else
+	ok "port 80 sendq: $sendq  -  $expect"
+fi
