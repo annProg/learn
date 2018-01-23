@@ -75,6 +75,7 @@ for id in ${!eq[*]};do
 	fi
 done
 
+title sendq
 sendq=`ss -lnt |grep ":80 " |awk '{print $3}'`
 expect=10000
 if [ $sendq -lt $expect ];then
