@@ -44,7 +44,7 @@ for id in ${!gt[*]};do
 	o=`sysctl -a |grep -w "$id"`
 	v=`echo $o |awk '{print $NF}'`
 	expect=${gt["$id"]}
-	if [ $v -gt $expect ];then
+	if [ $v -ge $expect ];then
 		ok "$o - $expect"
 	else
 		warning "$o - $expect"
@@ -56,7 +56,7 @@ for id in ${!lt[*]};do
 	o=`sysctl -a |grep -w "$id"`
 	v=`echo $o |awk '{print $NF}'`
 	expect=${lt["$id"]}
-	if [ $v -lt $expect ];then
+	if [ $v -le $expect ];then
 		ok "$o - $expect"
 	else
 		warning "$o - $expect"
