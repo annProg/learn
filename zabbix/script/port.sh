@@ -1,5 +1,5 @@
 #!/bin/bash
-exclude="zabbix_agentd|monit|snmpd|sendmail|moxi"
+exclude="zabbix_agentd|monit|snmpd|sendmail|moxi|[0-9]{5}:java"
 conf="/etc/lld_port.conf"
 
 hostname | grep "mpaas_node" &>/dev/null && r=0 || r=1
