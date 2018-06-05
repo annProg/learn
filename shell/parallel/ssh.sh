@@ -51,3 +51,12 @@ function name() {
 	echo "$1 $n"
 }
 
+case $1 in
+	'hostname') parallel $2 'name';;
+'ss') parallel $2 'ssltn';;
+'copyid') parallel $2 'copyid';;
+'deploy') parallel $2 'deploy' $3;;
+'st') parallel $2 'st_deploy';;
+*) echo "nothing to do";;
+esac
+
