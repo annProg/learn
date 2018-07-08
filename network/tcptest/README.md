@@ -106,3 +106,12 @@ Every 1s: ss -ant |grep WAIT |wc -l                                             
 
 5
 ```
+
+
+## 附
+
+```
+1. tw_reuse，tw_recycle 必须在客户端和服务端timestamps 开启时才管用（默认打开）
+2. tw_reuse 只对客户端起作用，开启后客户端在1s内回收 (sleep 1s时可以全部请求成功的原因?)
+3. tw_recycle 对客户端和服务器同时起作用，开启后在 3.5*RTO 内回收，RTO 200ms~ 120s 具体时间视网络状况。
+```
