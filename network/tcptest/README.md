@@ -19,6 +19,10 @@ e |sort |uniq -c
 |uniq -c
       9 000
      11 404
+# 继续请求，全部 000
+812e320d752c:~# for id in `seq 1 20`;do curl -s --no-keepalive --http1.1 http://172.17.0.2 -o /dev/null -w "%{http_code}\n";done |sort 
+|uniq -c
+     20 000
 ```
 
 状态码`000`时报错如下:
