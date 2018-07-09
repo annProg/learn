@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ############################
-# Usage: 将数字转为汉字
+# Usage: 将数字转为汉字  还有一些bug
 # File Name: 12-num-tostring.sh
 # Author: annhe  
 # Mail: i@annhe.net
@@ -10,48 +10,35 @@
 
 n=$1
 
-function N2S() {
-	case $1 in
-		1) echo -n "一";;
-		2) echo -n "二";;
-		3) echo -n "三";;
-		4) echo -n "四";;
-		5) echo -n "四";;
-		6) echo -n "四";;
-		7) echo -n "四";;
-		8) echo -n "四";;
-		9) echo -n "九";;
-		0) echo -n "零";;
-		*) return;;
-	esac
-}
+array_n=("零" "一" "二" "三" "四" "五" "六" "七" "八" "九")
+array_unit=("" "" "十" "百" "千" "万" "十" "百" "千" "亿" "十" "百" "千")
 
-function Unit() {
-	case $1 in
-		2) echo -n "十";;
-		3) echo -n "百";;
-		4) echo -n "千";;
-		5) echo -n "万";;
-		6) echo -n "十万";;
-		7) echo -n "百万";;
-		8) echo -n "千万";;
-		9) echo -n "亿";;
-		10) echo -n "十亿";;
-		11) echo -n "百亿";;
-		12) echo -n "千亿";;
-		*) return;;
-	esac
-}
-
-
+s=()
 function run() {
 	l=${#n}
+	ll=$((l-1))
+	[ $l -gt 12 ] && echo "超出计算范围(12位)" && exit 1
+	iscontinuity=0
 	for i in `seq 1 $l`;do
 		m=$((n%10))
 		n=$((n/10))
-		Unit $i
-		N2S $m
+
+		islast=$((l-ll))
+		if [ $m -gt 0 ];then
+			s[$((l-i))]=${array_n[$m]}${array_unit[$i]}
+			iscontinuity=0
+		elif [ $m -eq 0 ];then
+			if [ $i -eq 5 ] || [ $i -eq 9 ];then
+				s[$((l-i))]=${array_unit[$i]}
+			elif [ $i -gt $islast ] && [ $iscontinuity -eq 0 ];then
+				s[$((l-i))]=${array_n[$m]}
+				iscontinuity=1
+			else
+				ll=$((ll-1))
+			fi
+		fi
 	done
 }
 
-run |rev
+run
+echo ${s[@]}
