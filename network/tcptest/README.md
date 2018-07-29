@@ -115,3 +115,88 @@ Every 1s: ss -ant |grep WAIT |wc -l                                             
 2. tw_reuse 只对客户端起作用，开启后客户端在1s内回收 (sleep 1s时可以全部请求成功的原因?)
 3. tw_recycle 对客户端和服务器同时起作用，开启后在 3.5*RTO 内回收，RTO 200ms~ 120s 具体时间视网络状况。
 ```
+
+
+## Nginx做负载均衡时
+作为lb的容器仅分配3个local port
+
+关闭timewait reuse
+```
+ffa13c0b6ae9:~# for id in `seq 1 1000`;do curl -s "http://172.17.0.2" -o /dev/null -w "%{http_code}\n";done |sort |uniq -c
+     49 200
+    951 502
+ffa13c0b6ae9:~# 
+# 不等time wait释放就连接会失败
+ffa13c0b6ae9:~# for id in `seq 1 1000`;do curl -s "http://172.17.0.2" -o /dev/null -w "%{http_code}\n";done |sort |uniq -c
+   1000 502
+ffa13c0b6ae9:~# 
+ffa13c0b6ae9:~# 
+```
+
+502时报错如下:
+```
+2018/07/29 12:40:21 [crit] 1848#1848: *30625 connect() to 172.17.0.3:80 failed (99: Address not available) while connecting to upstream, client: 172.17.0.4, server: , request: "GET / HTTP/1.1", upstream: "http://172.17.0.3:80/", host: "172.17.0.2"
+2018/07/29 12:40:21 [crit] 1848#1848: *30627 connect() to 172.17.0.3:80 failed (99: Address not available) while connecting to upstream, client: 172.17.0.4, server: , request: "GET / HTTP/1.1", upstream: "http://172.17.0.3:80/", host: "172.17.0.2"
+
+```
+
+
+开启time wait reuse，200状态数量增多，但是并没有从跟不上解决问题
+```
+ffa13c0b6ae9:~# for id in `seq 1 1000`;do curl -s "http://172.17.0.2" -o /dev/null -w "%{http_code}\n";done |sort |uniq -c
+    296 200
+    704 502
+ffa13c0b6ae9:~# for id in `seq 1 1000`;do curl -s "http://172.17.0.2" -o /dev/null -w "%{http_code}\n";done |sort |uniq -c
+    115 200
+    885 502
+ffa13c0b6ae9:~# for id in `seq 1 1000`;do curl -s "http://172.17.0.2" -o /dev/null -w "%{http_code}\n";done |sort |uniq -c
+    222 200
+    778 502
+ffa13c0b6ae9:~# for id in `seq 1 1000`;do curl -s "http://172.17.0.2" -o /dev/null -w "%{http_code}\n";done |sort |uniq -c
+    611 200
+    389 502
+```
+
+
+upstream开启keepalive，请求全部成功
+
+```
+ffa13c0b6ae9:~# for id in `seq 1 5000`;do curl -s "http://172.17.0.2" -o /dev/null -w "%{http_code}\n";done |sort |uniq -c
+   5000 200
+```
+
+nginx proxy容器保持在ESTAB状态:
+```
+Every 1s: ss -ant                                                                                                  2018-07-29 14:12:53
+
+State       Recv-Q Send-Q                      Local Address:Port                                     Peer Address:Port              
+LISTEN      0      128                                     *:80                                                  *:*                  
+ESTAB       0      0                              172.17.0.2:1024                                       172.17.0.3:80                 
+LISTEN      0      128                                    :::80                                                 :::*   
+```
+
+keepalive配置：
+需要设置 `proxy_http_version   1.1;  proxy_set_header    Connection "";`
+```
+upstream test {
+	server 172.17.0.3:80;
+	keepalive 64;	
+}
+
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+	# Everything is a 404
+	location / {
+		proxy_pass http://test;
+		proxy_http_version   1.1;
+		proxy_set_header    Connection "";
+	}
+
+	# You may need this to prevent return 404 recursion.
+	location = /404.html {
+		internal;
+	}
+}
+```
