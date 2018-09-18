@@ -55,7 +55,7 @@ case $1 in
 "all") echo "$diskspace" |awk '{print $1}';;
 "avail") echo "$diskspace" |awk '{print $2}';;
 "pdnum") echo "$pd" |awk '{print $1}';;
-"pdsize") echo "$pd" |awk '{print $2"T"}';;
+"pdsize") echo "$pd" |awk '{print $2}';;
 "raid") echo "$raid";;
 *) exit;;
 esac
