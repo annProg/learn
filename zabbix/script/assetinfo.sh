@@ -17,15 +17,15 @@ function dell_raid() {
 	r=""
 	for id in $raid;do 
 		case "$id" in
-		"Primary-1#Secondary-0#RAID#Level#Qualifier-0") r="1+$r";;
-		"Primary-0#Secondary-0#RAID#Level#Qualifier-0") r="0+$r";;
-		"Primary-5#Secondary-0#RAID#Level#Qualifier-3") r="5+$r";;
-		"Primary-1#Secondary-3#RAID#Level#Qualifier-0") r="10+$r";;
-		"*") r="N+$r";;
+		"Primary-1#Secondary-0#RAID#Level#Qualifier-0") r="$r+1";;
+		"Primary-0#Secondary-0#RAID#Level#Qualifier-0") r="$r+0";;
+		"Primary-5#Secondary-0#RAID#Level#Qualifier-3") r="$r+5";;
+		"Primary-1#Secondary-3#RAID#Level#Qualifier-0") r="$r+10";;
+		"*") r="$r+N";;
 		esac	
 	done
 	[ "$r"x == ""x ] && r="N"
-	echo $r |sed 's/+$//g'
+	echo $r |sed 's/^+//g'
 }
 
 
