@@ -61,10 +61,10 @@ echo $sn |grep -E " |-" &>/dev/null && assettag=$uuid || assettag=$sn
 diskspace=`df 2>/dev/null|grep -E " /letv| /data" |awk '{all+=$(NF-4);avail+=$(NF-2)}END{print all*1024,avail*1024}'`
 
 if [ "$manufacturer"x == "HP"x ];then
-	pd=`/opt/hp/hpssacli/bld/hpssacli ctrl all show config 2>/dev/null|grep "physicaldrive" |cut -f3 -d',' |awk '{sum+=$1}END{print NR,int(sum/1024)}'`
+	pd=`sudo /opt/hp/hpssacli/bld/hpssacli ctrl all show config 2>/dev/null|grep "physicaldrive" |cut -f3 -d',' |awk '{sum+=$1}END{print NR,int(sum/1024)}'`
 	raid=`hp_raid`
 else
-	pd=`/opt/MegaRAID/MegaCli/MegaCli64 -PDList -aALL 2>/dev/null|grep "Raw Size:" |awk '{sum+=$3}END{print NR,int(sum/1024)}'`
+	pd=`sudo /opt/MegaRAID/MegaCli/MegaCli64 -PDList -aALL 2>/dev/null|grep "Raw Size:" |awk '{sum+=$3}END{print NR,int(sum/1024)}'`
 	raid=`dell_raid`
 fi
 
