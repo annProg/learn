@@ -30,7 +30,7 @@ function all_ip() {
 }
 
 function hp_raid() {
-	sudo /opt/hp/hpssacli/bld/hpssacli ctrl all show config 2>/dev/null|grep "RAID" |cut -f2 -d',' |awk '{print $2}' |tr '\n' '+' |sed 's/+$//g'
+	sudo /opt/hp/hpssacli/bld/hpssacli ctrl all show config 2>/dev/null|grep "RAID" |cut -f2 -d',' |awk '{print $2}' |grep -v "^$" |uniq -c |awk '{print $2"*"$1}' |tr '\n' '+' |sed 's/+$//g'
 }
 
 function dell_raid() {
@@ -46,7 +46,7 @@ function dell_raid() {
 		esac	
 	done
 	[ "$r"x == ""x ] && r="N"
-	echo $r |sed 's/^+//g'
+	echo $r |tr '+' '\n' |grep -v "^$" |uniq -c |awk '{print $2"*"$1}' | tr '\n' '+' |sed 's/+$//g'
 }
 
 sn=`sudo dmidecode -s system-serial-number |grep -v "^#"`
