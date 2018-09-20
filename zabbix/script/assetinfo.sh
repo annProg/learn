@@ -8,12 +8,33 @@
 # Created Time: 2016-09-29 15:11:36
 ############################
 
+function all_ip() {
+	ips=""
+	for item in `ip add |grep "inet " |grep -E "host lo|global eth" |grep -v "127.0.0.1" |awk '{print $2}'`;do
+		ip=`echo $item |cut -f1 -d'/'`
+		mask=`echo $item |cut -f2 -d'/'`
+		first=`echo $ip |cut -f1 -d'.'`
+		if [ $mask -eq 32 ];then
+			ips="$ips,vip-$ip"
+		elif [ $first -eq 10 ];then
+			ips="$ips,int-$ip"
+		else
+			ips="$ips,ext-$ip"
+		fi
+	done
+	oob=`sudo ipmitool lan print 2>/dev/null |grep "^IP Address" |grep -v "Source" |awk '{print $NF}'`
+	if [ "$oob"x != ""x ];then
+		ips="$ips,oob-$oob"
+	fi
+	echo $ips |sed 's/^,//g'
+}
+
 function hp_raid() {
-	/opt/hp/hpssacli/bld/hpssacli ctrl all show config 2>/dev/null|grep "RAID" |cut -f2 -d',' |awk '{print $2}' |tr '\n' '+' |sed 's/+$//g'
+	sudo /opt/hp/hpssacli/bld/hpssacli ctrl all show config 2>/dev/null|grep "RAID" |cut -f2 -d',' |awk '{print $2}' |tr '\n' '+' |sed 's/+$//g'
 }
 
 function dell_raid() {
-	raid=`/opt/MegaRAID/MegaCli/MegaCli64 -LDInfo -Lall -aALL 2>/dev/null|grep "RAID Level"|awk  -F": " '{print $2}'|tr ' ' '#'|tr -d ','`
+	raid=`sudo /opt/MegaRAID/MegaCli/MegaCli64 -LDInfo -Lall -aALL 2>/dev/null|grep "RAID Level"|awk  -F": " '{print $2}'|tr ' ' '#'|tr -d ','`
 	r=""
 	for id in $raid;do 
 		case "$id" in
@@ -28,12 +49,12 @@ function dell_raid() {
 	echo $r |sed 's/^+//g'
 }
 
-
 sn=`sudo dmidecode -s system-serial-number |grep -v "^#"`
 uuid=`sudo dmidecode -s system-uuid |grep -v "^#"`
 manufacturer=`sudo dmidecode -s system-manufacturer|grep -v "^#"`
 product=`sudo dmidecode -s system-product-name|grep -v "^#" |sed 's/-\[.*\]-//g'`
 os=`cat /etc/redhat-release |sed -r 's/\(.*\)|Linux|release//g'`
+kernel=`uname -r |sed 's/-.*//g'`
 
 echo $sn |grep -E " |-" &>/dev/null && assettag=$uuid || assettag=$sn
 
@@ -56,7 +77,9 @@ case $1 in
 "avail") echo "$diskspace" |awk '{print $2}';;
 "pdnum") echo "$pd" |awk '{print $1}';;
 "pdsize") echo "$pd" |awk '{print $2}';;
-"raid") echo "$raid";;
+"raid") echo $raid;;
+"kernel") echo $kernel;;
+"ip") all_ip;;
 *) exit;;
 esac
 
