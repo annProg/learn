@@ -64,7 +64,7 @@ if [ "$manufacturer"x == "HP"x ];then
 	pd=`sudo /opt/hp/hpssacli/bld/hpssacli ctrl all show config 2>/dev/null|grep "physicaldrive" |cut -f3 -d',' |awk '{sum+=$1}END{print NR,int(sum/1024)}'`
 	raid=`hp_raid`
 else
-	pd=`sudo /opt/MegaRAID/MegaCli/MegaCli64 -PDList -aALL 2>/dev/null|grep "Raw Size:" |awk '{sum+=$3}END{print NR,int(sum/1024)}'`
+	pd=`sudo /opt/MegaRAID/MegaCli/MegaCli64 -PDList -aALL 2>/dev/null|grep "Raw Size:" |awk '{if($4=="GB") sum+=$3/1024; else sum+=$3}END{print NR,int(sum)}'`
 	raid=`dell_raid`
 fi
 
