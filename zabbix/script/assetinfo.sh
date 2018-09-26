@@ -77,7 +77,7 @@ case $1 in
 "avail") echo "$diskspace" |awk '{print $2}';;
 "pdnum") echo "$pd" |awk '{print $1}';;
 "pdsize") echo "$pd" |awk '{print $2}';;
-"raid") echo $raid;;
+"raid") echo $raid |sed 's/*1+/+/g' |sed 's/*1$//g';;
 "kernel") echo $kernel;;
 "ip") all_ip;;
 *) exit;;
