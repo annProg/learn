@@ -10,7 +10,7 @@
 
 function all_ip() {
 	ips=""
-	for item in `ip add |grep "inet " |grep -E "host lo|global eth" |grep -v "127.0.0.1" |awk '{print $2}'`;do
+	for item in `ip add |grep "inet " |grep -E "host lo|global eth|global bond" |grep -v "127.0.0.1" |awk '{print $2}'`;do
 		ip=`echo $item |cut -f1 -d'/'`
 		mask=`echo $item |cut -f2 -d'/'`
 		first=`echo $ip |cut -f1 -d'.'`
