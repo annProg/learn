@@ -22,7 +22,7 @@ function all_ip() {
 			ips="$ips,ext-$ip"
 		fi
 	done
-	oob=`sudo ipmitool lan print 2>/dev/null |grep "^IP Address" |grep -v "Source" |awk '{print $NF}'`
+	oob=`timeout 3 sudo ipmitool lan print 2>/dev/null |grep "^IP Address" |grep -v "Source" |awk '{print $NF}'`
 	if [ "$oob"x != ""x ];then
 		ips="$ips,oob-$oob"
 	fi
