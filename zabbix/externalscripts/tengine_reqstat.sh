@@ -92,14 +92,14 @@ function getData()
 		# ($a-$(a-29)+interval-1)/interval  (A+B-1)/B 向上取整, (已废弃，使用浮点数)
 		# 当错误数小于interval时，计算结果为0，故向上取整，使其值至少为1，以便于反映问题
 		join -t',' $file_start $file_end 2>$tmpfile |\
-		awk -F ',' -v cluster=$tag host=$host -v interval=$interval -v key="${keymap[*]}" -M '{split(key,arr,/ /)}{
+		awk -F ',' -v cluster=$tag -v host=$host -v interval=$interval -v key="${keymap[*]}" -M '{split(key,arr,/ /)}{
 			for(a=31;a<60;a++){
 				if($1==""){
 					app="UNDEFINED"
 				}else{
 					pre="^"cluster"-"
 					post="-([1-9][0-9]+)$"
-					app=gensub(pre,"","",$1)
+					app=gensub(pre,"","g",$1)
 					app=gensub(post,".\\1","g",app)
 				}
 				if(arr[a-29]=="rt"){
