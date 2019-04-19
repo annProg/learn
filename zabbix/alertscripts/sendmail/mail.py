@@ -107,7 +107,7 @@ if __name__ == '__main__':
 		if "@" in to:
 			new_list.append(to)
 		else:
-			to = to + "@letv.com"
+			to = to + "@qq.com"
 			new_list.append(to)
 	new_list = ",".join(new_list)
 

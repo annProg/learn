@@ -58,7 +58,7 @@ kernel=`uname -r |sed 's/-.*//g'`
 
 echo $sn |grep -E " |-" &>/dev/null && assettag=$uuid || assettag=$sn
 
-diskspace=`df 2>/dev/null|grep -E " /letv| /data" |awk '{all+=$(NF-4);avail+=$(NF-2)}END{print all*1024,avail*1024}'`
+diskspace=`df 2>/dev/null|grep -E " /qq| /data" |awk '{all+=$(NF-4);avail+=$(NF-2)}END{print all*1024,avail*1024}'`
 
 if [ "$manufacturer"x == "HP"x ];then
 	pd=`sudo /opt/hp/hpssacli/bld/hpssacli ctrl all show config 2>/dev/null|grep "physicaldrive" |cut -f3 -d',' |awk '{sum+=$1}END{print NR,int(sum/1024)}'`

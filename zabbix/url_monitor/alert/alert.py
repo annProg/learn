@@ -51,7 +51,7 @@ def mail(contact, subject, content):
 		if "@" in to:
 			new_list.append(to)
 		else:
-			to = to + "@letv.com"
+			to = to + "@qq.com"
 			new_list.append(to)
 	new_list = ",".join(new_list)
 	send_mail(new_list, subject, content)
@@ -125,7 +125,7 @@ if __name__ == '__main__':
 		print(contact)
 		data['httptestid'] = contact['httptestid']
 		data['objid'] = contact['objid']
-		data['admin'] = contact['email'].replace('@letv.com', '') + "(" + contact['phone'] + ")"
+		data['admin'] = contact['email'].replace('@qq.com', '') + "(" + contact['phone'] + ")"
 		content = getContent(data)
 		mail(contact, subject, content)
 		sms_content = subject + ": " + data['itemvalue']

@@ -73,7 +73,7 @@ def addHost(argv):
 	name = argv[1]
 	grpids = argv[2]
 	templateids = argv[3]
-	host = name + ".scloud.letv.com"
+	host = name + ".scloud.qq.com"
 	interfaces = [
 			{"type":1, "main":1, "useip":1, "ip":ip, "dns":"", "port":"10040"},
 			{"type":2, "main":1, "useip":1, "ip":ip, "dns":"", "port":"161", "bulk":1},

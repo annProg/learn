@@ -75,7 +75,7 @@ def resetMedia():
 		for k,v in tmp.items():
 			print(v)
 			sendto = ",".join(v)
-			sendto = sendto.replace("@letv.com", "")
+			sendto = sendto.replace("@qq.com", "")
 			if k=="4":
 				continue
 			if k=="1":
@@ -99,7 +99,7 @@ def doUpdateMedia():
 		#print(grpmedia)
 		for k,v in grpmedia.items():
 			sendto = ",".join(v)
-			sendto = sendto.replace("@letv.com", "")
+			sendto = sendto.replace("@qq.com", "")
 			if k in readmedia:
 				continue
 			elif k=="1":
