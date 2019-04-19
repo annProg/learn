@@ -106,7 +106,7 @@ style='width:90%%;border:1px solid #ddd;font-family: "Helvetica Neue", "Luxi San
 </tr>
 <tr>
     <td colspan="2" style="padding:0;background-color:#fff;text-align:right;padding:20px;font-size:16px;">
-	© LeTV Scloud
+	© Corp Scloud
     </td>
 </tr>
 </table>
