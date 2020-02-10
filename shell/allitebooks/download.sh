@@ -7,16 +7,20 @@ if [ "$1"x != ""x ];then
 	PROXY="--http-proxy=$1"
 fi
 
+[ ! -d finished ] && mkdir finished
+
 cd download
-cat ../pages/*.txt | \
+for page in `ls ../pages/*.txt`;do
+	echo "Downloading $page"
 	aria2c.exe --conditional-get=true \
 	--auto-file-renaming=false \
+	--max-concurrent-downloads=20 \
 	-c \
 	$PROXY \
 	--log-level=notice \
 	--log=download.log \
-	-i -
+	-i ../pages/$page
 
-cd ../
-[ ! -d finished ] && mkdir finished
-mv pages/*.txt finished
+	mv ../pages/$page ../finished
+	echo "Finish $page"
+done
