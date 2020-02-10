@@ -16,3 +16,6 @@ cat ../pages/*.txt | \
 	--log-level=notice \
 	--log=download.log \
 	-i -
+
+[ ! -d finished ] && mkdir finished
+mv pages/*.txt finished
