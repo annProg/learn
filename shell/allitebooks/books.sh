@@ -54,6 +54,8 @@ for page in `seq $START $END`;do
 
 		if [ "$PDF"x != ""x ];then
 			echo -e "$PDF \n  dir=$CATEGORY/$YEAR\n  out=$TITLE.$FORMAT" >> pages/$filename.txt
+		else
+			errorhandle "404" "book $book on page $page no download link. ignore" "succ"
 		fi
 	done
 done
