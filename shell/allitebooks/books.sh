@@ -34,7 +34,7 @@ for page in `seq $START $END`;do
 	[ $page -lt 100 ] && filename="00$page"
 	[ $page -lt 10 ] && filename="000$page"
 
-	result=`curl -s --connect-timeout 5 "$URI/$page/" -o tmp/$page.html -w "%{http_code}"`
+	result=`curl -L -s --connect-timeout 5 "$URI/$page/" -o tmp/$page.html -w "%{http_code}"`
 	errorhandle "$result" "page $page failed. httpcode: $result" "page $page succ"
 
 	echo > pages/$filename.txt
