@@ -48,7 +48,13 @@ for page in `seq $START $END`;do
 		FORMAT=`grep "File format:" $bookname |awk '{print $3}' |awk -F'<' '{print $1}' |awk -F',' '{print $1}' |tr '[A-Z]' '[a-z]'`
 		PDF=`grep -i "Download $FORMAT" $bookname | awk -F'"' '{print $2}' |sed 's/ /%20/g'`
 
-		echo -e "$PDF \n  dir=$CATEGORY/$YEAR\n  out=$TITLE.$FORMAT" >> pages/$filename.txt
+		if [ "$CATEGORY"x == ""x ];then
+			CATEGORY="unknown"
+		fi
+
+		if [ "$PDF"x != ""x ];then
+			echo -e "$PDF \n  dir=$CATEGORY/$YEAR\n  out=$TITLE.$FORMAT" >> pages/$filename.txt
+		fi
 	done
 done
 
