@@ -17,5 +17,6 @@ cat ../pages/*.txt | \
 	--log=download.log \
 	-i -
 
+cd ../
 [ ! -d finished ] && mkdir finished
 mv pages/*.txt finished
