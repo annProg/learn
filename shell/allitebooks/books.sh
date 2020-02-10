@@ -30,9 +30,9 @@ function errorhandle() {
 
 for page in `seq $START $END`;do
 	filename=$page
-	[ $page -lt 10 ] && filename="000$page"
-	[ $page -lt 100 ] && filename="00$page"
 	[ $page -lt 1000 ] && filename="0$page"
+	[ $page -lt 100 ] && filename="00$page"
+	[ $page -lt 10 ] && filename="000$page"
 
 	result=`curl -s --connect-timeout 5 "$URI/$page/" -o tmp/$page.html -w "%{http_code}"`
 	errorhandle "$result" "page $page failed. httpcode: $result" "page $page succ"
