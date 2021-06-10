@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 import copy
+import numpy
+import time
 
 def bubble(arr):
     n = 0
@@ -87,9 +89,38 @@ def mergeSort(arr):
     middle = int(len(arr)/2)
     left, right = arr[0:middle], arr[middle:]
     return merge(mergeSort(left), mergeSort(right))
-    
+
+def quick(arr, left=None, right=None):
+    if left == None:
+        left = 0
+    if right == None:
+        right = len(arr) - 1
+    if left < right:
+        partitionIndex = partition(arr, left, right)
+        quick(arr, left, partitionIndex-1)
+        quick(arr, partitionIndex+1, right)
+    return arr
+
+def partition(arr, left, right):
+    pivot = left
+    index = pivot
+
+    # 进行一趟冒泡， 比 pivot 小时 左移冒泡，分区index + 1
+    for i in range(pivot+1, right+1):
+        if arr[i] < arr[pivot]:
+            index += 1
+            arr[i],arr[index] = arr[index],arr[i]
+    arr[index],arr[pivot] = arr[pivot],arr[index]
+    return index
+
+def timeCost(fun, arr):
+    start = time.time()
+    fun(arr)
+    end = time.time()
+    print(end-start,fun.__name__)
+
 if __name__ == '__main__':
-    arr = [5,1,4,2,3,15,22,37,99,22,23,21,9,8,6,2,7,111,233,90,87,67,98,766,877,234,432,45,67,33,48,49,50,67,901]
+    arr = [3,5,4,1,2]
     print(len(arr))
     print(bubble(copy.deepcopy(arr)))
     print(insertion(copy.deepcopy(arr)))
@@ -97,5 +128,10 @@ if __name__ == '__main__':
     print(shell(copy.deepcopy(arr)))
     count = 0
     print(mergeSort(copy.deepcopy(arr)),count,"mergeSort")
-    print(insertion([5,4,3,2,1]))
-    print(shell([5,4,3,2,1]))
+    print(quick(copy.deepcopy(arr)), "quick")
+
+    # quick mergeSort 对比
+    big = list(numpy.random.randint(50000,size=50000))
+    timeCost(quick, copy.deepcopy(big))
+    timeCost(mergeSort, copy.deepcopy(big))
+    timeCost(shell, copy.deepcopy(big))
