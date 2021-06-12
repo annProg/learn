@@ -41,10 +41,7 @@ func twoSum(nums []int, target int) []int {
 	arr := make([]int, len(nums))
 	copy(arr, nums)
 	quick(arr, 0, len(nums)-1)
-	fmt.Println(nums)
-	fmt.Println(arr)
 	for i := 0; i < len(nums); i++ {
-		fmt.Println(target - nums[i])
 		index := binSearch(arr, target-nums[i], 0, len(nums)-1)
 		if index >= 0 {
 			for j := 0; j < len(nums); j++ {
@@ -58,8 +55,40 @@ func twoSum(nums []int, target int) []int {
 	return []int{}
 }
 
+func twoSum2(nums []int, target int) []int {
+	dict := make(map[int]int)
+	var i int
+	for i = 0; i < len(nums); i++ {
+		dict[nums[i]] = i
+	}
+	for i = 0; i < len(nums); i++ {
+		right := target - nums[i]
+		if _, ok := dict[right]; ok {
+			if i != dict[right] {
+				return []int{i, dict[right]}
+			}
+		}
+	}
+
+	return []int{}
+}
+
+func twoSum3(nums []int, target int) []int {
+	hashTable := map[int]int{}
+	for i, x := range nums {
+		if p, ok := hashTable[target-x]; ok {
+			return []int{p, i}
+		}
+		hashTable[x] = i
+	}
+	return nil
+}
+
 func main() {
-	// 此方法比直接遍历更费时
 	nums := []int{3, 2, 4}
-	fmt.Println(twoSum(nums, 6))
+	// 此方法比直接遍历更费时
+	fmt.Println(twoSum(nums, 5))
+	// 此方法更快
+	fmt.Println(twoSum2(nums, 5))
+	fmt.Println(twoSum3(nums, 5))
 }
