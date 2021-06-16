@@ -23,9 +23,28 @@ func lengthOfLongestSubstring(s string) int {
 	return max
 }
 
+func lengthOfLongestSubstring2(s string) int {
+	max := 0
+	m := map[byte]int{}
+	l := 0
+	r := 0
+	for i := 0; i < len(s); i++ {
+		v := s[i]
+		if _, ok := m[v]; ok && l <= m[v] {
+			l = m[v] + 1
+		}
+		m[v] = i
+		r += 1
+		if r-l > max {
+			max = r - l
+		}
+	}
+	return max
+}
+
 func main() {
-	fmt.Println(lengthOfLongestSubstring("abcaccdeb"))
-	fmt.Println(lengthOfLongestSubstring("pwwkew"))
-	fmt.Println(lengthOfLongestSubstring("dvdf"))
-	fmt.Println(lengthOfLongestSubstring("abcabcbb"))
+	fmt.Println(lengthOfLongestSubstring2("abcaccdeb"))
+	fmt.Println(lengthOfLongestSubstring2("pwwkew"))
+	fmt.Println(lengthOfLongestSubstring2("dvdf"))
+	fmt.Println(lengthOfLongestSubstring2("aaa"))
 }
