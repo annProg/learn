@@ -107,11 +107,11 @@ func main() {
 	s := "abcdefghijklmnopqrstuvwxyzxwvutsrqponmlkjihgfedcba"
 	start := time.Now()
 	longestPalindrome2(s)
-	fmt.Println(time.Since(start))
+	fmt.Println("动态规划", time.Since(start))
 	start2 := time.Now()
 	longestPalindrome(s)
-	fmt.Println(time.Since(start2))
+	fmt.Println("暴力法", time.Since(start2))
 	start3 := time.Now()
 	longestPalindrome3(s)
-	fmt.Println(time.Since(start3))
+	fmt.Println("中心扩展", time.Since(start3))
 }
