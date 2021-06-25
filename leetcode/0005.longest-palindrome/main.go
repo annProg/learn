@@ -6,8 +6,10 @@ import (
 )
 
 func longestPalindrome(s string) string {
-	result := ""
 	l := len(s)
+	if l < 2 {
+		return s
+	}
 	for i := l; i > 0; i-- {
 		for left := 0; left+i <= l; left++ {
 			if isPalindrome(s, left, left+i-1) {
@@ -15,7 +17,7 @@ func longestPalindrome(s string) string {
 			}
 		}
 	}
-	return result
+	return ""
 }
 
 func isPalindrome(s string, left, right int) bool {
