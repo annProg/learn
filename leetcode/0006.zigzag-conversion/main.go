@@ -10,34 +10,22 @@ func convert(s string, numRows int) string {
 		return s
 	}
 	L := len(s)
-	result := make([][]byte, numRows)
-	for i := range result {
-		result[i] = make([]byte, L)
-	}
+	result := make([]string, numRows)
 
 	index := 0
 	for j := 0; index < L; j++ {
 		for i := 0; i < numRows && index < L; i++ {
-			result[i][j] = s[index]
+			result[i] += string(s[index])
 			index += 1
 		}
 		j += 1
 		for k := numRows - 2; k > 0 && index < L; k-- {
-			result[k][j] = s[index]
+			result[k] += string(s[index])
 			index += 1
 		}
 	}
 
-	r := ""
-	for i := range result {
-		for j := range result[i] {
-			if result[i][j] != 0 {
-				r += string(result[i][j])
-			}
-		}
-	}
-
-	return r
+	return strings.Join(result, "")
 }
 
 func convert2(s string, numRows int) string {
@@ -59,6 +47,6 @@ func convert2(s string, numRows int) string {
 }
 
 func main() {
-	fmt.Println(convert2("ABCDE", 2))
+	fmt.Println(convert("ABCDE", 2))
 	fmt.Println(convert2("PAYPALISHIRING", 3))
 }
