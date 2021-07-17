@@ -21,6 +21,28 @@ func maxSubArray(nums []int) int {
 	return max
 }
 
+// 动态规划
+func maxSubArray2(nums []int) int {
+	L := len(nums)
+	if L < 2 {
+		return nums[0]
+	}
+	max := nums[0]
+	pre := max
+	for i := 1; i < L; i++ {
+		sum := nums[i]
+		if nums[i]+pre > nums[i] {
+			sum = nums[i] + pre
+		}
+		if sum > max {
+			max = sum
+		}
+		pre = sum
+	}
+	return max
+}
+
 func main() {
 	fmt.Println(maxSubArray([]int{-2, 1, -3, 4, -1, 2, 1, -5, 4}))
+	fmt.Println(maxSubArray2([]int{-2, 1, -3, 4, -1, 2, 1, -5, 4}))
 }
