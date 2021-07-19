@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 
+// 归并
 func sortedSquares(nums []int) []int {
 	n1 := []int{}
 	n2 := []int{}
@@ -32,6 +33,28 @@ func sortedSquares(nums []int) []int {
 	for i := 0; i < len(n2); i++ {
 		r = append(r, n2[i])
 	}
+	return r
+}
+
+// 双指针
+func sortedSquares2(nums []int) []int {
+	L := len(nums)
+	r := make([]int, L)
+	i, j := 0, L-1
+
+	for pos := L - 1; pos >= 0; pos-- {
+		n1 := nums[i] * nums[i]
+		n2 := nums[j] * nums[j]
+
+		if n1 > n2 {
+			r[pos] = n1
+			i++
+		} else {
+			r[pos] = n2
+			j--
+		}
+	}
+
 	return r
 }
 
