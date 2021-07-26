@@ -8,12 +8,11 @@
 
 package main
 
-import "fmt"
+import (
+	"leetcode/libs/linkedlist"
+)
 
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
+type ListNode = linkedlist.ListNode
 
 func reverseList(head *ListNode) *ListNode {
 	if head == nil || head.Next == nil {
@@ -52,32 +51,11 @@ func reverseList3(head *ListNode) *ListNode {
 	return prev
 }
 
-func Init(a []int) *ListNode {
-	head := new(ListNode)
-	head.Val = a[0]
-	current := head
-	for i := 1; i < len(a); i++ {
-		node := new(ListNode)
-		node.Val = a[i]
-		current.Next = node
-		current = current.Next
-	}
-	return head
-}
-
-func PrintList(head *ListNode) {
-	a := []int{}
-	current := head
-	for current != nil {
-		a = append(a, current.Val)
-		current = current.Next
-	}
-	fmt.Println(a)
-}
-
 func main() {
 	a := []int{1, 2, 3, 4, 5}
-	head := Init(a)
+	head := new(ListNode)
+	head.Init(a)
 	//PrintList(head)
-	PrintList(reverseList3(head))
+	head = reverseList3(head)
+	head.Print()
 }
