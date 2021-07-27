@@ -87,6 +87,31 @@ func maxDepth(root *TreeNode) int {
 	return right
 }
 
+func isSymmetric(root *TreeNode) bool {
+	if root == nil {
+		return false
+	}
+	return check(root.Left, root.Right)
+}
+
+func check(left, right *TreeNode) bool {
+	if left == nil && right == nil {
+		return true
+	}
+	if left == nil && right != nil {
+		return false
+	}
+	if left != nil && right == nil {
+		return false
+	}
+	if left.Val != right.Val {
+		return false
+	}
+	lr := check(left.Left, right.Right)
+	rl := check(left.Right, right.Left)
+	return lr && rl
+}
+
 func main() {
 	tree := &TreeNode{Val: 1}
 	tree.Right = &TreeNode{Val: 2}
@@ -96,4 +121,5 @@ func main() {
 	fmt.Println(postorderTraversal(tree))
 	fmt.Println(levelOrder(tree))
 	fmt.Println(maxDepth(tree))
+	fmt.Println(isSymmetric(tree))
 }
