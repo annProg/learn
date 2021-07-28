@@ -48,18 +48,13 @@ func (root *TreeNode) LevelOrder() [][]int {
 		return ret
 	}
 	que := []*TreeNode{}
-	level := []*TreeNode{}
 	que = append(que, root)
 
 	for len(que) > 0 {
-		for len(que) > 0 {
-			level = append(level, que[len(que)-1])
-			que = que[0 : len(que)-1]
-		}
+		level := que
+		que = nil
 		vals := []int{}
-		for len(level) > 0 {
-			node := level[len(level)-1]
-			level = level[0 : len(level)-1]
+		for _, node := range level {
 			vals = append(vals, node.Val)
 			if node.Left != nil {
 				que = append(que, node.Left)
