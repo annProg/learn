@@ -9,40 +9,40 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-func (root *TreeNode) preorderTraversal() []int {
+func (root *TreeNode) PreorderTraversal() []int {
 	ret := []int{}
 	if root == nil {
 		return ret
 	}
 	ret = append(ret, root.Val)
-	ret = append(ret, root.Left.preorderTraversal()...)
-	ret = append(ret, root.Right.preorderTraversal()...)
+	ret = append(ret, root.Left.PreorderTraversal()...)
+	ret = append(ret, root.Right.PreorderTraversal()...)
 	return ret
 }
 
-func (root *TreeNode) inorderTraversal() []int {
+func (root *TreeNode) InorderTraversal() []int {
 	ret := []int{}
 	if root == nil {
 		return ret
 	}
-	ret = append(ret, root.Left.inorderTraversal()...)
+	ret = append(ret, root.Left.InorderTraversal()...)
 	ret = append(ret, root.Val)
-	ret = append(ret, root.Right.inorderTraversal()...)
+	ret = append(ret, root.Right.InorderTraversal()...)
 	return ret
 }
 
-func (root *TreeNode) postorderTraversal() []int {
+func (root *TreeNode) PostorderTraversal() []int {
 	ret := []int{}
 	if root == nil {
 		return ret
 	}
-	ret = append(ret, root.Left.postorderTraversal()...)
-	ret = append(ret, root.Right.postorderTraversal()...)
+	ret = append(ret, root.Left.PostorderTraversal()...)
+	ret = append(ret, root.Right.PostorderTraversal()...)
 	ret = append(ret, root.Val)
 	return ret
 }
 
-func (root *TreeNode) levelOrder() [][]int {
+func (root *TreeNode) LevelOrder() [][]int {
 	ret := [][]int{}
 	if root == nil {
 		return ret
@@ -73,21 +73,21 @@ func (root *TreeNode) levelOrder() [][]int {
 	return ret
 }
 
-func (root *TreeNode) maxDepth() int {
+func (root *TreeNode) MaxDepth() int {
 	depth := 0
 	if root == nil {
 		return depth
 	}
 	depth += 1
-	left := depth + root.Left.maxDepth()
-	right := depth + root.Right.maxDepth()
+	left := depth + root.Left.MaxDepth()
+	right := depth + root.Right.MaxDepth()
 	if left >= right {
 		return left
 	}
 	return right
 }
 
-func (root *TreeNode) isSymmetric() bool {
+func (root *TreeNode) IsSymmetric() bool {
 	if root == nil {
 		return false
 	}
@@ -120,27 +120,32 @@ func (root *TreeNode) Init(els []interface{}) {
 		return
 	}
 	root.Val = els[0].(int)
-	for i := 0; i+2 < len(els); i = i + 2 {
-		queue[0].Left = &TreeNode{}
-		queue[0].Right = &TreeNode{}
-		queue = append(queue, queue[0].Left, queue[0].Right)
-		assign(queue[0], els[i+1], els[i+2])
+	for i := 0; i+1 < len(els); i = i + 2 {
+		var r interface{}
+		if i+2 >= len(els) {
+			r = nil
+		} else {
+			r = els[i+2]
+		}
+		queue = append(queue, assign(queue[0], els[i+1], r)...)
 		queue = queue[1:]
 	}
 }
 
-func assign(tree *TreeNode, left, right interface{}) {
-	if left == nil {
-		tree.Left = nil
-	} else if right == nil {
-		tree.Right = nil
-	} else {
-		tree.Left.Val = left.(int)
-		tree.Right.Val = right.(int)
+func assign(tree *TreeNode, left, right interface{}) []*TreeNode {
+	ret := []*TreeNode{}
+	if left != nil {
+		tree.Left = &TreeNode{Val: left.(int)}
+		ret = append(ret, tree.Left)
 	}
+	if right != nil {
+		tree.Right = &TreeNode{Val: right.(int)}
+		ret = append(ret, tree.Right)
+	}
+	return ret
 }
 
 func (root *TreeNode) Print() {
-	ret := root.levelOrder()
+	ret := root.LevelOrder()
 	fmt.Println(ret)
 }
