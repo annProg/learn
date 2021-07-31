@@ -36,7 +36,7 @@ func hammingWeight3(num uint32) (ones int) {
 	return
 }
 
-// 官方题解2 优化 n & (n-1) ，同或运算能消除n最后一位1，这样循环次数只有1的数量
+// 官方题解2 优化 n & (n-1) ，按位与运算能消除n最后一位1，这样循环次数只有1的数量
 func hammingWeight4(num uint32) (ones int) {
 	for ; num > 0; num &= num - 1 {
 		ones++
