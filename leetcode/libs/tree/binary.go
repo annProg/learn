@@ -82,6 +82,25 @@ func (root *TreeNode) MaxDepth() int {
 	return right
 }
 
+func (root *TreeNode) MinDepth() int {
+	if root == nil {
+		return 0
+	}
+	left := 1 + root.Left.MinDepth()
+	right := 1 + root.Right.MinDepth()
+	if left == 1 {
+		return right
+	}
+	if right == 1 {
+		return left
+	}
+	if left <= right {
+		return left
+	} else {
+		return right
+	}
+}
+
 func (root *TreeNode) IsSymmetric() bool {
 	if root == nil {
 		return false
