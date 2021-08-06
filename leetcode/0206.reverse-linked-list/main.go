@@ -51,6 +51,24 @@ func reverseList3(head *ListNode) *ListNode {
 	return prev
 }
 
+// 剑指 Offer 06. 从尾到头打印链表
+func reversePrint(head *ListNode) []int {
+	count := 0
+	cur := head
+	for cur != nil {
+		count++
+		cur = cur.Next
+	}
+	res := make([]int, count)
+	cur = head
+	for cur != nil {
+		res[count-1] = cur.Val
+		cur = cur.Next
+		count--
+	}
+	return res
+}
+
 func main() {
 	a := []int{1, 2, 3, 4, 5}
 	head := new(ListNode)
