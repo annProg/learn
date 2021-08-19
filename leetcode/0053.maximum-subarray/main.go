@@ -42,7 +42,28 @@ func maxSubArray2(nums []int) int {
 	return max
 }
 
+// f(n) = max(n, f(n-1)+n)
+func maxSubArray3(nums []int) int {
+	prev, fn := nums[0], nums[0]
+	maxVal := fn
+	for i := 1; i < len(nums); i++ {
+		fn = max(nums[i], prev+nums[i])
+		prev = fn
+		if fn > maxVal {
+			maxVal = fn
+		}
+	}
+	return maxVal
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}
+
 func main() {
 	fmt.Println(maxSubArray([]int{-2, 1, -3, 4, -1, 2, 1, -5, 4}))
-	fmt.Println(maxSubArray2([]int{-2, 1, -3, 4, -1, 2, 1, -5, 4}))
+	fmt.Println(maxSubArray3([]int{-2, 1, -3, 4, -1, 2, 1, -5, 4}))
 }
